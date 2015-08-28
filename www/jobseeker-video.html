@@ -1,0 +1,32 @@
+<div ng-controller="JSVideoCtrl">
+    <md-content>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <md-button style="width:100px" id='profile-backbtn' onclick="window.history.back()" class="md-icon-button" aria-label="back">
+                    <md-icon md-svg-icon="img/icon/keyboard-backspace.svg"></md-icon>
+                </md-button>
+
+                <span flex></span>
+
+            </div>
+        </md-toolbar>
+    </md-content>
+
+
+     <div>
+        <md-content>
+            <div class="md-whiteframe-z1 field-container">
+                <div class="catch-phrase">Pitch Yourself In 30sec Video. Using Front Camera</div>
+                <div id='videodiv'> <md-button id='videotakingbtn' ng-click="takevideo()" class="md-raised md-primary" >Take A Video</md-button>
+            </div>
+            
+            <img id="videothumbnail" src="" onclick="" alt=""/>  </div>
+            <div style="text-align: center; margin-top: 25px; margin-bottom: 20px;"> 
+                <md-button id="previewbtn" class="md-button md-raised md-warn" ng-disabled="disabled" onclick="openFile('http://www.primefield.co/jobsearch/videos/' + localStorage.getItem('userID') + '.mp4');" >Preview</md-button>
+                <md-button ng-disabled="disabled" class="md-button md-raised md-warn" onclick='captureVideo(true, true, 30);' >Redo</md-button> </div>
+
+            <div style="text-align: center; margin-top: 1px; margin-bottom: 20px;"> <md-button   ui-sref="jobseeker-preview"  class="md-fab md-primary">GO</md-button>  </div>
+        </md-content>
+    </div>
+
+</div>

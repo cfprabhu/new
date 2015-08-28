@@ -1,0 +1,52 @@
+<style>
+
+    button.md-raised.md-primary.small-button.md-button.md-default-theme{
+        padding:0px 6px;
+        margin:0px 4px;
+        margin-top:10px;
+        min-width:0px;
+        font-size:10px;
+    }
+
+    .md-subheader:not(.md-sticky-no-effect):after {
+        right:0px;
+    }
+
+</style>
+<div  ng-controller="EOpenJobCtrl">
+    <div>
+        <md-content>
+            <md-toolbar>
+                <div class="md-toolbar-tools">
+                    <md-button style="width:80px" id='profile-backbtn' onclick="window.history.back()" class="md-icon-button" aria-label="back">
+                        <md-icon class="back-nav-button bg-white darkblue" md-svg-icon="img/icon/keyboard-backspace.svg"></md-icon>
+                    </md-button>
+                    <h3 class="text-center">Open Jobs</h3>
+                    <span flex></span>
+                </div>
+            </md-toolbar>
+        </md-content>
+        <div style="width: 100%;" >
+            <md-divider></md-divider>
+            <md-subheader style="font-size: 20px; margin-right:0; padding-right:16px;">Open Jobs<span style="float: right; ">Deadline</span>
+            </md-subheader>
+            <md-divider></md-divider>
+            <md-list>
+                <md-list-item class="md-2-line" ng-repeat="x in postjob" ng-click="goToSelectedJob($index)">
+                    <div class="md-list-item-text" style="margin-top:-10px;">
+                        <span style='font-size: 14px;'>{{x.jobid}}.</span>
+                        <span style='font-weight: bold'>{{x.title}}</span>
+                        <span style="float:right; font-size:13px;">{{x.deadline}}</span>
+                        <div class="open-job-button-group" style="margin:-10px 0 0 -4px;">
+                            <md-button class='md-raised md-primary small-button' ng-click='view($index, $event)'><span>{{x.viewcount}}</span> View</md-button>
+                            <md-button class='md-raised md-primary small-button' ng-click='application($index, $event)'><span>{{x.applicationcount}}</span> Application </md-button>
+                            <md-button class='md-raised md-primary small-button' ng-click='shortlisted($index, $event)'><span>{{x.shortlistedcount}}</span> Shortlisted </md-button>
+                        </div>
+                    </div>
+                    <span></span>
+                    <md-divider></md-divider>
+                </md-list-item>
+            </md-list>
+        </div>
+    </div>
+</div>

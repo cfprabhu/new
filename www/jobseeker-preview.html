@@ -1,0 +1,219 @@
+<div ng-controller="JSPreviewCtrl">
+    <md-content>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <md-button style="width:100px" id='profile-backbtn' ng-click="back()" class="md-icon-button" aria-label="back">
+                    <md-icon md-svg-icon="img/icon/keyboard-backspace.svg"></md-icon>
+                </md-button>
+                <span flex></span>
+            </div>
+        </md-toolbar>
+    </md-content>
+
+    <md-content layout-padding style="height: 100%;padding: 24px; width: 100%;">
+        <h4>Personal Information <md-button id="personalinfo-edit" ng-click="personaledit()">Edit</md-button><md-button id="personalinfo-save" ng-click="personalsave()">Save</md-button></h4>
+        <md-divider></md-divider>
+        <md-card>
+            <md-card-content>  
+                <div id="preview-pic" style="margin-bottom: 2em;">
+                    <md-card>
+                        <md-card-content>
+                            <div class="preview-block">
+                                <img border="1" id="p-img" class="preview-image pic-border" src="img/profile-pic.jpg" alt=""/>
+                                <md-button class="md-raised md-primary" onclick="getImage(pictureSource.PHOTOLIBRARY);">Gallery</md-button>
+                                <md-button class="md-raised md-primary" onclick="getPhoto();" >Camera</md-button>   
+                            </div>
+                            <div class="preview-block">
+                                <img border="1" id="p-img" class="preview-image pic-border" src="img/play-btn.jpg" alt=""/>
+                                <md-button class="md-raised md-primary">Preview</md-button>
+                                <md-button class="md-raised md-primary">Redo</md-button>
+                            </div>
+                        </md-card-content>
+                    </md-card>
+                </div>
+                <md-input-container class="md-icon-float" >
+                    <md-radio-group id="personalinfo-gender" ng-model="radiobutton.group1" ng-change="onTypeChange()" ng-init="radiobutton" disabled>
+                        <md-icon style="color: black" md-svg-src="img/icon/gender.svg"></md-icon>
+                        <md-radio-button id="personalinfo-1"style="display:inline;" value="Male" class="md-primary" disabled>Male</md-radio-button>
+                        <md-radio-button id="personalinfo-2" style="display:inline;" value="Female" disabled> Female </md-radio-button>
+                        <md-radio-button style="display:inline;" value="Transgender"> Transgender </md-radio-button>
+                    </md-radio-group>
+                </md-input-container>
+                <md-input-container class="md-icon-float">
+                    <country-select  id="company-country" ng-model="personalinfo.country"></country-select>
+                </md-input-container>
+                <div layout layout-sm="column">
+                    <md-input-container class="md-icon-float" flex>
+                        <!-- Use floating label instead of placeho
+                        <label>First name</label>lder -->
+                        <md-icon md-svg-src="img/icon/human.svg"></md-icon>
+                        <input id="personalinfo-firstname" ng-model="personalinfo.firstname" type="text" disabled>
+
+                    </md-input-container>
+                    <md-input-container class="md-icon-float" flex>
+
+                        <label>Last name</label>
+                        <md-icon></md-icon>
+                        <input id="personalinfo-lastname" ng-model="personalinfo.lastname" type="text" disabled> 
+                    </md-input-container>
+                </div>
+                <md-input-container class="md-icon-float" >
+                    <!-- Use floating label instead of placeholder -->
+                    <label>Email (example@example.com</label>
+                    <md-icon md-svg-src="img/icon/email.svg"></md-icon>
+                    <input id="personalinfo-email" ng-model="personalinfo.email" type="email" disabled>
+                </md-input-container>
+                <md-input-container class="md-icon-float" >
+                    <!-- Use floating label instead of placeholder -->
+                    <label>Phone</label>
+                    <md-icon md-svg-src="img/icon/phone.svg"></md-icon>
+                    <input id="personalinfo-phone" ng-model="personalinfo.phone" type="tel" disabled>
+                </md-input-container>
+                <md-input-container class="md-icon-float" >
+                    <!-- Use floating label instead of placeholder -->
+                    <label>Marital Status (Single, Married, etc)</label>
+                    <md-icon md-svg-src="img/icon/education.svg"></md-icon>
+                    <input id="personalinfo-status" ng-model="personalinfo.status" type="text" disabled>
+                </md-input-container>
+                <md-input-container class="md-icon-float" >
+                    <!-- Use floating label instead of placeholder -->
+                    <label>Date of Birth (MM/DD/YYYY)</label>
+                    <md-icon md-svg-src="img/icon/date.svg"></md-icon>
+                    <input id="personalinfo-date" ng-model="personalinfo.date" type="date" disabled>
+                </md-input-container>
+            </md-card-content>
+        </md-card>
+        <br>
+        <h4>Education Information <md-button id="educationinfo-edit" ng-click="educationedit()">Edit</md-button><md-button id="educationinfo-save" ng-click="educationsave()">Save</md-button></h4>
+        <md-divider></md-divider>
+        <div>
+            <md-card ng-repeat="edu in educationinfo">
+                <md-card-content>
+                    <md-button class="md-warn" ng-click="eduRemove($index)">Remove</md-button>
+                    <md-input-container class="md-icon-float" style="margin-top: 0.5em" >
+                        <label>School</label>
+                        <md-icon md-svg-src="img/icon/school.svg"></md-icon>
+                        <input id="educationinfo-school" ng-model="edu.school" type="text" disabled>
+                    </md-input-container>
+               
+                        <md-input-container class="md-icon-float" >
+
+                            <label>Year Graduated</label>
+                            <md-icon md-svg-src=""></md-icon>
+                            <input id="educationinfo-year" ng-model="edu.year" type="tel" disabled>
+                        </md-input-container>
+
+                    
+                    <md-input-container class="md-icon-float">
+                        <label>Degree</label>
+                        <md-icon md-svg-src="img/icon/education.svg"></md-icon>
+                        <input id="educationinfo-degree" ng-model="edu.degree" type="text" disabled>
+                    </md-input-container>
+                    <md-input-container class="md-icon-float">
+                        <label>Specialization</label>
+                        <md-icon md-svg-src=""></md-icon>
+                        <input id="educationinfo-specialization" ng-model="edu.specialization" type="text" disabled>
+                    </md-input-container>
+                    <md-input-container flex>
+                        <label>Activities and Societies</label>
+
+                        <textarea md-maxlength="200" ng-model="edu.activities" id="educationinfo-activities" disabled></textarea>
+
+                    </md-input-container>
+                </md-card-content>
+            </md-card>
+        </div>
+        <br>
+        <h4>Work Experience <md-button id="experienceinfo-edit" ng-click="experienceedit()">Edit</md-button><md-button id="experienceinfo-save" ng-click="experiencesave()">Save</md-button></h4>
+        <md-divider></md-divider>
+        <div >
+            <md-card ng-repeat="exp in experienceinfo">
+                <md-card-content>
+                    <md-button class="md-warn" ng-click="expRemove($index)">Remove</md-button>
+                    <md-input-container class="md-icon-float" style="margin-top: 0.5em" >
+                        <label>Company Name</label>
+                        <md-icon md-svg-src="img/icon/company.svg"></md-icon>
+                        <input id="experienceinfo-company" ng-model="exp.companyname" type="text" disabled>
+                    </md-input-container>
+                    <md-input-container class="md-icon-float" >
+                        <label>Title</label>
+                        <md-icon md-svg-src=""></md-icon>
+                        <input id="experienceinfo-title" ng-model="exp.title" type="text" disabled>
+                    </md-input-container>
+                    <md-input-container class="md-icon-float" >
+                        <label>Location</label>
+                        <md-icon md-svg-src=""></md-icon>
+                        <input id="experienceinfo-location" ng-model="exp.location" type="text" disabled>
+                    </md-input-container>
+                    <md-input-container class="md-icon-float" flex>
+
+                        <label>Tenture</label>
+                        <md-icon md-svg-src=""></md-icon>
+
+                    </md-input-container>
+                    <div layout layout-sm="column">
+                        <md-input-container class="md-icon-float" >
+
+                            <label></label>
+                            <md-icon md-svg-src=""></md-icon>
+                            <input id="experienceinfo-timestart" ng-model="exp.timestart" type="tel" disabled>
+                        </md-input-container>
+
+                        <md-input-container class="md-icon-float" >
+
+                            <label></label>
+                            <md-icon></md-icon>
+
+                            <input id="experienceinfo-timeend"  ng-model="exp.timeend" type="tel" disabled>
+                        </md-input-container>
+
+                    </div>
+                    <md-input-container flex>
+                        <label>Description</label>
+                        <textarea md-maxlength="200" ng-model="exp.description" id="experienceinfo-description" disabled></textarea>
+                    </md-input-container>
+                </md-card-content>
+            </md-card>
+        </div>
+        <br>
+        <h4>Social Link<md-button id="linkinfo-edit" ng-click="linkedit()">Edit</md-button><md-button id="linkinfo-save" ng-click="linksave()">Save</md-button></h4>
+        <div>
+            <md-card>
+                <md-card-content>
+
+                    <md-input-container class="md-icon-float" style="margin-top: 0.5em">
+                        <label>Facebook</label>
+                        <md-icon md-svg-src="img/icon/facebook.svg"></md-icon>
+                        <input id="linkinfo-facebook" ng-model="linkinfo.facebook" type="text" disabled>
+                    </md-input-container>
+                    <md-input-container class="md-icon-float" >
+                        <label>Twitter</label>
+                        <md-icon md-svg-src="img/icon/twitter.svg"></md-icon>
+                        <input id="linkinfo-twitter" ng-model="linkinfo.twitter" type="text" disabled>
+                    </md-input-container>
+                    <md-input-container class="md-icon-float" >
+                        <label>Linkedin</label>
+                        <md-icon md-svg-src="img/icon/linkedin.svg"></md-icon>
+                        <input id="linkinfo-linkedin" ng-model="linkinfo.linkedin" type="text" disabled>
+                    </md-input-container>
+                </md-card-content>
+            </md-card>
+        </div>
+        <br>
+        <h4>Miscellaneous<md-button id="miscinfo-edit" ng-click="miscedit()">Edit</md-button><md-button id="miscinfo-save" ng-click="miscsave()">Save</md-button></h4>
+        <div>
+            <md-card>
+                <md-card-content>
+                    <md-input-container flex>
+                        <label>Please share about your passion</label>
+                        <textarea md-maxlength="200" ng-model="miscinfo.description" id="miscinfo-description" disabled></textarea>
+                    </md-input-container>
+                </md-card-content>
+            </md-card>
+        </div>
+    </md-content>
+    <md-divider></md-divider>
+    <div style="text-align: center;">
+        <md-button style="  margin-top: 25px; "  class="md-fab md-primary" ng-click="go()">GO</md-button>
+    </div>
+</div>

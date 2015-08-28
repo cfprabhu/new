@@ -1,0 +1,238 @@
+<div ng-controller="EOpenJobDetailApplicationJobseekerCtrl">
+    <md-content>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <md-button style="width:100px" id='profile-backbtn' onclick="window.history.back()" class="md-icon-button" aria-label="back">
+                    <md-icon md-svg-icon="img/icon/keyboard-backspace.svg"></md-icon>
+                </md-button>
+                <span flex></span>
+            </div>
+        </md-toolbar>
+    </md-content>
+
+    <md-content layout-padding style="padding: 24px;">
+        <accordion>
+            <accordion-group is-open="status.open">
+                <accordion-heading>
+                    Personal Information <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                </accordion-heading>
+                <div id="preview-pic">
+                    <md-card>
+                        <md-card-content>
+                            <div class="preview-block">
+                                <img border="1" id="p-img" class="preview-image" src="img/profile-pic.jpg" alt=""/>
+                                
+                            </div>
+                            <div class="preview-block">
+                                <img border="1" id="p-img" class="preview-image" src="img/play-btn.jpg" alt=""/>
+                            </div>
+                        </md-card-content>
+                    </md-card>
+                </div>
+                <md-input-container class="md-icon-float" >
+                    <md-radio-group ng-model="radiobutton.group1" ng-change="onTypeChange()" ng-init="radiobutton" ng-disabled="isdisabled">
+                        <md-icon style="color: black" md-svg-src="img/icon/gender.svg"></md-icon>
+                        <md-radio-button style="display:inline;" value="Male" class="md-primary">Male</md-radio-button>
+                        <md-radio-button style="display:inline;" value="Female"> Female </md-radio-button>
+                    </md-radio-group>
+                </md-input-container>
+                <md-input-container class="md-icon-float">
+                    <label>Country (Singapore, Malaysia, etc)</label>
+                    <md-icon md-svg-src="img/icon/earth.svg"></md-icon>
+                    <input id="personalinfo-country" ng-model="personalinfo.country" type="text" ng-disabled="isdisabled">
+                </md-input-container>
+                <div layout layout-sm="column">
+                    <md-input-container class="md-icon-float" flex>
+                        <!-- Use floating label instead of placeholder -->
+                        <label>First name</label>
+                        <md-icon md-svg-src="img/icon/human.svg"></md-icon>
+                        <input id="personalinfo-firstname" ng-model="personalinfo.firstname" type="text" ng-disabled="isdisabled">
+
+                    </md-input-container>
+                    <md-input-container class="md-icon-float" flex>
+
+                        <label>Last name</label>
+                        <md-icon></md-icon>
+                        <input id="personalinfo-lastname" ng-model="personalinfo.lastname" type="text" ng-disabled="isdisabled">
+                    </md-input-container>
+                </div>
+                <md-input-container class="md-icon-float" >
+                    <!-- Use floating label instead of placeholder -->
+                    <label>Email (example@example.com</label>
+                    <md-icon md-svg-src="img/icon/email.svg"></md-icon>
+                    <input id="personalinfo-email" ng-model="personalinfo.email" type="email" ng-disabled="isdisabled">
+                </md-input-container>
+                <md-input-container class="md-icon-float" >
+                    <!-- Use floating label instead of placeholder -->
+                    <label>Phone</label>
+                    <md-icon md-svg-src="img/icon/phone.svg"></md-icon>
+                    <input id="personalinfo-phone" ng-model="personalinfo.phone" type="tel" ng-disabled="isdisabled">
+                </md-input-container>
+                <md-input-container class="md-icon-float" >
+                    <!-- Use floating label instead of placeholder -->
+                    <label>Marital Status (Single, Married, etc)</label>
+                    <md-icon md-svg-src="img/icon/education.svg"></md-icon>
+                    <input id="personalinfo-status" ng-model="personalinfo.status" type="text" ng-disabled="isdisabled">
+                </md-input-container>
+                <md-input-container class="md-icon-float" >
+                    <!-- Use floating label instead of placeholder -->
+                    <label>Date of Birth (MM/DD/YYYY)</label>
+                    <md-icon md-svg-src="img/icon/date.svg"></md-icon>
+                    <input id="personalinfo-dob" ng-model="dob" type="date ng-disabled="isdisabled">
+                </md-input-container>
+
+            </accordion-group>
+        </accordion>
+        <accordion>
+            <accordion-group is-open="status.open">
+                <accordion-heading>
+                    Education<i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                </accordion-heading>
+                <div ng-repeat="edu in educationinfo">
+                    <md-input-container class="md-icon-float" style="margin-top: 0.5em" >
+                        <label>School</label>
+                        <md-icon md-svg-src="img/icon/school.svg"></md-icon>
+                        <input id="educationinfo-school" ng-model="edu.school" type="text" ng-disabled="isdisabled"> 
+                    </md-input-container>
+                    <md-input-container class="md-icon-float" flex>
+
+                        <label>Dates Attended (Start Year - End Year Or expected graduation year)</label>
+                        <md-icon md-svg-src=""></md-icon>
+
+                    </md-input-container>
+                    <div layout layout-sm="column">
+
+
+                        <md-input-container class="md-icon-float" >
+
+                            <label></label>
+                            <md-icon md-svg-src=""></md-icon>
+                            <input id="educationinfo-startyear" ng-model="startyear" type="date" ng-disabled="isdisabled">
+                        </md-input-container>
+
+                        <md-input-container class="md-icon-float" >
+
+                            <label></label>
+                            <md-icon></md-icon>
+                            <input id="educationinfo-endyear"  ng-model="endyear" type="date" ng-disabled="isdisabled">
+                        </md-input-container>
+
+                    </div>
+                    <md-input-container class="md-icon-float">
+                        <label>Degree</label>
+                        <md-icon md-svg-src="img/icon/education.svg"></md-icon>
+                        <input id="educationinfo-degree" ng-model="edu.degree" type="text" ng-disabled="isdisabled">
+                    </md-input-container>
+                    <md-input-container class="md-icon-float">
+                        <label>Grade</label>
+                        <md-icon md-svg-src=""></md-icon>
+                        <input id="educationinfo-grade" ng-model="edu.grade" type="text" ng-disabled="isdisabled">
+                    </md-input-container>
+                    <md-input-container flex>
+                        <label>Activities and Societies</label>
+
+                        <textarea md-maxlength="200" ng-model="edu.activities" id="educationinfo-activities" ng-disabled="isdisabled"></textarea>
+
+                    </md-input-container>
+
+                </div>
+            </accordion-group>
+        </accordion>
+
+        <accordion>
+            <accordion-group is-open="status.open">
+                <accordion-heading>
+                    Experience<i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                </accordion-heading>
+                <div ng-repeat="exp in experienceinfo">
+                    <md-input-container class="md-icon-float" style="margin-top: 0.5em" >
+                        <label>Company Name</label>
+                        <md-icon md-svg-src="img/icon/company.svg"></md-icon>
+                        <input id="experienceinfo-company" ng-model="exp.company" type="text" ng-disabled="isdisabled">
+                    </md-input-container>
+                    <md-input-container class="md-icon-float" >
+                        <label>Title</label>
+                        <md-icon md-svg-src=""></md-icon>
+                        <input id="experienceinfo-title" ng-model="exp.title" type="text" ng-disabled="isdisabled">
+                    </md-input-container>
+                    <md-input-container class="md-icon-float" >
+                        <label>Location</label>
+                        <md-icon md-svg-src=""></md-icon>
+                        <input id="experienceinfo-location" ng-model="exp.location" type="text" ng-disabled="isdisabled">
+                    </md-input-container>
+                    <md-input-container class="md-icon-float" flex>
+
+                        <label>Time Period</label>
+                        <md-icon md-svg-src=""></md-icon>
+
+                    </md-input-container>
+                    <div layout layout-sm="column">
+                        <md-input-container class="md-icon-float" >
+
+                            <label></label>
+                            <md-icon md-svg-src=""></md-icon>
+                            <input id="experienceinfo-timestart" ng-model="timestart" type="date" ng-disabled="isdisabled">
+                        </md-input-container>
+
+                        <md-input-container class="md-icon-float" >
+
+                            <label></label>
+                            <md-icon></md-icon>
+
+                            <input id="experienceinfo-timeend"  ng-model="timeend" type="date" ng-disabled="isdisabled">
+                        </md-input-container>
+
+
+                    </div>
+                    <md-input-container flex>
+                        <label>Description</label>
+                        <textarea md-maxlength="200" ng-model="exp.description" id="experienceinfo-description" ng-disabled="isdisabled"></textarea>
+                    </md-input-container>
+
+                </div>
+            </accordion-group>
+        </accordion>
+
+        <accordion>
+            <accordion-group is-open="status.open">
+                <accordion-heading>
+                    Social Links<i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                </accordion-heading>
+                <md-input-container class="md-icon-float" style="margin-top: 0.5em">
+                    <label>Facebook</label>
+                    <md-icon md-svg-src="img/icon/facebook.svg"></md-icon>
+                    <input id="linkinfo-facebook" ng-model="link.facebook" type="text" ng-disabled="isdisabled">
+                </md-input-container>
+                <md-input-container class="md-icon-float" >
+                    <label>Twitter</label>
+                    <md-icon md-svg-src="img/icon/twitter.svg"></md-icon>
+                    <input id="linkinfo-twitter" ng-model="link.twitter" type="text" ng-disabled="isdisabled">
+                </md-input-container>
+                <md-input-container class="md-icon-float" >
+                    <label>Linkedin</label>
+                    <md-icon md-svg-src="img/icon/linkedin.svg"></md-icon>
+                    <input id="linkinfo-linkedin" ng-model="link.linkedin" type="text" ng-disabled="isdisabled">
+                </md-input-container>
+
+            </accordion-group>
+        </accordion>
+
+        <accordion>
+            <accordion-group is-open="status.open">
+                <accordion-heading>
+                    Miscellaneous<i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                </accordion-heading>
+                <md-input-container flex>
+                    <label>Description</label>
+                    <textarea md-maxlength="200" ng-model="misc.description" id="miscinfo-description" ng-disabled="isdisabled"></textarea>
+                </md-input-container>
+
+
+            </accordion-group>
+        </accordion>
+
+
+    </md-content>
+
+    
+</div>

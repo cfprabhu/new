@@ -1,0 +1,146 @@
+<div ng-controller="SearchDataCompanyCtrl">
+    <md-content>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <md-button style="width:80px" id='profile-backbtn' onclick="window.history.back()" class="md-icon-button" aria-label="back">
+                    <md-icon class="back-nav-button bg-white darkblue" md-svg-icon="img/icon/keyboard-backspace.svg"></md-icon>
+                </md-button>
+                <h3 class="text-center">Job</h3>
+                <span flex></span>
+            </div>
+        </md-toolbar>
+    </md-content>
+
+    <div style="width: 100%;">
+        <accordion>
+            <accordion-group is-open="status.open">
+                <accordion-heading>
+                    Company Information <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                </accordion-heading>
+                <div id="preview-pic">
+                    <md-card>
+                        <md-card-content>
+                            <div class="preview-block">
+                                <img border="1" id="p-img" class="preview-image pic-border" src="img/profile-pic.jpg" alt=""/>
+                            </div>
+                            <div class="preview-block">
+                                <img border="1" id="p-img" class="preview-image pic-border" src="img/play-btn.jpg" alt=""/>
+                             </div>
+                        </md-card-content>
+                    </md-card>
+                </div>
+
+                <div>
+                    <div class="field-container md-whiteframe-z1">
+                        <md-input-container class="md-icon-float" style="margin-top: 0.5em" >
+                            <label>Country (Singapore, Malaysia, etc)</label>
+                            <md-icon md-svg-src="img/icon/earth.svg"></md-icon>
+                            <input id="company-country" ng-model="company.country" type="text" ng-disabled="disablethis">
+                        </md-input-container>
+                        <md-input-container class="md-icon-float" >
+                            <!-- Use floating label instead of placeholder -->
+                            <label>Company's Name</label>
+                            <md-icon md-svg-src="img/icon/company.svg"></md-icon>
+                            <input id="company-companyname" ng-model="company.companyname" type="text" ng-disabled="disablethis">
+                        </md-input-container>
+                        <md-input-container class="md-icon-float" >
+                            <!-- Use floating label instead of placeholder -->
+                            <label>Company's Address</label>
+                            <md-icon md-svg-src="img/icon/location.svg"></md-icon>
+                            <input id="company-address" ng-model="company.address" type="text" ng-disabled="disablethis">
+                        </md-input-container>
+                        <md-input-container class="md-icon-float" >
+                            <!-- Use floating label instead of placeholder -->
+                            <label>Company's Contact</label>
+                            <md-icon md-svg-src="img/icon/phone.svg"></md-icon>
+                            <input id="company-phone" ng-model="company.phone" type="tel" ng-disabled="disablethis">
+                        </md-input-container>
+                        <md-input-container class="md-icon-float" >
+                            <!-- Use floating label instead of placeholder -->
+                            <label>Company's Email</label>
+                            <md-icon md-svg-src="img/icon/email.svg"></md-icon>
+                            <input id="company-email" ng-model="company.email" type="text" ng-disabled="disablethis">
+                        </md-input-container>
+                        <md-input-container class="md-icon-float" >
+                            <!-- Use floating label instead of placeholder -->
+                            <label>Company's Website</label>
+                            <md-icon md-svg-src="img/icon/website.svg"></md-icon>
+                            <input id="company-website" ng-model="company.website" type="text" ng-disabled="disablethis">
+                        </md-input-container>
+                        <md-input-container flex>
+                            <label>Company's Overview</label>
+                            <textarea md-maxlength="500" ng-model="company.overview" id="company-overview" ng-disabled="disablethis"></textarea>
+                        </md-input-container>
+                    </div>
+                </div>
+            </accordion-group>
+        </accordion>
+        <div class="panel panel-default" style="margin-bottom: 56px;">
+            <h4 class="bg-white" style="padding-left:15px; padding-top:10px; font-size:16px; height:38px; margin-top:0px;">Job Information</h4>
+            <div class="field-container md-whiteframe-z1"> 
+                <md-input-container flex id="post-job-dropdown-container">
+                    <div class="preview-block2">
+                        <img style="margin:0 auto;" border="1" id="p-img" class="preview-image pic-border" src="img/play-btn.jpg" alt=""/>
+                    </div>
+                    <div class="btn-group" dropdown is-open="status.isopen" >
+                        <md-button id="industry-button" dropdown-toggle  ng-disabled="disabledjob">
+                            {{industry}}   <span class="caret"></span>
+                        </md-button>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="industry-button" >
+                            <li role="menuitem" ng-repeat="x in item"  ng-click="industrySelect(x.industry)">{{x.industry}}</li>
+                        </ul>
+                    </div>
+
+                </md-input-container>
+                <md-input-container class="md-icon-float" >
+                    <!-- Use floating label instead of placeholder -->
+                    <label>Job Title</label>
+                    <md-icon md-svg-src=""></md-icon>
+                    <input id="postjob-title" ng-model="postjob.title" type="text" ng-disabled="disabledjob">
+                </md-input-container>
+                <md-input-container class="md-icon-float" >
+                    <!-- Use floating label instead of placeholder -->
+                    <label>Salary</label>
+                    <md-icon md-svg-src="img/icon/salary.svg"></md-icon>
+                    <input id="postjob-salary" ng-model="postjob.salary" type="text" ng-disabled="disabledjob">
+                </md-input-container>
+                <md-input-container class="md-icon-float" >
+                    <!-- Use floating label instead of placeholder -->
+                    <label>Job Deadline</label>
+                    <md-icon md-svg-src="img/icon/date.svg"></md-icon>
+                    <input id="postjob-deadline" ng-model="postjob.deadline" type="date" ng-disabled="disabledjob">
+                </md-input-container>
+                <md-input-container class="md-icon-float" >
+                    <!-- Use floating label instead of placeholder -->
+                    <label>Experience Needed (min. Year)</label>
+                    <md-icon md-svg-src=""></md-icon>
+                    <input id="postjob-exp" ng-model="postjob.experience" type="tel" ng-disabled="disabledjob">
+                </md-input-container>
+                <md-input-container class="md-icon-float" >
+                    <!-- Use floating label instead of placeholder -->
+                    <label>Job Requirement (eg, min. 'O' Level, Degree)</label>
+                    <md-icon md-svg-src=""></md-icon>
+                    <input id="postjob-requirement" ng-model="postjob.requirement" type="text" ng-disabled="disabledjob">
+                </md-input-container>
+
+                <md-input-container flex>
+                    <label>Job Description</label>
+
+                    <textarea md-maxlength="500" ng-model="postjob.description" id="postjob-description" ng-disabled="disabledjob"></textarea>
+
+                </md-input-container>
+            </div>
+
+        </div>
+
+    </div>
+    <div style="text-align: center; position: fixed; bottom: 0; width: 100%; margin-top: 0.1em; background: rgba(0,0,0,1)">
+        <md-divider></md-divider>
+
+        <md-button class='md-raised md-primary' ng-click="phone()" ng-disabled="isdisabled">Contact</md-button>
+        <md-button class='md-raised md-primary' ng-click="apply()" ng-hide="!applyhide" ng-disabled="isdisabled"> Apply</md-button>
+        <md-button class='md-raised md-primary' ng-click="removeApply()" ng-hide="applyhide" ng-disabled="isdisabled">Remove Apply</md-button>
+        <md-button class='md-raised md-primary' ng-click="impress()" ng-hide="!hide">Impress</md-button>
+        <md-button class='md-raised md-primary' ng-click="removeImpress()" ng-hide="hide">Impressed</md-button>
+    </div>
+</div>

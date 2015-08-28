@@ -1,0 +1,81 @@
+<div ng-controller="EPostJobCtrl">
+    <md-content>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <md-button style="width:80px" id='profile-backbtn' onclick="window.history.back()" class="md-icon-button" aria-label="back">
+                    <md-icon class="back-nav-button bg-white darkblue" md-svg-icon="img/icon/keyboard-backspace.svg"></md-icon>
+                </md-button>
+                <h3 class="text-center">Post a Job</h3>
+                <span flex></span>
+            </div>
+        </md-toolbar>
+    </md-content>
+
+    <md-content>
+        <div class="wrapper">
+            <div class="panel panel-default" id="company-post-job-panel" style="margin-bottom: 1px;">
+                <div class="collapse-content field-container md-whiteframe-z1"> 
+
+                    <md-input-container flex id="post-job-dropdown-container">
+                        <div class="btn-group" dropdown is-open="status.isopen" style="margin-left: 25px;">
+                            <md-button id="industry-button" dropdown-toggle  >
+                                {{industry}}   <span class="caret"></span>
+                            </md-button>
+                            <ul class="dropdown-menu" role="menu" aria-labelledby="industry-button" style="padding-left:5px;">
+                                <li role="menuitem" ng-repeat="x in item"  ng-click="industrySelect(x.industry)">{{x.industry}}</li>
+                            </ul>
+                        </div>
+
+                    </md-input-container>
+                    <md-input-container class="md-icon-float" >
+                        <!-- Use floating label instead of placeholder -->
+                        <label>Job Title</label>
+                        <md-icon md-svg-src=""></md-icon>
+                        <input id="postjob-title" ng-model="postjob.title" type="text">
+                    </md-input-container>
+                    <md-input-container class="md-icon-float" >
+                        <!-- Use floating label instead of placeholder -->
+                        <label>Application Deadline</label>
+                        <md-icon md-svg-src="img/icon/date.svg"></md-icon>
+                        <input id="postjob-deadline" ng-model="deadline" type="date">
+                    </md-input-container>
+                    <md-input-container class="md-icon-float" >
+                        <!-- Use floating label instead of placeholder -->
+                        <label>Salary</label>
+                        <md-icon md-svg-src="img/icon/salary.svg"></md-icon>
+                        <input id="postjob-salary" ng-model="postjob.salary" type="text">
+                    </md-input-container>
+                    <md-input-container class="md-icon-float" >
+                        <!-- Use floating label instead of placeholder -->
+                        <label>Experience Needed (min. Year)</label>
+                        <md-icon md-svg-src=""></md-icon>
+                        <input id="postjob-exp" ng-model="postjob.experience" type="tel">
+                    </md-input-container>
+                    <md-input-container class="md-icon-float" >
+                        <!-- Use floating label instead of placeholder -->
+                        <label>Educational Requirement (eg, min. 'O' Level, Degree)</label>
+                        <md-icon md-svg-src=""></md-icon>
+                        <input id="postjob-educational" ng-model="postjob.educational" type="text" style="padding-top: 40px;">
+                    </md-input-container>
+
+                    <md-input-container flex style="margin-left: 35px;">
+                        <label>Job Requirement</label>
+
+                        <textarea md-maxlength="500" ng-model="postjob.requirement" id="postjob-requirement" ></textarea>
+
+                    </md-input-container>
+                    <md-input-container flex style="margin-left: 35px;">
+                        <label>Good To Have</label>
+
+                        <textarea md-maxlength="500" ng-model="postjob.goodtohave" id="postjob-goodtohave" ></textarea>
+
+                    </md-input-container>
+                </div>
+
+            </div> 
+            <div class="footer-button-group">
+                <md-button class="md-fab md-primary footer-button" ng-click="go()">GO</md-button>
+            </div>
+        </div>
+    </md-content>
+</div>

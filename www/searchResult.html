@@ -1,0 +1,54 @@
+<div ng-controller="searchResult">
+    <md-content>
+        <md-toolbar>
+            <div class="md-toolbar-tools" >
+                <md-button style="width:80px" id='profile-backbtn' onclick="window.history.back()" class="md-icon-button" aria-label="back">
+                    <md-icon class="back-nav-button bg-white darkblue" md-svg-icon="img/icon/keyboard-backspace.svg"></md-icon>
+                </md-button>
+                <h3 class="text-center">Search Result</h3>
+                <span flex></span>
+            </div>
+        </md-toolbar>
+    </md-content>
+        <table md-data-table>
+            <thead md-order="query.order" md-trigger="orderBy">
+                <tr>
+                    <th name="Company Name" order-by="companyname"></th>
+                    <th name="Job Name" order-by="title"></th>
+                    <th numeric name="Deadline" order-by="deadline"></th>
+                    <th numeric name="Salary" unit="$" order-by="salary"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr md-auto-select ng-repeat="x in myserv.jobsFilter | orderBy: query.order" ng-click="goToJob(x)">
+                    <td>{{x.companyname}}</td>
+                    <td>{{x.title}}</td>
+                    <td>{{x.deadline}}</td>
+                    <td>{{x.salary}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </md-data-table-container>
+</div>
+
+
+
+
+<!--    <md-content>
+        <md-tabs md-dynamic-height md-border-bottom>
+            <md-tab label="All">
+                <md-list>
+                    <md-list-item class="md-2-line" ng-repeat="x in myserv.jobsFilter">
+                        <div class="md-list-item-text">
+                            <h3>{{x.companyname}}</h3>
+                            <p>{{x.title}}</p>
+                        </div>
+                        <md-divider></md-divider>
+                    </md-list-item>
+                </md-list>
+            </md-tab>
+            <md-tab label="Top Impressions">
+                
+            </md-tab>
+        </md-tabs>
+    </md-content>-->

@@ -1,0 +1,31 @@
+<div id="signin" ng-controller="signinCtrl">  
+    <img id="main-banner-image" src="img/main-banner.jpg"> 
+    <div class="signin-box">
+        <md-content class="md-whiteframe-z1">
+            <p style="font-size:18px">Welcome to <Strong>First Impression!</Strong></p>
+            <p style="font-size:15px">Impress your potential employer </br>and employees in 30'sec!</p>
+            <md-input-container class="md-icon-float" >
+                <!-- Use floating label instead of placeholder -->
+                <label>Email</label>
+                <md-icon md-svg-src="img/icon/email.svg" ></md-icon>
+                <input id="email" type="email">
+            </md-input-container>
+            <md-input-container class="md-icon-float" >
+                <!-- Use floating label instead of placeholder -->
+                <label>Password</label>
+                <md-icon md-svg-src="img/icon/lock.svg"></md-icon>
+                <input id="password"  type="password">
+            </md-input-container>
+
+            <md-button  style="margin-bottom: 25px;"  class="md-fab md-primary"   ng-click="signin()" >GO</md-button>
+
+            <md-divider></md-divider>
+            <div class="forgetpassword">
+            <p style="font-size:12px">Not a member?
+                <!--md-button class="md-primary md-hue-1"><md-icon md-svg-src="img/icon/lock-open.svg"></md-icon>Forget Password</md-button-->
+            <md-button ui-sref="signup" class="md-primary md-hue-1"><md-icon md-svg-src="img/icon/account-plus.svg"></md-icon>Sign Up</md-button></p>
+            </div>
+
+        </md-content>
+    </div>
+</div>

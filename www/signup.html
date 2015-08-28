@@ -1,0 +1,52 @@
+<div ng-controller="signupCtrl">
+    <md-content >
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <md-button style="width:100px" onclick="window.history.back();" class="md-icon-button" aria-label="back">
+                    <md-icon md-svg-icon="img/icon/keyboard-backspace.svg"></md-icon>
+                </md-button>
+            </div>
+
+        </md-toolbar>
+    </md-content>
+
+    <div style="width: 100%; text-align: center;" >
+
+        <md-content style="margin: 2.5em 2.5em 0 2.5em;">
+            <md-input-container flex >
+                <md-radio-group ng-model="radiobutton.group1" ng-change="onTypeChange()" ng-init="radiobutton">
+                    <md-radio-button style="display:inline;" value="Employer" class="md-primary" aria-label="Employer">Employer</md-radio-button>
+                    <md-radio-button style="display:inline;" value="JobSeeker">Job Seeker</md-radio-button>
+                </md-radio-group>
+            </md-input-container>
+            <md-divider></md-divider>
+            <br>
+            <div>
+                <md-input-container class="md-icon-float" >
+                    <!-- Use floating label instead of placeholder -->
+                    <label>Email</label>
+                    <md-icon md-svg-src="img/icon/email.svg"></md-icon>
+                    <input id="nemail" type="text">
+                </md-input-container>
+                <md-input-container class="md-icon-float" >
+                    <!-- Use floating label instead of placeholder -->
+                    <label>Password</label>
+                    <md-icon md-svg-src="img/icon/lock.svg"></md-icon>
+                    <input id="npass" type="password">
+                </md-input-container>
+                <md-input-container class="md-icon-float" >
+                    <!-- Use floating label instead of placeholder -->
+                    <label>Confirm Password</label>
+                    <md-icon md-svg-src="img/icon/lock.svg"></md-icon>
+                    <input id="ncpass" type="password">
+                </md-input-container>
+            </div>
+
+
+            <md-button  style="margin-top: 25px;"  class="md-fab md-primary"   ng-click="go()">GO</md-button>
+
+        </md-content>
+
+
+    </div>
+</div>

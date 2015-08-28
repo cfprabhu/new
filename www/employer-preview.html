@@ -1,0 +1,85 @@
+<div ng-controller="EPreviewCtrl">
+    <md-content>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <md-button style="width:100px" id='profile-backbtn' onclick="window.history.back()" class="md-icon-button" aria-label="back">
+                    <md-icon md-svg-icon="img/icon/keyboard-backspace.svg"></md-icon>
+                </md-button>
+                <h3 class="text-center">Company Information</h3>
+                <span flex></span>
+            </div>
+        </md-toolbar>
+    </md-content>
+
+    <div style="width: 100%;">
+        <div class="panel panel-default" style="margin-bottom: 1px;">
+            <div class="preview-header">Company Information <md-button id="company-edit" class="md-raised md-primary" ng-click="companyedit()">Edit</md-button><md-button ng-click="companysave()" id="company-save" class="md-raised md-primary">Save</md-button>    
+            </div>
+
+
+            <div id="preview-pic">
+                <md-card>
+                    <md-card-content>
+                        <div class="preview-block">
+                            <img border="1" id="p-img" class="preview-image pic-border" src="img/profile-pic.jpg" alt=""/>
+                            <md-button class="md-raised md-primary" onclick="getImage(pictureSource.PHOTOLIBRARY);">Gallery</md-button>
+                            <md-button class="md-raised md-primary" onclick="getPhoto();" >Camera</md-button>   
+                        </div>
+                        <div class="preview-block">
+                            <img border="1" id="p-img" class="preview-image pic-border" src="img/play-btn.jpg" alt=""/>
+                            <md-button class="md-raised md-primary">Preview</md-button>
+                            <md-button class="md-raised md-primary">Redo</md-button>
+                        </div>
+                    </md-card-content>
+                </md-card>
+            </div>
+
+            <div id="preview-container">
+                <div class="field-container md-whiteframe-z1">
+                    <md-input-container class="md-icon-float" style="margin-top: 0.5em" >
+                        <country-select  id="company-country" ng-model="company.country"></country-select>
+                    </md-input-container>
+                    <md-input-container class="md-icon-float" >
+                        <!-- Use floating label instead of placeholder -->
+                        <label>Company's Name</label>
+                        <md-icon md-svg-src="img/icon/company.svg"></md-icon>
+                        <input id="company-companyname" ng-model="company.companyname" type="text" disabled>
+                    </md-input-container>
+                    <md-input-container class="md-icon-float" >
+                        <!-- Use floating label instead of placeholder -->
+                        <label>Company's Address</label>
+                        <md-icon md-svg-src="img/icon/location.svg"></md-icon>
+                        <input id="company-address" ng-model="company.address" type="text" disabled>
+                    </md-input-container>
+                    <md-input-container class="md-icon-float" >
+                        <!-- Use floating label instead of placeholder -->
+                        <label>Company's Contact</label>
+                        <md-icon md-svg-src="img/icon/phone.svg"></md-icon>
+                        <input id="company-phone" ng-model="company.phone" type="tel" disabled>
+                    </md-input-container>
+                    <md-input-container class="md-icon-float" >
+                        <!-- Use floating label instead of placeholder -->
+                        <label>Company's Email</label>
+                        <md-icon md-svg-src="img/icon/email.svg"></md-icon>
+                        <input id="company-email" ng-model="company.email" type="text" disabled>
+                    </md-input-container>
+                    <md-input-container class="md-icon-float" >
+                        <!-- Use floating label instead of placeholder -->
+                        <label>Company's Website</label>
+                        <md-icon md-svg-src="img/icon/website.svg"></md-icon>
+                        <input id="company-website" ng-model="company.website" type="text" disabled>
+                    </md-input-container>
+                    <md-input-container flex>
+                        <label>Company's Overview</label>
+                        <textarea md-maxlength="500" ng-model="company.overview" id="company-overview" disabled></textarea>
+                    </md-input-container>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footerbutton-group">
+        <md-button class="md-fab md-primary footer-button" ng-click="go()">GO</md-button>
+    </div>
+</div>

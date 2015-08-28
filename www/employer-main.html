@@ -1,0 +1,43 @@
+<div ng-controller="EMainCtrl">
+    <md-content>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h3>Profile</h3>
+                <span flex></span>
+                <md-button class="md-icon-button" style="margin-right:10px" aria-label="" ui-sref="signout">
+                    Log Off
+                </md-button>
+            </div>
+        </md-toolbar>
+    </md-content>
+    <div >
+        <md-content>
+            <div class="welcome-text">Welcome back, (Company Name)
+            </div>
+            <div class="field-container md-whiteframe-z1 company-profile-content">
+                 <div class="profile-pic-container"> 
+                    <img class="profile-pic video-thumbnail pic-border" id="main-img" src="img/profile-pic.jpg" alt=""/> 
+                    <img class="profile-pic pic-border" id="main-video" src="img/play-btn.jpg" alt=""/> 
+                </div>
+                <div id="company-profile-name" style="margin-top:10px">
+                    <md-divider></md-divider>
+                    <p style="text-align: center; font-size: 25px">(Company Name)</p>
+                    <md-divider></md-divider>    
+                </div>
+                
+
+                <div style="text-align: center; margin-top: 25px; margin-bottom: 3px;"> 
+                    <md-button class="md-raised md-primary profile-button" ui-sref="employer-postjob">Post Jobs</md-button> 
+                    <md-button class="md-raised md-primary profile-button" ui-sref='employer-openjob'>Open Jobs</md-button> 
+                </div>
+                <div style="text-align: center; margin-top: 1px; margin-bottom: 20px;"> 
+                    <md-button class="md-raised md-primary profile-button" ui-sref='employer-profile'>Account</md-button> 
+                    <md-button class="md-raised md-primary profile-button" ui-sref='#'>Stats</md-button> 
+                </div>
+                </div>
+           
+        </md-content>
+    </div>
+
+
+</div>

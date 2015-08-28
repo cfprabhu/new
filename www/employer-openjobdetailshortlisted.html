@@ -1,0 +1,36 @@
+<div  ng-controller="EOpenJobDetailShortlistedCtrl">
+    <div>
+        <md-content>
+            <md-toolbar>
+                <div class="md-toolbar-tools">
+                    <md-button style="width:100px" id='profile-backbtn' onclick="window.history.back();" class="md-icon-button" aria-label="back">
+                        <md-icon md-svg-icon="img/icon/keyboard-backspace.svg"></md-icon>
+                    </md-button>
+                    <h3 class="text-center">Job Shortlisted</h3>
+                    <span flex></span>
+                </div>
+            </md-toolbar>
+        </md-content>
+        <div style="width: 100%;" >
+            <md-subheader style="font-size: 20px;  ">
+                {{postjob.title}}<span style="float: right; ">{{postjob.deadline}}</span>
+            </md-subheader>
+            <md-divider></md-divider>
+             <md-subheader style="font-size: 20px;  ">
+                Shortlisted Search Bar
+            </md-subheader>
+            <md-divider></md-divider>
+            <md-list>
+                <md-list-item class="md-3-line" ng-repeat="x in user" ng-click="goToSelectedUser($index)">
+                    <img ng-src="{{x.image}}" class="md-avatar" alt="{{x.userid}}" />
+                    <div class="md-list-item-text">
+                        <h3>{{ x.firstname}} {{x.lastname}}</h3>
+
+                    </div>
+                    <md-divider ></md-divider>
+                </md-list-item>
+                
+            </md-list>
+        </div>
+    </div>
+</div>

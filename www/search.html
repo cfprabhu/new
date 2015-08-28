@@ -1,0 +1,119 @@
+<md-content>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <md-button style="width:80px" id='profile-backbtn' onclick="window.history.back()" class="md-icon-button" aria-label="back">
+                    <md-icon class="back-nav-button bg-white darkblue" md-svg-icon="img/icon/keyboard-backspace.svg"></md-icon>
+                </md-button>
+                <h3 class="text-center">Search</h3>
+                <span flex></span>
+            </div>
+        </md-toolbar>
+    </md-content>
+<div ng-controller="SearchCtrl as ctrl" layout="column" ng-cloak class="autocompletedemoCustomTemplate">
+    <md-content layout-padding layout="column">
+                <form ng-submit="$event.preventDefault()">
+                    <md-autocomplete
+                        ng-disabled="ctrl.isDisabled"
+                        md-no-cache="ctrl.noCache"
+                        md-selected-item="ctrl.selectedItem"
+                        md-search-text-change="ctrl.searchTextChange(ctrl.searchText)"
+                        md-search-text="ctrl.searchText"
+                        md-selected-item-change="ctrl.selectedItemChange(item)"
+                        md-items="item in ctrl.querySearch(ctrl.searchText)"
+                        md-item-text="item.companyname"
+                        md-min-length="0"
+                        placeholder="Search for company..."
+                        md-menu-class="autocomplete-custom-template">
+                        <md-item-template>
+                            <span class="item-title">
+                                <md-icon md-svg-icon="icons/index.svg"></md-icon>
+                                <span> {{item.companyname}} </span>
+                            </span>
+                            <span class="item-metadata">
+                                <span class="item-metastat">
+                                    <strong>${{item.salary}}</strong>
+                                </span>
+                                <span class="item-metastat">
+                                    <strong>{{item.title}}</strong>
+                                </span>
+                            </span>
+                        </md-item-template>
+                    </md-autocomplete>
+                </form>
+<!--        <md-input-container>
+            <label>Search</label>
+            <input ng-model="searchField" type="text">
+        </md-input-container>-->
+        <div style="padding-top: 20px;">
+            <p class="md-title">Filters</p>
+            <accordion>
+                <accordion-group is-open="status.open">
+                    <accordion-heading>
+                        Industry <span class="md-caption" ng-if="selected.length > 0">({{selected.length}} selected)</span> <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                    </accordion-heading>
+                    <md-checkbox class="md-primary" ng-repeat="item in filters" ng-click="toggleIndustryFilter(item, selected)">{{item}}</md-checkbox>
+                    <div>{{selected}}</div>
+                </accordion-group>
+            </accordion>
+
+            <accordion>
+                <accordion-group is-open="status.open">
+                    <accordion-heading>
+                        Minimum Salary <span class="md-caption" >(${{ctrl.salary}})</span> <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                    </accordion-heading>
+                    
+                    <div layout="row" layout-wrap>
+                        <div flex>
+                            <span class="md-body-2">$0</span>
+                        </div>
+                        <md-slider class="md-primary" flex="65" md-discrete aria-label="salary" step="100" min="0" max="10000" ng-model="ctrl.salary"></md-slider>
+                        <div flex>
+                            <span class="md-body-2">$10000</span>
+                        </div>
+                    </div>
+                    
+                </accordion-group>
+            </accordion>
+
+            <accordion>
+                <accordion-group is-open="status.open">
+                    <accordion-heading>
+                        Job Experience 
+                        <span class="md-caption">
+                            ({{ctrl.selectedYearsFrom}} <span ng-if="ctrl.selectedYearsFrom <= 1">year</span><span ng-if="ctrl.selectedYearsFrom > 1">years</span>
+                            to
+                            {{ctrl.selectedYearsTo}} <span ng-if="ctrl.selectedYearsTo <= 1">year</span><span ng-if="ctrl.selectedYearsTo > 1">years</span>) 
+                        </span> 
+                        <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                    </accordion-heading>
+                    <div layout="row">
+                        <md-select placeholder="From:" ng-model="ctrl.selectedYearsFrom">
+                            <md-option ng-repeat="x in expYearsFrom" value="{{x}}" ng-click="checkYearsFrom(x)">
+                                <span ng-if="x == 0 || x == 1">{{x}} year</span>
+                                <span ng-if="x > 1">{{x}} years </span>
+                            </md-option>
+                        </md-select>
+                        <md-select placeholder="To:" ng-model="ctrl.selectedYearsTo">
+                            <md-option ng-repeat="x in expYearsTo" value="{{x}}" ng-click="checkYearsTo(x)">
+                                <span ng-if="x == 0 || x == 1">{{x}} year</span>
+                                <span ng-if="x > 1">{{x}} years </span>
+                            </md-option>
+                        </md-select>
+                    </div>
+
+                </accordion-group>
+            </accordion>
+
+            <accordion>
+                <accordion-group is-open="status.open">
+                    <accordion-heading>
+                        Most Impressed <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                    </accordion-heading>
+                </accordion-group>
+            </accordion>
+        </div>
+        
+
+    </md-content>
+    <md-button class="md-fab md-primary" ng-click="getJobsFilter()">GO</md-button>
+</div>
