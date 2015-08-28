@@ -3089,6 +3089,7 @@ function SearchCtrl($timeout, $q, $http, $scope, $state, myserv) {
         }
     }
     $scope.checkYearsTo = function (x) {
+        console.log(x)
         if (x < $scope.ctrl.selectedYearsFrom) {
             $scope.ctrl.selectedYearsFrom = x;
         }
