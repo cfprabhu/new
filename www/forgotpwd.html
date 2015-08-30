@@ -1,0 +1,33 @@
+<md-dialog ng-controller="signinCtrl">
+  <form>
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <h2>Forgot Password</h2>
+      <span flex></span>
+      <md-button class="md-icon-button" ng-click="hide()">
+        <md-icon md-svg-src="img/icon/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+      </md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content style="max-width:800px;max-height:810px; ">
+    <div>
+      <span ng-show="wrong" style="color:red;">Enter the valid email address</span>
+      <md-input-container class="md-icon-float" >
+          <!-- Use floating label instead of placeholder -->
+          <label>Enter Your Email</label>
+          <md-icon md-svg-src="img/icon/email.svg"></md-icon>
+          <input id="forgot-email" ng-model="email" type="email">
+      </md-input-container>
+    </div>
+  </md-dialog-content>
+  <div class="md-actions" layout="row">
+    <span flex></span>
+    <md-button ng-click="hide()">
+     Cancel
+    </md-button>
+    <md-button ng-click="answer(email)" style="margin-right:20px;">
+      Submit
+    </md-button>
+  </div>
+  </form>
+</md-dialog>

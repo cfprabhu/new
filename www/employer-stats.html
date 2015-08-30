@@ -1,0 +1,29 @@
+<div ng-controller="Estatsctrl">
+	<md-content>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <md-button style="width:100px" id='profile-backbtn' onclick="window.history.back()" class="md-icon-button" aria-label="back">
+                    <md-icon class="back-nav-button bg-white darkblue" md-svg-icon="img/icon/keyboard-backspace.svg"></md-icon>
+                </md-button>
+                <h3 style="margin-left:-15px;">Stats</h3>
+                <span flex></span>
+            </div>
+        </md-toolbar>
+    </md-content>
+
+    <md-content class="md-padding" layout="column">
+    	<div class="field-container md-whiteframe-z1 company-profile-content">
+    		<md-list>
+		      <md-list-item class="md-2-line veggie-option" ng-repeat="s in stats" layout="row"
+		          layout-wrap>
+		        <div class="md-item-text md-whiteframe-z1" flex>
+		          <md-whiteframe class="md-whiteframe-z3" layout layout-align="center center">
+			    	<h4>{{s.name}}</h4>&nbsp;&nbsp;<span>-</span>&nbsp;&nbsp;
+			    	<span>{{s.type}}</span>
+				  </md-whiteframe>
+		        </div>
+		      </md-list-item>
+		    </md-list>
+    	</div>
+	</md-content>
+</div>	

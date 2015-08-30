@@ -79,6 +79,10 @@ module.config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
                 url: "/employer/profile",
                 templateUrl: "employer-profile.html"
             })
+            .state('employer-stats', {
+                url: "/employer/stats",
+                templateUrl: "employer-stats.html"
+            })
             .state('employer-fillup', {
                 url: "/employer/fillup",
                 templateUrl: "employer-fillup.html"
@@ -218,6 +222,31 @@ module.controller('signinCtrl', function ($scope, $state, $mdDialog) {
             $scope.wrong = true;
         }else{
             $mdDialog.hide();
+            $mdDialog.show(
+                    $mdDialog.alert()
+                    .parent(angular.element(document.body))
+                    .title('Alert')
+                    .content('Password reset link sent your registerd email Successfully')
+                    .ok('Close')
+                );
+            $.ajax({
+                method: "post",
+                dataType: "json",
+                data: {email: e},
+                url: "'http://www.primefield.co/jobsearch/forgot.php"
+            }).then(function (data) {
+                console.log(data);
+
+                $mdDialog.show(
+                    $mdDialog.alert()
+                    .parent(angular.element(document.body))
+                    .title('Alert')
+                    .content('Password reset link sent your registerd email')
+                    .ok('Close')
+                );
+
+            })
+            
         }
     };
 
@@ -633,6 +662,7 @@ module.controller('JSPreviewCtrl', function ($scope, $state, $http, myService) {
         localStorage.setItem('experienceinfo', JSON.stringify(myService.jobseeker_signup[0].experienceinfo));
     };
     if (myService.jobseeker_personalinfo !== undefined) {
+        console.log(myService)
         $scope.personalinfo = myService.jobseeker_personalinfo;
         $scope.radiobutton = {group1: $scope.personalinfo.gender};
         $scope.personalinfo.date = new Date($scope.personalinfo.dob.substring(0, 4), ($scope.personalinfo.dob.substring(5, 7) - 1), $scope.personalinfo.dob.substring(8, 10));
@@ -1726,6 +1756,33 @@ module.controller('EFillupCtrl', function ($scope, $state, $http, myService) {
         $state.go('employer-video');
     };
 });
+
+//Employer-stats
+module.controller('Estatsctrl', function ($scope, $state, $mdDialog) {
+    $scope.stats = [
+        {
+          'name': 'Total jobs posted',
+          'type': '80'
+        },
+        {
+          'name': 'Total live jobs',
+          'type': '40'
+        },
+        {
+          'name': 'Views per job',
+          'type': '10'
+        },
+        {
+          'name': 'Applicants per job',
+          'type': '20'
+        },
+        {
+          'name': 'Shortlisted per job',
+          'type': '10'
+        }
+      ];
+})
+
 //Employer-preview
 module.controller('EPreviewCtrl', function ($scope, $state, $http, myService) {
     var loginInfo = JSON.parse(localStorage.getItem('logininfo'));
