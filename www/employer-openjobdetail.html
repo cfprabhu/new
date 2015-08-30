@@ -124,7 +124,7 @@ button.md-raised.md-primary.small-button.md-button.md-default-theme{
                     <md-input-container class="md-icon-float" >
                         <!-- Use floating label instead of placeholder -->
                         <label>Job Title</label>
-                        <md-icon md-svg-src=""></md-icon>
+                        <md-icon md-svg-src="img/icon/job.svg"></md-icon>
                         <input id="postjob-title" ng-model="postjob.title" type="text" ng-disabled="disabledjob">
                     </md-input-container>
                     <md-input-container class="md-icon-float" >
@@ -142,26 +142,26 @@ button.md-raised.md-primary.small-button.md-button.md-default-theme{
                     <md-input-container class="md-icon-float" >
                         <!-- Use floating label instead of placeholder -->
                         <label>Experience Needed (min. Year)</label>
-                        <md-icon md-svg-src=""></md-icon>
+                        <md-icon md-svg-src="img/icon/experience.svg"></md-icon>
                         <input id="postjob-exp" ng-model="postjob.experience" type="tel" ng-disabled="disabledjob">
                     </md-input-container>
                     <md-input-container class="md-icon-float" >
                         <!-- Use floating label instead of placeholder -->
                         <label>Educational Requirement (eg, min. 'O' Level, Degree)</label>
-                        <md-icon md-svg-src=""></md-icon>
+                        <md-icon md-svg-src="img/icon/education.svg"></md-icon>
                         <input id="postjob-educational" ng-model="postjob.educational" type="text" ng-disabled="disabledjob">
                     </md-input-container>
 
-                    <md-input-container flex>
+                    <md-input-container class="md-icon-float">
                         <label>Job Requirement</label>
-
-                        <textarea md-maxlength="500" ng-model="postjob.requirement" id="postjob-requirement" ng-disabled="disabledjob"></textarea>
+                        <md-icon md-svg-src="img/icon/jobd.svg"></md-icon>
+                        <textarea md-maxlength="500" ng-model="postjob.requirement" id="postjob-requirement" ng-disabled="disabledjob" style="margin-left: 35px; padding-top: 12px; height: 66px;"></textarea>
 
                     </md-input-container>
-                    <md-input-container flex>
+                    <md-input-container class="md-icon-float">
                         <label>Good To Have</label>
-
-                        <textarea md-maxlength="500" ng-model="postjob.goodtohave" id="postjob-goodtohave" ng-disabled="disabledjob"></textarea>
+                        <md-icon md-svg-src="img/icon/good.svg"></md-icon>
+                        <textarea md-maxlength="500" ng-model="postjob.goodtohave" id="postjob-goodtohave" ng-disabled="disabledjob" style="margin-left: 35px; padding-top: 12px; height: 66px;"></textarea>
 
                     </md-input-container>
                 </div>

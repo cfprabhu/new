@@ -145,12 +145,21 @@
                     <md-icon md-svg-src=""></md-icon>
 
                 </md-input-container> -->
+                <md-input-container >
+                    <div>
+                      <span style="margin-left: 36px;color: rgba(0, 0, 0, 0.54);font-size: 12px;font-family: Lato, sans-serif;">Country</span>  
+                    </div>
+                    <md-icon md-svg-src="img/icon/globe.svg" style="margin-top:15px;"></md-icon>
+                    <div style="margin-left:36px;">
+                        <country-select  id="experienceinfo-country" ng-model="exp.country"></country-select>
+                    </div>
+                </md-input-container>
                 <div layout layout-sm="column">
                     <md-input-container class="md-icon-float" >
 
                         <label>From</label>
                         <md-icon md-svg-src="img/icon/date.svg"></md-icon>
-                        <input id="experienceinfo-timestart" ng-model="exp.timestart" type="tel">
+                        <input id="experienceinfo-timestart" ng-model="exp.timestart" type="month">
                     </md-input-container>
 
                     <md-input-container class="md-icon-float" >
@@ -158,13 +167,17 @@
                         <label>To</label>
                         <md-icon md-svg-src="img/icon/date.svg"></md-icon>
 
-                        <input id="experienceinfo-timeend"  ng-model="exp.timeend" type="tel">
+                        <input id="experienceinfo-timeend"  ng-model="exp.timeend" type="month">
                     </md-input-container>
 
                 </div>
                 <md-input-container flex>
                     <label>Description</label>
                     <textarea md-maxlength="200" ng-model="exp.description" id="experienceinfo-description" ></textarea>
+                </md-input-container>
+                <md-input-container flex>
+                    <label>Key highlights</label>
+                    <textarea md-maxlength="200" ng-model="exp.highlights" id="experienceinfo-highlights" ></textarea>
                 </md-input-container>
                 <div><md-button  class="md-raised md-primary" ng-click="experiencesave();
                             status.open = !status.open">Save</md-button><md-button  class="md-warn" style="float: right;" ng-click="experienceAdd()">+Add work experience ({{expcounter}}/3)</md-button></div>

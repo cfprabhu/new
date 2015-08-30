@@ -161,10 +161,9 @@ function getFormatDataSuccess(mediaFileData) {
 
 function captureError(error) {
     // code 3 = cancel by user
-    alert('Returncode: ' + JSON.stringify(error.code));
-    if(JSON.stringify(error.code) === 3){
-        $('#videoEtakingbtn').text('Camera');
-    }
+    //alert('Returncode: ' + JSON.stringify(error.code));
+    $('#postjobvideo').hide();
+    $('#videoEtakingbtn').text('Camera');
 }
 
 function getFormatDataError(error) {

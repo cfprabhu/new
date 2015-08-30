@@ -515,8 +515,10 @@ module.controller('JSCollapseCtrl', function ($scope, $state, myService, $mdDial
         var timestart = $('#experienceinfo-timestart').val();
         var timeend = $('#experienceinfo-timeend').val();
         var description = $('#experienceinfo-description').val();
+        var country = $('#experienceinfo-country').val();
+        var highlights = $('#experienceinfo-highlights').val();
 
-        if(companyname == '' && title == '' && location == '' && timestart == '' && timeend == '' && description == ''){
+        if(companyname == '' && title == '' && location == '' && timestart == '' && timeend == '' && description == '' && country == '' && highlights == ''){
             $scope.myAlert('Please fill the all fields');
         }else if(companyname == ''){
             $scope.myAlert('Please enter the Company Name');
@@ -530,9 +532,13 @@ module.controller('JSCollapseCtrl', function ($scope, $state, myService, $mdDial
             $scope.myAlert('Please enter the To');
         }else if(description == ''){
             $scope.myAlert('Please enter your Description');
+        }else if(country == ''){
+            $scope.myAlert('Please enter your Country');
+        }else if(highlights == ''){
+            $scope.myAlert('Please enter your Key Highlights');
         }else{
 
-            experienceinfo = {companyname: companyname, title: title, location: location, timestart: timestart, timeend: timeend, description: description};
+            experienceinfo = {companyname: companyname, title: title, location: location, timestart: timestart, timeend: timeend, description: description, country:country, highlights:highlights};
             expArray.push(experienceinfo);
             //console.log(experienceinfo);
             localStorage.setItem('experienceinfo', JSON.stringify(expArray));
@@ -548,6 +554,8 @@ module.controller('JSCollapseCtrl', function ($scope, $state, myService, $mdDial
         $('#experienceinfo-timestart').val("");
         $('#experienceinfo-timeend').val("");
         $('#experienceinfo-description').val("");
+        $('#experienceinfo-country').val();
+        $('#experienceinfo-highlights').val();
 
         $scope.expcounter = expArray.length;
     };
@@ -825,13 +833,21 @@ module.controller('JSProfileCtrl', function ($scope, $state, $http, myService, $
         $scope.dob = new Date($scope.personalinfo.dob);
 
         $scope.educationinfo = data.education;
-        console.log($scope.educationinfo);
+        var eCount = $scope.educationinfo.length;
+        $scope.eShow = eCount;
+        $('#eCount').text(eCount);
+        
+
         for (var i = 0; i < $scope.educationinfo.length; i++) {
             $scope.startyear = new Date($scope.educationinfo[i].startyear);
             $scope.endyear = new Date($scope.educationinfo[i].endyear);
         }
 
         $scope.experienceinfo = data.experience;
+        var epCount = $scope.experienceinfo.length;
+        $scope.epShow = epCount;
+        $('#epCount').text(epCount)
+
         for (var i = 0; i < $scope.experienceinfo.length; i++) {
             $scope.timestart = new Date($scope.experienceinfo[i].timestart);
             $scope.timeend = new Date($scope.experienceinfo[i].timeend);
@@ -878,7 +894,8 @@ module.controller('JSProfileCtrl', function ($scope, $state, $http, myService, $
         });
     };
 
-    $scope.educationinfodelete = function (eduid) {
+    $scope.educationinfodelete1 = function (eduid) {
+        console.log(eduid);
         if(confirm('Would you like to delete it') == true){
             $.ajax({
                 method: "POST",
@@ -887,6 +904,14 @@ module.controller('JSProfileCtrl', function ($scope, $state, $http, myService, $
                 url: "http://www.primefield.co/jobsearch/updateeducationemployee.php"
             }).then(function (data) {
                 console.log(data);
+                var temp = parseInt($('#eCount').text());
+                if(temp != 0){
+                  $('#eCount').text(temp-1);  
+                }else{
+                    var temp = 0;
+                    $('#eCount').text(temp); 
+                }
+                $state.go($state.current, {}, {reload: true});  
             });
         }
         
@@ -908,7 +933,7 @@ module.controller('JSProfileCtrl', function ($scope, $state, $http, myService, $
         });
     };
 
-    $scope.experienceinfodelete = function (exid) {
+    $scope.experienceinfodelete1 = function (exid) {
         if(confirm('Would you like to delete it') == true){
             $.ajax({
                 method: "POST",
@@ -917,6 +942,14 @@ module.controller('JSProfileCtrl', function ($scope, $state, $http, myService, $
                 url: "http://www.primefield.co/jobsearch/updateexperienceemployee.php"
             }).then(function (data) {
                 console.log(data);
+                var temp = parseInt($('#epCount').text());
+                if(temp != 0){
+                   $('#epCount').text(temp-1) 
+               }else{
+                    var temp = 0;
+                    $('#epCount').text(temp);
+               }
+               $state.go($state.current, {}, {reload: true}); 
             });
         }    
     };
@@ -955,6 +988,155 @@ module.controller('JSProfileCtrl', function ($scope, $state, $http, myService, $
                 }, function () {
                     $scope.alert = 'You cancelled the dialog.';
                 });
+    };
+
+    var eduArray = [];
+    $scope.EenableBtn = false;
+    $scope.educationsave = function () {
+
+        var educationinfo = {};
+        var school = $('#educationinfo-school').val();
+        var year = $('#educationinfo-year').val();
+        var degree = $('#educationinfo-degree').val();
+        var country = $('#educationinfo-country').val();
+        var specialization = $('#educationinfo-specialization').val();
+        var activities = $('#educationinfo-activities').val();
+
+        if(school == '' && year == '' && degree == '' && country == '' && specialization == '' && activities == ''){
+          $scope.myAlert('Please fill the all fields');  
+        }else if(country == ''){
+            $scope.myAlert('Please slect the Country');
+        }else if(school == ''){
+            $scope.myAlert('Please enter the School Name');
+        }else if(year == ''){
+            $scope.myAlert('Please enter the Year Graduated');
+        }else if(degree == ''){
+            $scope.myAlert('Please enter the Degree');
+        }else if(specialization == ''){
+            $scope.myAlert('Please enter the Specialization');
+        }else if(activities == ''){
+            $scope.myAlert('Please enter your Activities and Societies');
+        }else{
+
+            educationinfo = {school: school, degree: degree, specialization: specialization, year: year, country: country, activities: activities};
+            eduArray.push(educationinfo);
+            //console.log(educationinfo);
+            localStorage.setItem('educationinfo', JSON.stringify(eduArray));
+            $scope.educounter = eduArray.length;
+            $('#epCount').text(eduArray.length);
+            if($scope.educounter==3){
+                var loginInfo = JSON.parse(localStorage.getItem('logininfo'));
+                var user_id = loginInfo.user_id;
+
+                //var personalinfo = JSON.parse(localStorage.getItem('personalinfo'));
+                var educationinfo = JSON.parse(localStorage.getItem('educationinfo'));
+                //var experienceinfo = JSON.parse(localStorage.getItem('experienceinfo'));
+                //var linkinfo = JSON.parse(localStorage.getItem('linkinfo'));
+                //var miscinfo = JSON.parse(localStorage.getItem('miscinfo'));
+
+                $.ajax({
+                    method: "POST",
+                    dataType: "json",
+                    data: {education: educationinfo, userid: user_id},
+                    url: "http://www.primefield.co/jobsearch/savepreview.php"
+                }).then(function (data) {
+                    console.log(data);
+                    $scope.EenableBtn = true;
+                    $state.go($state.current, {}, {reload: true});
+                });
+            }
+        }    
+    };
+
+    $scope.educationAdd = function () {
+        $('#educationinfo-school').val("");
+        $('#educationinfo-year').val("");
+        $('#educationinfo-degree').val("");
+        $('#educationinfo-specialization').val("");
+        $('#educationinfo-country').val("");
+        $('#educationinfo-activities').val("");
+
+        $scope.educounter = eduArray.length;
+    };
+
+    var expArray = [];
+    $scope.EPenableBtn = false;
+    $scope.experiencesave = function () {
+        var experienceinfo = {};
+        var companyname = $('#experienceinfo-company').val();
+        var title = $('#experienceinfo-title').val();
+        var location = $('#experienceinfo-location').val();
+        var timestart = $('#experienceinfo-timestart').val();
+        var timeend = $('#experienceinfo-timeend').val();
+        var description = $('#experienceinfo-description').val();
+        var country = $('#experienceinfo-country').val();
+        var highlights = $('#experienceinfo-highlights').val();
+
+        if(companyname == '' && title == '' && location == '' && timestart == '' && timeend == '' && description == '' && country == '' && highlights == ''){
+            $scope.myAlert('Please fill the all fields');
+        }else if(companyname == ''){
+            $scope.myAlert('Please enter the Company Name');
+        }else if(title == ''){
+            $scope.myAlert('Please enter the Title');
+        }else if(location == ''){
+            $scope.myAlert('Please enter the Location');
+        }else if(timestart == ''){
+            $scope.myAlert('Please enter the From');
+        }else if(timeend == ''){
+            $scope.myAlert('Please enter the To');
+        }else if(description == ''){
+            $scope.myAlert('Please enter your Description');
+        }else if(country == ''){
+            $scope.myAlert('Please enter your Country');
+        }else if(highlights == ''){
+            $scope.myAlert('Please enter your Key Highlights');
+        }else{
+
+            experienceinfo = {companyname: companyname, title: title, location: location, timestart: timestart, timeend: timeend, description: description, country:country, highlights:highlights};
+            expArray.push(experienceinfo);
+            //console.log(expArray);
+            localStorage.setItem('experienceinfo', JSON.stringify(expArray));
+
+            $scope.expcounter = expArray.length;
+            //console.log($('#epCount').text());
+            $('#epCount').text(expArray.length);
+
+            if($scope.expcounter == 3){
+                var loginInfo = JSON.parse(localStorage.getItem('logininfo'));
+                var user_id = loginInfo.user_id;
+
+                //var personalinfo = JSON.parse(localStorage.getItem('personalinfo'));
+                //var educationinfo = JSON.parse(localStorage.getItem('educationinfo'));
+                var experienceinfo = JSON.parse(localStorage.getItem('experienceinfo'));
+                //var linkinfo = JSON.parse(localStorage.getItem('linkinfo'));
+                //var miscinfo = JSON.parse(localStorage.getItem('miscinfo'));
+
+                $.ajax({
+                    method: "POST",
+                    dataType: "json",
+                    data: {experience: experienceinfo, userid: user_id},
+                    url: "http://www.primefield.co/jobsearch/savepreview.php"
+                }).then(function (data) {
+                    //console.log(data);
+                    $scope.EPenableBtn = true;
+                    $state.go($state.current, {}, {reload: true});
+                });
+
+            }
+        }    
+    };
+
+    $scope.experienceAdd = function () {
+        $('#experienceinfo-company').val("");
+        $('#experienceinfo-title').val("");
+        $('#experienceinfo-location').val("");
+        $('#experienceinfo-timestart').val("");
+        $('#experienceinfo-timeend').val("");
+        $('#experienceinfo-description').val("");
+        $('#experienceinfo-country').val("");
+        $('#experienceinfo-highlights').val("");
+
+        $scope.expcounter = expArray.length;
     };
 });
 function DialogController($scope, $mdDialog) {
@@ -1769,15 +1951,15 @@ module.controller('Estatsctrl', function ($scope, $state, $mdDialog) {
           'type': '40'
         },
         {
-          'name': 'Views per job',
+          'name': 'Views',
           'type': '10'
         },
         {
-          'name': 'Applicants per job',
+          'name': 'Applicants',
           'type': '20'
         },
         {
-          'name': 'Shortlisted per job',
+          'name': 'Shortlisted',
           'type': '10'
         }
       ];
@@ -1788,7 +1970,7 @@ module.controller('EPreviewCtrl', function ($scope, $state, $http, myService) {
     var loginInfo = JSON.parse(localStorage.getItem('logininfo'));
     var user_id = loginInfo.user_id;
 
-    console.log(myService.employer_company);
+    //console.log(myService.employer_company);
     $scope.company = myService.employer_company;
 
     $('#company-edit').show();
@@ -1820,15 +2002,15 @@ module.controller('EPreviewCtrl', function ($scope, $state, $http, myService) {
     };
 
     $scope.go = function () {
-        console.log($scope.company);
-        console.log(user_id);
+        //console.log($scope.company);
+        //console.log(user_id);
         $.ajax({
             method: "POST",
             dataType: "json",
             data: {userid: user_id, company: $scope.company},
             url: "http://www.primefield.co/jobsearch/saveemployerpreview.php"
         }).then(function (data) {
-            console.log(data);
+            //console.log(data);
             $state.go('employer-main');
         });
 
@@ -1848,7 +2030,7 @@ module.controller('EMainCtrl', function ($scope, $state, $http, myService) {
         data: {userid: user_id},
         url: "http://www.primefield.co/jobsearch/viewemployerprofile.php"
     }).then(function (data) {
-        console.log(data);
+        //console.log(data);
         myService.employer_company = data.company;
     });
 
@@ -2609,7 +2791,7 @@ module.controller('EProfileCtrl', function ($scope, $state, $http, myService, $m
         data: {userid: user_id},
         url: "http://www.primefield.co/jobsearch/viewemployerprofile.php"
     }).then(function (data) {
-        console.log(data);
+        //console.log(data);
         $scope.company = data.company;
     });
 
@@ -2626,7 +2808,7 @@ module.controller('EProfileCtrl', function ($scope, $state, $http, myService, $m
     $scope.go = function () {
         //console.log($scope.company.companyname)
         var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-        console.log(regex.test($scope.company.email));
+        //console.log(regex.test($scope.company.email));
         if($scope.company.companyname === '' || $scope.company.companyname == undefined){
             $scope.myAlert('Please enter the company name');
         }else if(!regex.test($scope.company.email) || $scope.company.email == '' || $scope.company.email == undefined){
@@ -2674,7 +2856,7 @@ module.controller('EPostJobCtrl', function ($scope, $state, $http, myService, $m
     }
     if (localStorage.getItem('postjobinfo') !== null) {
         var postjobinfo = JSON.parse(localStorage.getItem('postjobinfo'));
-        console.log(postjobinfo);
+        //console.log(postjobinfo);
         $scope.industry = postjobinfo.industry;
         $scope.deadline = new Date(postjobinfo.deadline.substring(0, 4), (postjobinfo.deadline.substring(5, 7) - 1), postjobinfo.deadline.substring(8, 10));
         $scope.postjob = postjobinfo;
@@ -2721,7 +2903,7 @@ module.controller('EPostJobCtrl', function ($scope, $state, $http, myService, $m
             postjob = {
                 industry: industry, title: title, currency:currency, salary: salary, deadline: deadline, experience: experience, requirement: requirement, educational: educational, goodtohave: goodtohave
             };
-            console.log(postjob)
+            //console.log(postjob)
 
             myService.employer_postjob = postjob;
 
@@ -2741,7 +2923,7 @@ module.controller('EPostJobCtrl', function ($scope, $state, $http, myService, $m
 });
 //Employer-video
 module.controller('EVideoCtrl', function ($scope, $state, $http, myService) {
-    console.log(myService.employer_postjob);
+    //console.log(myService.employer_postjob);
     $scope.gallery = function(){
         console.log('click gallery btn')
     }
@@ -2757,7 +2939,7 @@ module.controller('EPostJobPreviewCtrl', function ($scope, $state, $http, myServ
         data: {userid: user_id},
         url: "http://www.primefield.co/jobsearch/viewemployerprofile.php"
     }).then(function (data) {
-        console.log(data);
+        //console.log(data);
         $scope.company = data.company;
     });
 
@@ -2798,7 +2980,7 @@ module.controller('EPostJobPreviewCtrl', function ($scope, $state, $http, myServ
             data: {userid: user_id, company: $scope.company},
             url: "http://www.primefield.co/jobsearch/updatecompany.php"
         }).then(function (data) {
-            console.log(data);
+            //console.log(data);
 
         });
     };
@@ -2821,7 +3003,7 @@ module.controller('EPostJobPreviewCtrl', function ($scope, $state, $http, myServ
             data: {userid: user_id, postjob: $scope.postjob},
             url: "http://www.primefield.co/jobsearch/savepostjobpreview.php"
         }).then(function (data) {
-            console.log(data);
+            //console.log(data);
             $scope.postjob = {};
             localStorage.removeItem("postjobinfo");
             $state.go('employer-main');
@@ -2832,7 +3014,7 @@ module.controller('EPostJobPreviewCtrl', function ($scope, $state, $http, myServ
 module.controller('EOpenJobCtrl', function ($scope, $state, myService) {
     var loginInfo = JSON.parse(localStorage.getItem('logininfo'));
     var user_id = loginInfo.user_id;
-    console.log(user_id);
+    //console.log(user_id);
     $.ajax({
         method: "POST",
         dataType: "json",
@@ -2856,14 +3038,14 @@ module.controller('EOpenJobCtrl', function ($scope, $state, myService) {
         $scope.postjob = data.postjob;
         $scope.$apply();
 
-        console.log($scope.postjob);
+        //console.log($scope.postjob);
     });
 
     $scope.goToSelectedJob = function (index) {
         //console.log($scope.postjob[index]);
         myService.employer_postjob = {};
         myService.employer_postjob = $scope.postjob[index];
-        console.log(myService.employer_postjob);
+        //console.log(myService.employer_postjob);
         $state.go('employer-openjobdetail');
     };
     $scope.view = function (index, $event) {
@@ -2908,16 +3090,16 @@ module.controller('EOpenJobDetailCtrl', function ($scope, $state, $http, myServi
     $scope.view = function () {
 
         $state.go('employer-openjobdetailview');
-        console.log();
+        //console.log();
     };
     $scope.application = function () {
         $state.go('employer-openjobdetailapplication');
-        console.log();
+        //console.log();
     };
 
     $scope.shortlisted = function () {
         $state.go('employer-openjobdetailshortlisted');
-        console.log();
+        //console.log();
     };
 });
 //Employer-openjobdetailview
@@ -2925,7 +3107,7 @@ module.controller('EOpenJobDetailViewCtrl', function ($scope, $state, $http, myS
     var loginInfo = JSON.parse(localStorage.getItem('logininfo'));
     var user_id = loginInfo.user_id;
     $scope.postjob = myService.employer_postjob;
-    console.log($scope.postjob.jobid);
+    //console.log($scope.postjob.jobid);
     $.ajax({
         method: "POST",
         dataType: "json",
@@ -2947,7 +3129,7 @@ module.controller('EOpenJobDetailViewCtrl', function ($scope, $state, $http, myS
 module.controller('EJSProfileCtrl', function ($scope, $state, $http, myService, $mdDialog) {
     $scope.isdisabled = true;
     var user_id = myService.user.userid;
-    console.log(user_id);
+    //console.log(user_id);
     $.ajax({
         method: "POST",
         dataType: "json",
@@ -2975,7 +3157,7 @@ module.controller('EJSProfileCtrl', function ($scope, $state, $http, myService, 
         nselected = $scope.radiobutton.group1;
     };
     $scope.personalinfoupdate = function () {
-        console.log($scope.personalinfo)
+        //console.log($scope.personalinfo)
         $scope.personalinfo.gender = nselected;
         var abc = $('#personalinfo-dob').val();
         $scope.personalinfo.dob = abc;
@@ -2985,7 +3167,7 @@ module.controller('EJSProfileCtrl', function ($scope, $state, $http, myService, 
             data: {userid: user_id, personal: $scope.personalinfo},
             url: "http://www.primefield.co/jobsearch/updatepersonalemployee.php"
         }).then(function (data) {
-            console.log(data);
+            //console.log(data);
         });
     };
 
@@ -2995,14 +3177,14 @@ module.controller('EJSProfileCtrl', function ($scope, $state, $http, myService, 
         $scope.educationinfo[index].startyear = sy;
         var ey = $('#educationinfo-endyear').val();
         $scope.educationinfo[index].endyear = ey;
-        console.log($scope.educationinfo[index]);
+        //console.log($scope.educationinfo[index]);
         $.ajax({
             method: "POST",
             dataType: "json",
             data: {eduid: eduid, education: $scope.educationinfo[index], action: "update"},
             url: "http://www.primefield.co/jobsearch/updateeducationemployee.php"
         }).then(function (data) {
-            console.log(data);
+            //console.log(data);
         });
     };
 
@@ -3014,7 +3196,7 @@ module.controller('EJSProfileCtrl', function ($scope, $state, $http, myService, 
                 data: {eduid: eduid, action: "delete"},
                 url: "http://www.primefield.co/jobsearch/updateeducationemployee.php"
             }).then(function (data) {
-                console.log(data);
+                //console.log(data);
             });
         }
         
@@ -3025,14 +3207,14 @@ module.controller('EJSProfileCtrl', function ($scope, $state, $http, myService, 
         $scope.experienceinfo[index].timestart = st;
         var ee = $('#experienceinfo-timeend').val();
         $scope.experienceinfo[index].timeend = ee;
-        console.log($scope.experienceinfo[index]);
+        //console.log($scope.experienceinfo[index]);
         $.ajax({
             method: "POST",
             dataType: "json",
             data: {exid: exid, experience: $scope.experienceinfo[index], action: "update"},
             url: "http://www.primefield.co/jobsearch/updateexperienceemployee.php"
         }).then(function (data) {
-            console.log(data);
+            //console.log(data);
         });
     };
 
@@ -3044,7 +3226,7 @@ module.controller('EJSProfileCtrl', function ($scope, $state, $http, myService, 
                 data: {exid: exid, action: "delete"},
                 url: "http://www.primefield.co/jobsearch/updateexperienceemployee.php"
             }).then(function (data) {
-                console.log(data);
+                //console.log(data);
             });
         }    
     };
@@ -3056,7 +3238,7 @@ module.controller('EJSProfileCtrl', function ($scope, $state, $http, myService, 
             data: {userid: user_id, social: $scope.link},
             url: "http://www.primefield.co/jobsearch/updatesocialemployee.php"
         }).then(function (data) {
-            console.log(data);
+            //console.log(data);
         });
     };
 
@@ -3067,7 +3249,7 @@ module.controller('EJSProfileCtrl', function ($scope, $state, $http, myService, 
             data: {userid: user_id, miscellaneous: $scope.misc},
             url: "http://www.primefield.co/jobsearch/updatemiscellaneousemployee.php"
         }).then(function (data) {
-            console.log(data);
+            //console.log(data);
         });
     };
 
@@ -3077,20 +3259,20 @@ module.controller('EOpenJobDetailShortlistedJobseekerCtrl', function ($scope, $s
 
     var user_id = myService.user.userid;
     ///$scope.isdisabled = false;
-    console.log(user_id);
+    //console.log(user_id);
     $.ajax({
         method: "POST",
         dataType: "json",
         data: {userid: user_id},
         url: "http://www.primefield.co/jobsearch/viewemployeeprofile.php"
     }).then(function (data) {
-        console.log(data);
+        //console.log(data);
         $scope.personalinfo = data.personal;
         $scope.radiobutton = {group1: $scope.personalinfo.gender};
         $scope.dob = new Date($scope.personalinfo.dob);
 
         $scope.educationinfo = data.education;
-        console.log($scope.educationinfo);
+        //console.log($scope.educationinfo);
         for (var i = 0; i < $scope.educationinfo.length; i++) {
             $scope.startyear = new Date($scope.educationinfo[i].startyear);
             $scope.endyear = new Date($scope.educationinfo[i].endyear);
@@ -3150,7 +3332,7 @@ module.controller('EOpenJobDetailShortlistedJobseekerCtrl', function ($scope, $s
 
 
     $scope.personalinfoupdate = function () {
-        console.log($scope.personalinfo)
+        //console.log($scope.personalinfo)
         $scope.personalinfo.gender = nselected;
         var abc = $('#personalinfo-dob').val();
         $scope.personalinfo.dob = abc;
@@ -3160,7 +3342,7 @@ module.controller('EOpenJobDetailShortlistedJobseekerCtrl', function ($scope, $s
             data: {userid: user_id, personal: $scope.personalinfo},
             url: "http://www.primefield.co/jobsearch/updatepersonalemployee.php"
         }).then(function (data) {
-            console.log(data);
+            //console.log(data);
         });
     };
 
@@ -3170,14 +3352,14 @@ module.controller('EOpenJobDetailShortlistedJobseekerCtrl', function ($scope, $s
         $scope.educationinfo[index].startyear = sy;
         var ey = $('#educationinfo-endyear').val();
         $scope.educationinfo[index].endyear = ey;
-        console.log($scope.educationinfo[index]);
+        //console.log($scope.educationinfo[index]);
         $.ajax({
             method: "POST",
             dataType: "json",
             data: {eduid: eduid, education: $scope.educationinfo[index], action: "update"},
             url: "http://www.primefield.co/jobsearch/updateeducationemployee.php"
         }).then(function (data) {
-            console.log(data);
+            //console.log(data);
         });
     };
 
@@ -3189,7 +3371,7 @@ module.controller('EOpenJobDetailShortlistedJobseekerCtrl', function ($scope, $s
                 data: {eduid: eduid, action: "delete"},
                 url: "http://www.primefield.co/jobsearch/updateeducationemployee.php"
             }).then(function (data) {
-                console.log(data);
+                //console.log(data);
             });
         }
         
@@ -3200,14 +3382,14 @@ module.controller('EOpenJobDetailShortlistedJobseekerCtrl', function ($scope, $s
         $scope.experienceinfo[index].timestart = st;
         var ee = $('#experienceinfo-timeend').val();
         $scope.experienceinfo[index].timeend = ee;
-        console.log($scope.experienceinfo[index]);
+        //console.log($scope.experienceinfo[index]);
         $.ajax({
             method: "POST",
             dataType: "json",
             data: {exid: exid, experience: $scope.experienceinfo[index], action: "update"},
             url: "http://www.primefield.co/jobsearch/updateexperienceemployee.php"
         }).then(function (data) {
-            console.log(data);
+            //console.log(data);
         });
     };
 
@@ -3219,7 +3401,7 @@ module.controller('EOpenJobDetailShortlistedJobseekerCtrl', function ($scope, $s
                 data: {exid: exid, action: "delete"},
                 url: "http://www.primefield.co/jobsearch/updateexperienceemployee.php"
             }).then(function (data) {
-                console.log(data);
+                //console.log(data);
             });
         }    
     };
@@ -3231,7 +3413,7 @@ module.controller('EOpenJobDetailShortlistedJobseekerCtrl', function ($scope, $s
             data: {userid: user_id, social: $scope.link},
             url: "http://www.primefield.co/jobsearch/updatesocialemployee.php"
         }).then(function (data) {
-            console.log(data);
+            //console.log(data);
         });
     };
 
@@ -3242,7 +3424,7 @@ module.controller('EOpenJobDetailShortlistedJobseekerCtrl', function ($scope, $s
             data: {userid: user_id, miscellaneous: $scope.misc},
             url: "http://www.primefield.co/jobsearch/updatemiscellaneousemployee.php"
         }).then(function (data) {
-            console.log(data);
+            //console.log(data);
         });
     };
 
@@ -3252,7 +3434,7 @@ module.controller('EOpenJobDetailShortlistedCtrl', function ($scope, $state, $ht
     var loginInfo = JSON.parse(localStorage.getItem('logininfo'));
     var user_id = loginInfo.user_id;
     $scope.postjob = myService.employer_postjob;
-    console.log($scope.postjob.jobid);
+    //console.log($scope.postjob.jobid);
     $.ajax({
         method: "POST",
         dataType: "json",
@@ -3275,7 +3457,7 @@ module.controller('EOpenJobDetailApplicationCtrl', function ($scope, $state, $ht
     var loginInfo = JSON.parse(localStorage.getItem('logininfo'));
     var user_id = loginInfo.user_id;
     $scope.postjob = myService.employer_postjob;
-    console.log($scope.postjob.jobid);
+    //console.log($scope.postjob.jobid);
     $.ajax({
         method: "POST",
         dataType: "json",
@@ -3297,20 +3479,20 @@ module.controller('EOpenJobDetailApplicationCtrl', function ($scope, $state, $ht
 module.controller('EOpenJobDetailApplicationJobseekerCtrl', function ($scope, $state, $http, myService, $mdDialog) {
     $scope.isdisabled = true;
     var user_id = myService.user.userid;
-    console.log(user_id);
+    //console.log(user_id);
     $.ajax({
         method: "POST",
         dataType: "json",
         data: {userid: user_id},
         url: "http://www.primefield.co/jobsearch/viewemployeeprofile.php"
     }).then(function (data) {
-        console.log(data);
+        //console.log(data);
         $scope.personalinfo = data.personal;
         $scope.radiobutton = {group1: $scope.personalinfo.gender};
         $scope.dob = new Date($scope.personalinfo.dob);
 
         $scope.educationinfo = data.education;
-        console.log($scope.educationinfo);
+        //console.log($scope.educationinfo);
         for (var i = 0; i < $scope.educationinfo.length; i++) {
             $scope.startyear = new Date($scope.educationinfo[i].startyear);
             $scope.endyear = new Date($scope.educationinfo[i].endyear);
@@ -3333,7 +3515,7 @@ module.controller('EOpenJobDetailApplicationJobseekerCtrl', function ($scope, $s
         nselected = $scope.radiobutton.group1;
     };
     $scope.personalinfoupdate = function () {
-        console.log($scope.personalinfo)
+        //console.log($scope.personalinfo)
         $scope.personalinfo.gender = nselected;
         var abc = $('#personalinfo-dob').val();
         $scope.personalinfo.dob = abc;
@@ -3343,7 +3525,7 @@ module.controller('EOpenJobDetailApplicationJobseekerCtrl', function ($scope, $s
             data: {userid: user_id, personal: $scope.personalinfo},
             url: "http://www.primefield.co/jobsearch/updatepersonalemployee.php"
         }).then(function (data) {
-            console.log(data);
+            //console.log(data);
         });
     };
 
@@ -3353,14 +3535,14 @@ module.controller('EOpenJobDetailApplicationJobseekerCtrl', function ($scope, $s
         $scope.educationinfo[index].startyear = sy;
         var ey = $('#educationinfo-endyear').val();
         $scope.educationinfo[index].endyear = ey;
-        console.log($scope.educationinfo[index]);
+        //console.log($scope.educationinfo[index]);
         $.ajax({
             method: "POST",
             dataType: "json",
             data: {eduid: eduid, education: $scope.educationinfo[index], action: "update"},
             url: "http://www.primefield.co/jobsearch/updateeducationemployee.php"
         }).then(function (data) {
-            console.log(data);
+            //console.log(data);
         });
     };
 
@@ -3372,7 +3554,7 @@ module.controller('EOpenJobDetailApplicationJobseekerCtrl', function ($scope, $s
                 data: {eduid: eduid, action: "delete"},
                 url: "http://www.primefield.co/jobsearch/updateeducationemployee.php"
             }).then(function (data) {
-                console.log(data);
+                //console.log(data);
             });
         }
         
@@ -3383,14 +3565,14 @@ module.controller('EOpenJobDetailApplicationJobseekerCtrl', function ($scope, $s
         $scope.experienceinfo[index].timestart = st;
         var ee = $('#experienceinfo-timeend').val();
         $scope.experienceinfo[index].timeend = ee;
-        console.log($scope.experienceinfo[index]);
+        //console.log($scope.experienceinfo[index]);
         $.ajax({
             method: "POST",
             dataType: "json",
             data: {exid: exid, experience: $scope.experienceinfo[index], action: "update"},
             url: "http://www.primefield.co/jobsearch/updateexperienceemployee.php"
         }).then(function (data) {
-            console.log(data);
+            //console.log(data);
         });
     };
 
@@ -3402,7 +3584,7 @@ module.controller('EOpenJobDetailApplicationJobseekerCtrl', function ($scope, $s
                 data: {exid: exid, action: "delete"},
                 url: "http://www.primefield.co/jobsearch/updateexperienceemployee.php"
             }).then(function (data) {
-                console.log(data);
+                //console.log(data);
             });
         }    
     };
@@ -3414,7 +3596,7 @@ module.controller('EOpenJobDetailApplicationJobseekerCtrl', function ($scope, $s
             data: {userid: user_id, social: $scope.link},
             url: "http://www.primefield.co/jobsearch/updatesocialemployee.php"
         }).then(function (data) {
-            console.log(data);
+            //console.log(data);
         });
     };
 
@@ -3425,7 +3607,7 @@ module.controller('EOpenJobDetailApplicationJobseekerCtrl', function ($scope, $s
             data: {userid: user_id, miscellaneous: $scope.misc},
             url: "http://www.primefield.co/jobsearch/updatemiscellaneousemployee.php"
         }).then(function (data) {
-            console.log(data);
+            //console.log(data);
         });
     };
 
@@ -3661,7 +3843,7 @@ function SearchCtrl($timeout, $q, $http, $scope, $state, myserv) {
             myserv.jobsFilter = filterResults;
         }
 
-        console.log(myserv.jobsFilter);
+        //console.log(myserv.jobsFilter);
 
         if ($scope.ctrl.salary > 0) {
             var i = myserv.jobsFilter.length;
@@ -3701,7 +3883,7 @@ function searchResult($scope, $q, $timeout, $state, myserv) {
     };
 
     $scope.goToJob = function (job) {
-        console.log(job);
+        //console.log(job);
         myserv.currentjob = {};
         myserv.currentjob = job;
         $state.go('searchData-company');
