@@ -44,7 +44,7 @@
                     <!-- Use floating label instead of placeholder -->
                     <label>Company's Name</label>
                     <md-icon md-svg-src="img/icon/company.svg"></md-icon>
-                    <input id="company-companyname" ng-model="company.companyname" type="text">
+                    <input id="company-companyname" ng-model="company.companyname" type="text" required>
                 </md-input-container>
                 <md-input-container class="md-icon-float" >
                     <!-- Use floating label instead of placeholder -->
@@ -55,7 +55,7 @@
                 <md-input-container class="md-icon-float" >
                     <!-- Use floating label instead of placeholder -->
                     <label>Country Code</label>
-                    <md-icon md-svg-src="img/icon/phone.svg"></md-icon>
+                    <md-icon md-svg-src="img/icon/globe.svg"></md-icon>
                     <input id="company-phonecountry" ng-model="company.phonecountry" type="text" disabled="disabled">
                 </md-input-container>
                 <md-input-container class="md-icon-float" >
@@ -68,7 +68,7 @@
                     <!-- Use floating label instead of placeholder -->
                     <label>Company's Email</label>
                     <md-icon md-svg-src="img/icon/email.svg"></md-icon>
-                    <input id="company-email" ng-model="company.email" type="text">
+                    <input id="company-email" ng-model="company.email" type="email" required>
                 </md-input-container>
                 <md-input-container class="md-icon-float" >
                     <!-- Use floating label instead of placeholder -->
@@ -86,7 +86,7 @@
             </accordion-group>
         </accordion>
         <div class="footer-button-group">
-            <md-button class="md-fab md-primary footer-button" ng-click="go()">GO</md-button>
+            <md-button class="md-fab md-primary footer-button" ng-click="go()" ng-disabled="company.email.$invalid">GO</md-button>
         </div>
     </div>
 

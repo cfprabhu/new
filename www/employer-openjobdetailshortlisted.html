@@ -13,7 +13,7 @@
         </md-content>
         <div style="width: 100%;" >
             <md-subheader style="font-size: 20px;  ">
-                {{postjob.title}}<span style="float: right; ">{{postjob.deadline}}</span>
+                {{postjob.title}}<span style="float: right; ">{{postjob.deadline | date:'dd/MM/yyyy'}}</span>
             </md-subheader>
             <md-divider></md-divider>
              <md-subheader style="font-size: 20px;  ">
@@ -22,7 +22,7 @@
             <md-divider></md-divider>
             <md-list>
                 <md-list-item class="md-3-line" ng-repeat="x in user" ng-click="goToSelectedUser($index)">
-                    <img ng-src="{{x.image}}" class="md-avatar" alt="{{x.userid}}" />
+                    <img ng-src="{{x.image}}" class="md-avatar" alt="" />
                     <div class="md-list-item-text">
                         <h3>{{ x.firstname}} {{x.lastname}}</h3>
 

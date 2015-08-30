@@ -78,6 +78,7 @@ function backsignout() {
  */
 
 function captureVideo(highquality, frontcamera, duration) {
+
     window.plugins.videocaptureplus.captureVideo(
             captureSuccess,
             captureError,
@@ -95,6 +96,8 @@ function captureVideo(highquality, frontcamera, duration) {
 
 function captureSuccess(mediaFiles) {
     var videoName = localStorage.getItem("userID");
+    $('#videoEtakingbtn').text('Retake');
+    $('#postjobvideo').show();
     var i, len;
 
     for (i = 0, len = mediaFiles.length; i < len; i++) {
@@ -158,7 +161,10 @@ function getFormatDataSuccess(mediaFileData) {
 
 function captureError(error) {
     // code 3 = cancel by user
-    //alert('Returncode: ' + JSON.stringify(error.code));
+    alert('Returncode: ' + JSON.stringify(error.code));
+    if(JSON.stringify(error.code) === 3){
+        $('#videoEtakingbtn').text('Camera');
+    }
 }
 
 function getFormatDataError(error) {

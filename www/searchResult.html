@@ -10,7 +10,7 @@
             </div>
         </md-toolbar>
     </md-content>
-        <table md-data-table>
+        <!-- <table md-data-table>
             <thead md-order="query.order" md-trigger="orderBy">
                 <tr>
                     <th name="Company Name" order-by="companyname"></th>
@@ -27,8 +27,28 @@
                     <td>{{x.salary}}</td>
                 </tr>
             </tbody>
-        </table>
+        </table> -->
     </md-data-table-container>
+    <md-grid-list
+        md-cols-sm="1" md-cols-md="2" md-cols-gt-md="6"
+        md-row-height-gt-md="1:1" md-row-height="4:3"
+        md-gutter="8px" md-gutter-gt-sm="4px" >
+    <md-grid-tile ng-repeat="x in myserv.jobsFilter | orderBy: query.order"
+                  md-rowspan="{{x.span.row}}"
+                  md-colspan="{{x.span.col}}"
+                  md-colspan-sm="1"
+                  ng-class="darkBlue" style="background-color:#80d8ff" ng-click="goToJob(x)">
+      <md-icon md-svg-icon="{{x.icon}}"></md-icon>
+        <md-grid-tile-header>
+            <div>Company Name: {{x.companyname}}</div>
+            <div>Salary: ${{x.salary}}</div>
+        </md-grid-tile-header>
+        <md-grid-tile-footer>
+            <div>Title: {{x.title}}</div>
+            <div>Dead line: {{x.deadline}}</div>
+        </md-grid-tile-footer>
+    </md-grid-tile>
+  </md-grid-list>
 </div>
 
 

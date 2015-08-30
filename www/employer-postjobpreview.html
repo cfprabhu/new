@@ -86,6 +86,7 @@
                             <img style="margin:0 auto;" border="1" id="p-img" class="preview-image pic-border" src="img/play-btn.jpg" alt=""/>
                         </div>
                         <div class="btn-group" dropdown is-open="status.isopen" >
+                            <md-icon md-svg-src="img/icon/category_settings.svg"></md-icon>
                             <md-button id="industry-button" dropdown-toggle  ng-disabled="disabledjob">
                                 {{industry}}   <span class="caret"></span>
                             </md-button>
@@ -98,8 +99,19 @@
                     <md-input-container class="md-icon-float" >
                         <!-- Use floating label instead of placeholder -->
                         <label>Job Title</label>
-                        <md-icon md-svg-src=""></md-icon>
+                        <md-icon md-svg-src="img/icon/job.svg"></md-icon>
                         <input id="postjob-title" ng-model="postjob.title" type="text" ng-disabled="disabledjob">
+                    </md-input-container>
+                    <md-input-container class="md-icon-float" >
+                        <!-- Use floating label instead of placeholder -->
+                        
+                        <md-icon md-svg-src="img/icon/currencye.svg" style="margin-top: 12px;"></md-icon>
+                        <!-- <input id="postjob-currency" ng-model="postjob.currency" type="text"> -->
+                        <md-select ng-model="postjob.currency" id="postjob-currency" style="margin-left:37px;" ng-disabled="disabledjob">
+                          <md-option value="" selected="selected">Select Currency</md-option>  
+                          <md-option value="USD" ng-selected="postjob.currency=='USD'">USD</md-option>
+                          <md-option value="INR" ng-selected="postjob.currency=='INR'">INR</md-option>
+                        </md-select>
                     </md-input-container>
                     <md-input-container class="md-icon-float" >
                         <!-- Use floating label instead of placeholder -->
@@ -116,26 +128,26 @@
                     <md-input-container class="md-icon-float" >
                         <!-- Use floating label instead of placeholder -->
                         <label>Experience Needed (min. Year)</label>
-                        <md-icon md-svg-src=""></md-icon>
+                        <md-icon md-svg-src="img/icon/experience.svg"></md-icon>
                         <input id="postjob-exp" ng-model="postjob.experience" type="tel" ng-disabled="disabledjob">
                     </md-input-container>
                     <md-input-container class="md-icon-float" >
                         <!-- Use floating label instead of placeholder -->
                         <label>Educational Requirement (eg, min. 'O' Level, Degree)</label>
-                        <md-icon md-svg-src=""></md-icon>
+                        <md-icon md-svg-src="img/icon/education.svg"></md-icon>
                         <input id="postjob-educational" ng-model="postjob.educational" type="text" ng-disabled="disabledjob">
                     </md-input-container>
 
-                    <md-input-container flex>
-                        <label>Job Requirement</label>
-
-                        <textarea md-maxlength="500" ng-model="postjob.requirement" id="postjob-requirement" ng-disabled="disabledjob"></textarea>
+                    <md-input-container>
+                        <label style="margin-left:35px;">Job Requirement</label>
+                        <md-icon md-svg-src="img/icon/jobd.svg"></md-icon>
+                        <textarea md-maxlength="500" ng-model="postjob.requirement" id="postjob-requirement" ng-disabled="disabledjob" style="margin-left:35px;"></textarea>
 
                     </md-input-container>
-                    <md-input-container flex>
-                        <label>Good To Have</label>
-
-                        <textarea md-maxlength="500" ng-model="postjob.goodtohave" id="postjob-goodtohave" ng-disabled="disabledjob"></textarea>
+                    <md-input-container>
+                        <label style="margin-left:35px;">Good To Have</label>
+                        <md-icon md-svg-src="img/icon/good.svg"></md-icon>
+                        <textarea md-maxlength="500" ng-model="postjob.goodtohave" id="postjob-goodtohave" ng-disabled="disabledjob" style="margin-left:35px;"></textarea>
 
                     </md-input-container>
                     <div>
