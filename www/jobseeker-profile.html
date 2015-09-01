@@ -112,7 +112,7 @@
                             </div>
                             <md-icon md-svg-src="img/icon/globe.svg" style="margin-top:15px;"></md-icon>
                             <div style="margin-left:36px;">
-                                <country-select  id="educationinfo-country" ng-model="edu.country"></country-select>
+                                <country-select  id="educationinfo-country" ng-model="edu.country" style="width: 200px;"></country-select>
                             </div>
                         </md-input-container>
 
@@ -144,30 +144,30 @@
                     <md-input-container class="md-icon-float" style="margin-top: 0.5em" >
                         <label>School</label>
                         <md-icon md-svg-src="img/icon/school.svg"></md-icon>
-                        <input id="educationinfo-school" ng-model="edu.school" type="text">
+                        <input id="educationinfo-school1" ng-model="edu.school" type="text">
                     </md-input-container>
                     <md-input-container class="md-icon-float" >
                         <label>Year Graduated</label>
                         <md-icon md-svg-src="img/icon/date.svg"></md-icon>
-                        <input id="educationinfo-year" ng-model="edu.year" type="tel">
+                        <input id="educationinfo-year1" ng-model="edu.year" type="tel">
                     </md-input-container>                
                     <md-input-container class="md-icon-float" >
-                        <country-select  id="educationinfo-country" ng-model="edu.country"></country-select>
+                        <country-select  id="educationinfo-country1" ng-model="edu.country"></country-select>
                     </md-input-container>
                     <md-input-container class="md-icon-float">
                         <label>Degree</label>
                         <md-icon md-svg-src="img/icon/education.svg"></md-icon>
-                        <input id="educationinfo-degree" ng-model="edu.degree" type="text">
+                        <input id="educationinfo-degree1" ng-model="edu.degree" type="text">
                     </md-input-container>
                     <md-input-container class="md-icon-float">
                         <label>Specialization</label>
                         <md-icon md-svg-src="img/icon/star.svg"></md-icon>
-                        <input id="educationinfo-specialization" ng-model="edu.specialization" type="text">
+                        <input id="educationinfo-specialization1" ng-model="edu.specialization" type="text">
                     </md-input-container>
                     <md-input-container flex>
                         <label>Activities and Societies</label>
 
-                        <textarea md-maxlength="200" ng-model="edu.activities" id="educationinfo-activities" ></textarea>
+                        <textarea md-maxlength="200" ng-model="edu.activities" id="educationinfo-activities1" ></textarea>
 
                     </md-input-container>
                     <div><md-button  class="md-raised md-primary" ng-click="educationsave();
@@ -209,7 +209,7 @@
                             </div>
                             <md-icon md-svg-src="img/icon/globe.svg" style="margin-top:15px;"></md-icon>
                             <div style="margin-left:36px;">
-                                <country-select  id="experienceinfo-country" ng-model="exp.country"></country-select>
+                                <country-select  id="experienceinfo-country" ng-model="exp.country" style="width: 200px;"></country-select>
                             </div>
                         </md-input-container>
                         <div layout layout-sm="column">
@@ -265,7 +265,7 @@
                         </div>
                         <md-icon md-svg-src="img/icon/globe.svg" style="margin-top:15px;"></md-icon>
                         <div style="margin-left:36px;">
-                            <country-select  id="experienceinfo-country" ng-model="exp.country"></country-select>
+                            <country-select  id="experienceinfo-country" ng-model="exp.country" style="width: 200px;"></country-select>
                         </div>
                     </md-input-container>
                     <div layout layout-sm="column">

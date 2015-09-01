@@ -5,3 +5,6 @@
 .badge {
   	margin-bottom: 5px !important;
 }
+select {
+    width: 273px !important;
+}

@@ -827,7 +827,7 @@ module.controller('JSProfileCtrl', function ($scope, $state, $http, myService, $
         data: {userid: user_id},
         url: "http://www.primefield.co/jobsearch/viewemployeeprofile.php"
     }).then(function (data) {
-        console.log(data);
+        //console.log(data);
         $scope.personalinfo = data.personal;
         $scope.radiobutton = {group1: $scope.personalinfo.gender};
         $scope.dob = new Date($scope.personalinfo.dob);
@@ -873,7 +873,7 @@ module.controller('JSProfileCtrl', function ($scope, $state, $http, myService, $
             data: {userid: user_id, personal: $scope.personalinfo},
             url: "http://www.primefield.co/jobsearch/updatepersonalemployee.php"
         }).then(function (data) {
-            console.log(data);
+            //console.log(data);
         });
     };
 
@@ -890,12 +890,12 @@ module.controller('JSProfileCtrl', function ($scope, $state, $http, myService, $
             data: {eduid: eduid, education: $scope.educationinfo[index], action: "update"},
             url: "http://www.primefield.co/jobsearch/updateeducationemployee.php"
         }).then(function (data) {
-            console.log(data);
+            //console.log(data);
         });
     };
 
     $scope.educationinfodelete1 = function (eduid) {
-        console.log(eduid);
+        //console.log(eduid);
         if(confirm('Would you like to delete it') == true){
             $.ajax({
                 method: "POST",
@@ -903,7 +903,7 @@ module.controller('JSProfileCtrl', function ($scope, $state, $http, myService, $
                 data: {eduid: eduid, action: "delete"},
                 url: "http://www.primefield.co/jobsearch/updateeducationemployee.php"
             }).then(function (data) {
-                console.log(data);
+                //console.log(data);
                 var temp = parseInt($('#eCount').text());
                 if(temp != 0){
                   $('#eCount').text(temp-1);  
@@ -922,14 +922,14 @@ module.controller('JSProfileCtrl', function ($scope, $state, $http, myService, $
         $scope.experienceinfo[index].timestart = st;
         var ee = $('#experienceinfo-timeend').val();
         $scope.experienceinfo[index].timeend = ee;
-        console.log($scope.experienceinfo[index]);
+        //console.log($scope.experienceinfo[index]);
         $.ajax({
             method: "POST",
             dataType: "json",
             data: {exid: exid, experience: $scope.experienceinfo[index], action: "update"},
             url: "http://www.primefield.co/jobsearch/updateexperienceemployee.php"
         }).then(function (data) {
-            console.log(data);
+            //console.log(data);
         });
     };
 
@@ -941,7 +941,7 @@ module.controller('JSProfileCtrl', function ($scope, $state, $http, myService, $
                 data: {exid: exid, action: "delete"},
                 url: "http://www.primefield.co/jobsearch/updateexperienceemployee.php"
             }).then(function (data) {
-                console.log(data);
+                //console.log(data);
                 var temp = parseInt($('#epCount').text());
                 if(temp != 0){
                    $('#epCount').text(temp-1) 
@@ -961,7 +961,7 @@ module.controller('JSProfileCtrl', function ($scope, $state, $http, myService, $
             data: {userid: user_id, social: $scope.link},
             url: "http://www.primefield.co/jobsearch/updatesocialemployee.php"
         }).then(function (data) {
-            console.log(data);
+            //console.log(data);
         });
     };
 
@@ -972,7 +972,7 @@ module.controller('JSProfileCtrl', function ($scope, $state, $http, myService, $
             data: {userid: user_id, miscellaneous: $scope.misc},
             url: "http://www.primefield.co/jobsearch/updatemiscellaneousemployee.php"
         }).then(function (data) {
-            console.log(data);
+            //console.log(data);
         });
     };
 
@@ -993,16 +993,16 @@ module.controller('JSProfileCtrl', function ($scope, $state, $http, myService, $
     var eduArray = [];
     $scope.EenableBtn = false;
     $scope.educationsave = function () {
-
+        //console.log('dd')
         var educationinfo = {};
-        var school = $('#educationinfo-school').val();
-        var year = $('#educationinfo-year').val();
-        var degree = $('#educationinfo-degree').val();
-        var country = $('#educationinfo-country').val();
-        var specialization = $('#educationinfo-specialization').val();
-        var activities = $('#educationinfo-activities').val();
+        var school = $('#educationinfo-school1').val();
+        var year = $('#educationinfo-year1').val();
+        var degree = $('#educationinfo-degree1').val();
+        var country = $('#educationinfo-country1').val();
+        var specialization = $('#educationinfo-specialization1').val();
+        var activities = $('#educationinfo-activities1').val();
 
-        if(school == '' && year == '' && degree == '' && country == '' && specialization == '' && activities == ''){
+        if(school == '' && year == '' && degree == '' && country == '? undefined:undefined ?' && specialization == '' && activities == ''){
           $scope.myAlert('Please fill the all fields');  
         }else if(country == ''){
             $scope.myAlert('Please slect the Country');
@@ -1023,7 +1023,7 @@ module.controller('JSProfileCtrl', function ($scope, $state, $http, myService, $
             //console.log(educationinfo);
             localStorage.setItem('educationinfo', JSON.stringify(eduArray));
             $scope.educounter = eduArray.length;
-            $('#epCount').text(eduArray.length);
+            $('#eCount').text(eduArray.length);
             if($scope.educounter==3){
                 var loginInfo = JSON.parse(localStorage.getItem('logininfo'));
                 var user_id = loginInfo.user_id;
@@ -1049,12 +1049,13 @@ module.controller('JSProfileCtrl', function ($scope, $state, $http, myService, $
     };
 
     $scope.educationAdd = function () {
-        $('#educationinfo-school').val("");
-        $('#educationinfo-year').val("");
-        $('#educationinfo-degree').val("");
-        $('#educationinfo-specialization').val("");
-        $('#educationinfo-country').val("");
-        $('#educationinfo-activities').val("");
+        //console.log('aa')
+        $('#educationinfo-school1').val("");
+        $('#educationinfo-year1').val("");
+        $('#educationinfo-degree1').val("");
+        $('#educationinfo-specialization1').val("");
+        $('#educationinfo-country1').val("");
+        $('#educationinfo-activities1').val("");
 
         $scope.educounter = eduArray.length;
     };
@@ -1125,6 +1126,16 @@ module.controller('JSProfileCtrl', function ($scope, $state, $http, myService, $
             }
         }    
     };
+
+    $scope.myAlert = function(msg){
+        $mdDialog.show(
+            $mdDialog.alert()
+            .parent(angular.element(document.body))
+            .title('ALert')
+            .content(''+msg)
+            .ok('Close')
+        );
+    }
 
     $scope.experienceAdd = function () {
         $('#experienceinfo-company').val("");
