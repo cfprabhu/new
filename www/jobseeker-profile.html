@@ -43,10 +43,19 @@
                             <md-radio-button style="display:inline;" value="Female"> Female </md-radio-button>
                         </md-radio-group>
                     </md-input-container>
-                    <md-input-container class="md-icon-float">
+                    <md-input-container >
+                            <div>
+                              <span style="margin-left: 36px;color: rgba(0, 0, 0, 0.54);font-size: 12px;font-family: Lato, sans-serif;">Country</span>  
+                            </div>
+                            <md-icon md-svg-src="img/icon/globe.svg" style="margin-top:15px;"></md-icon>
+                            <div style="margin-left:36px;">
+                                <country-select  id="personalinfo-country" ng-model="personalinfo.country"></country-select>
+                            </div>
+                        </md-input-container>
+                    <!-- <md-input-container class="md-icon-float">
                         <country-select  id="personalinfo-country" ng-model="personalinfo.country"></country-select>
 
-                    </md-input-container>
+                    </md-input-container> -->
                     <div layout layout-sm="column">
                         <md-input-container class="md-icon-float" flex>
                             <!-- Use floating label instead of placeholder -->
@@ -150,10 +159,19 @@
                         <label>Year Graduated</label>
                         <md-icon md-svg-src="img/icon/date.svg"></md-icon>
                         <input id="educationinfo-year1" ng-model="edu.year" type="tel">
-                    </md-input-container>                
-                    <md-input-container class="md-icon-float" >
-                        <country-select  id="educationinfo-country1" ng-model="edu.country"></country-select>
                     </md-input-container>
+                    <md-input-container >
+                            <div>
+                              <span style="margin-left: 36px;color: rgba(0, 0, 0, 0.54);font-size: 12px;font-family: Lato, sans-serif;">Country</span>  
+                            </div>
+                            <md-icon md-svg-src="img/icon/globe.svg" style="margin-top:15px;"></md-icon>
+                            <div style="margin-left:36px;">
+                                <country-select  id="educationinfo-country1" ng-model="edu.country"></country-select>
+                            </div>
+                        </md-input-container>                
+                    <!-- <md-input-container class="md-icon-float" >
+                        <country-select  id="educationinfo-country1" ng-model="edu.country"></country-select>
+                    </md-input-container> -->
                     <md-input-container class="md-icon-float">
                         <label>Degree</label>
                         <md-icon md-svg-src="img/icon/education.svg"></md-icon>
@@ -171,7 +189,7 @@
 
                     </md-input-container>
                     <div><md-button  class="md-raised md-primary" ng-click="educationsave();
-                                status.open = !status.open" ng-disabled="EenableBtn">Save</md-button><md-button ng-click="educationAdd()" class="md-warn" style="float: right;" ng-disabled="EenableBtn">+Add education ({{educounter}}/3)</md-button></div>
+                                status.open = !status.open" ng-disabled="EenableBtn">Save</md-button><md-button ng-click="educationAdd();educationsave();" class="md-warn" style="float: right;" ng-disabled="EenableBtn">+Add education ({{educounter}}/3)</md-button></div>
                     </div>    
             </accordion-group>
         </accordion>
@@ -195,7 +213,7 @@
                             <input id="experienceinfo-title" ng-model="exp.title" type="text">
                         </md-input-container>
                         <md-input-container class="md-icon-float" >
-                            <label>Location</label>
+                            <label>City</label>
                             <md-icon md-svg-src="img/icon/location.svg"></md-icon>
                             <input id="experienceinfo-location" ng-model="exp.location" type="text">
                         </md-input-container>
@@ -249,7 +267,7 @@
                         <input id="experienceinfo-title" ng-model="exp.title" type="text">
                     </md-input-container>
                     <md-input-container class="md-icon-float" >
-                        <label>Location</label>
+                        <label>City</label>
                         <md-icon md-svg-src="img/icon/location.svg"></md-icon>
                         <input id="experienceinfo-location" ng-model="exp.location" type="text">
                     </md-input-container>
@@ -294,7 +312,7 @@
                         <textarea md-maxlength="200" ng-model="exp.highlights" id="experienceinfo-highlights" ></textarea>
                     </md-input-container>
                     <div><md-button  class="md-raised md-primary" ng-click="experiencesave();
-                                status.open = !status.open" ng-disabled="EPenableBtn">Save</md-button><md-button  class="md-warn" style="float: right;" ng-click="experienceAdd()" ng-disabled="EPenableBtn">+Add work experience ({{expcounter}}/3)</md-button></div>
+                                status.open = !status.open" ng-disabled="EPenableBtn">Save</md-button><md-button  class="md-warn" style="float: right;" ng-click="experienceAdd();experiencesave();" ng-disabled="EPenableBtn">+Add work experience ({{expcounter}}/3)</md-button></div>
                 </div>
                     
             </accordion-group>
@@ -354,7 +372,7 @@
         </accordion>
 
     </md-content>
-
+    <div class="footer-button-group"> <md-button ui-sref='jobseeker-main'  class="md-fab md-primary">GO</md-button>  </div>
     <div style="text-align: center;">
     </div>
 

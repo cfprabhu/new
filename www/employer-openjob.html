@@ -34,10 +34,10 @@
             <md-list>
                 <md-list-item class="md-2-line" ng-repeat="x in postjob" ng-click="goToSelectedJob($index)">
                     <div class="md-list-item-text" style="margin-top:-10px;">
-                        <span style='font-size: 14px;'>{{x.jobid}}.</span>
-                        <span style='font-weight: bold'>{{x.title}}</span>
-                        <span style="float:right; font-size:13px;">{{x.deadline | date:'dd/MM/yyyy'}}</span>
-                        <div class="open-job-button-group" style="margin:-10px 0 0 -4px;">
+                        <span style='font-size: 14px;color:#FFFFFF;'>{{x.jobid}}.</span>
+                        <span style='font-weight: bold;color:#FFFFFF;'>{{x.title}}</span>
+                        <span style="float:right; font-size:13px;color:#D6082B">{{x.deadline | date:'dd/MM/yyyy'}}</span>
+                        <div class="open-job-button-group" style="margin:10px 0 0 -5px;">
                             <md-button class='md-raised md-primary small-button' ng-click='view($index, $event)'><span class="badge bg-info m-l-xs">{{x.viewcount}}</span>  Views</md-button>
                             <md-button class='md-raised md-primary small-button' ng-click='application($index, $event)'><span class="badge m-l-xs">{{x.applicationcount}}</span>  Application </md-button>
                             <md-button class='md-raised md-primary small-button' ng-click='shortlisted($index, $event)'><span class="badge m-l-xs">{{x.shortlistedcount}}</span>  Shortlisted </md-button>

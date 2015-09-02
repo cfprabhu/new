@@ -1050,6 +1050,28 @@ module.controller('JSProfileCtrl', function ($scope, $state, $http, myService, $
 
     $scope.educationAdd = function () {
         //console.log('aa')
+        var school = $('#educationinfo-school1').val();
+        var year = $('#educationinfo-year1').val();
+        var degree = $('#educationinfo-degree1').val();
+        var country = $('#educationinfo-country1').val();
+        var specialization = $('#educationinfo-specialization1').val();
+        var activities = $('#educationinfo-activities1').val();
+
+        if(school == '' && year == '' && degree == '' && country == '? undefined:undefined ?' && specialization == '' && activities == ''){
+          $scope.myAlert('Please fill the all fields');  
+        }else if(country == ''){
+            $scope.myAlert('Please slect the Country');
+        }else if(school == ''){
+            $scope.myAlert('Please enter the School Name');
+        }else if(year == ''){
+            $scope.myAlert('Please enter the Year Graduated');
+        }else if(degree == ''){
+            $scope.myAlert('Please enter the Degree');
+        }else if(specialization == ''){
+            $scope.myAlert('Please enter the Specialization');
+        }else if(activities == ''){
+            $scope.myAlert('Please enter your Activities and Societies');
+        }else{
         $('#educationinfo-school1').val("");
         $('#educationinfo-year1').val("");
         $('#educationinfo-degree1').val("");
@@ -1058,6 +1080,7 @@ module.controller('JSProfileCtrl', function ($scope, $state, $http, myService, $
         $('#educationinfo-activities1').val("");
 
         $scope.educounter = eduArray.length;
+        }
     };
 
     var expArray = [];
@@ -1138,6 +1161,34 @@ module.controller('JSProfileCtrl', function ($scope, $state, $http, myService, $
     }
 
     $scope.experienceAdd = function () {
+        var companyname = $('#experienceinfo-company').val();
+        var title = $('#experienceinfo-title').val();
+        var location = $('#experienceinfo-location').val();
+        var timestart = $('#experienceinfo-timestart').val();
+        var timeend = $('#experienceinfo-timeend').val();
+        var description = $('#experienceinfo-description').val();
+        var country = $('#experienceinfo-country').val();
+        var highlights = $('#experienceinfo-highlights').val();
+
+        if(companyname == '' && title == '' && location == '' && timestart == '' && timeend == '' && description == '' && country == '' && highlights == ''){
+            $scope.myAlert('Please fill the all fields');
+        }else if(companyname == ''){
+            $scope.myAlert('Please enter the Company Name');
+        }else if(title == ''){
+            $scope.myAlert('Please enter the Title');
+        }else if(location == ''){
+            $scope.myAlert('Please enter the Location');
+        }else if(timestart == ''){
+            $scope.myAlert('Please enter the From');
+        }else if(timeend == ''){
+            $scope.myAlert('Please enter the To');
+        }else if(description == ''){
+            $scope.myAlert('Please enter your Description');
+        }else if(country == ''){
+            $scope.myAlert('Please enter your Country');
+        }else if(highlights == ''){
+            $scope.myAlert('Please enter your Key Highlights');
+        }else{
         $('#experienceinfo-company').val("");
         $('#experienceinfo-title').val("");
         $('#experienceinfo-location').val("");
@@ -1148,6 +1199,7 @@ module.controller('JSProfileCtrl', function ($scope, $state, $http, myService, $
         $('#experienceinfo-highlights').val("");
 
         $scope.expcounter = expArray.length;
+        }
     };
 });
 function DialogController($scope, $mdDialog) {
@@ -2028,6 +2080,34 @@ module.controller('EPreviewCtrl', function ($scope, $state, $http, myService) {
 
     };
 });
+
+//jobseeker-main
+module.controller('JMainCtrl', function ($scope, $state, $http, myService) {
+    //console.log(myService.employer_company);
+    //$scope.company = myService.employer_company;
+    var loginInfo = JSON.parse(localStorage.getItem('logininfo'));
+    var user_id = loginInfo.user_id;
+    $scope.sText = 'offline';
+    $scope.Pstatus = false;
+    $scope.changeStatus = function(s){
+        if(s){
+          $scope.sText = 'Live';  
+        }else{
+          $scope.sText = 'offline';  
+        }
+    }
+
+    // $.ajax({
+    //     method: "POST",
+    //     dataType: "json",
+    //     data: {userid: user_id},
+    //     url: "http://www.primefield.co/jobsearch/viewemployerprofile.php"
+    // }).then(function (data) {
+    //     //console.log(data);
+    //     myService.employer_company = data.company;
+    // });
+
+});
 //Employer-main
 module.controller('EMainCtrl', function ($scope, $state, $http, myService) {
     //console.log(myService.employer_company);
@@ -2054,6 +2134,18 @@ module.controller('EProfileCtrl', function ($scope, $state, $http, myService, $m
     var user_id = loginInfo.user_id;
     $scope.company = {};
     $scope.company.phonecountry = '';
+
+    $scope.item = [{id: 1, industry: "Education"}, {id: 2, industry: "Information Technology"}, {id: 3, industry: "Business"}];
+    $scope.status = {isopen: false
+    };
+    $scope.industry = "Industry";
+
+    $scope.industrySelect = function (r) {
+        //console.log(r);
+        $scope.industry = r;
+        localStorage.setItem("industry", r);
+    };
+
     $scope.test = function(){
         var country = $('#company-country').val();
         if(country=='Afghanistan'){
@@ -2802,8 +2894,10 @@ module.controller('EProfileCtrl', function ($scope, $state, $http, myService, $m
         data: {userid: user_id},
         url: "http://www.primefield.co/jobsearch/viewemployerprofile.php"
     }).then(function (data) {
-        //console.log(data);
+        console.log(data);
+        $('.md-char-counter').hide();
         $scope.company = data.company;
+        console.log($scope.company)
     });
 
     $scope.myAlert = function(msg){
@@ -2817,7 +2911,11 @@ module.controller('EProfileCtrl', function ($scope, $state, $http, myService, $m
     }
 
     $scope.go = function () {
-        //console.log($scope.company.companyname)
+        
+        if(localStorage.getItem("industry") != null){
+            $scope.company.industry = localStorage.getItem("industry")
+        }
+        console.log($scope.company)
         var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
         //console.log(regex.test($scope.company.email));
         if($scope.company.companyname === '' || $scope.company.companyname == undefined){
@@ -2834,6 +2932,8 @@ module.controller('EProfileCtrl', function ($scope, $state, $http, myService, $m
             $scope.myAlert('Please enter the company website');
         }else if($scope.company.overview === '' || $scope.company.overview == undefined){
             $scope.myAlert('Please enter the company overview');
+        }else if(localStorage.getItem("industry") === '' || localStorage.getItem("industry") == null){
+            $scope.myAlert('Please select the industry');
         }else{
             $.ajax({
                 method: "POST",
@@ -2891,6 +2991,7 @@ module.controller('EPostJobCtrl', function ($scope, $state, $http, myService, $m
         var requirement = $('#postjob-requirement').val();
         var educational = $('#postjob-educational').val();
         var goodtohave = $('#postjob-goodtohave').val();
+        var joblocation = $('#postjob-location').val();
         
         if(industry == ''){
             $scope.myAlert('Please select the Industry');  
@@ -2908,11 +3009,13 @@ module.controller('EPostJobCtrl', function ($scope, $state, $http, myService, $m
             $scope.myAlert('Please enter the Educational Requirement'); 
         }else if(goodtohave == ''){
             $scope.myAlert('Please enter the Good To Have'); 
+        }else if(joblocation == ''){
+            $scope.myAlert('Please enter the Job Location'); 
         }else{
 
             var postjob = {};
             postjob = {
-                industry: industry, title: title, currency:currency, salary: salary, deadline: deadline, experience: experience, requirement: requirement, educational: educational, goodtohave: goodtohave
+                industry: industry, title: title, currency:currency, salary: salary, deadline: deadline, experience: experience, requirement: requirement, educational: educational, goodtohave: goodtohave, joblocation:joblocation
             };
             //console.log(postjob)
 
@@ -3715,6 +3818,9 @@ module.controller('SearchDataCompanyCtrl', function ($scope, $state, $http, mySe
         });
     };
 
+    angular.element(document).ready(function () {
+        $('.md-char-counter').hide();
+    })
 
 });
 

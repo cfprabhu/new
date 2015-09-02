@@ -1,12 +1,14 @@
-<div>
+<div ng-controller="JMainCtrl">
     <md-content>
         <md-toolbar>
             <div class="md-toolbar-tools">
-                <h3>Profile</h3>
+                <h3>Dashboard</h3>
                 <span flex></span>
                 <md-button class="md-icon-button" style="margin-right:10px" aria-label="" ui-sref="signout">
                     Log Off
                 </md-button>
+                <md-switch ng-model="Pstatus" class="md-icon-button" style="margin-right:10px" aria-label="Switch 1" ng-change="changeStatus(Pstatus)"><span style="font-size:14px;line-height: 34px;">{{sText}}</span>
+                </md-switch>
             </div>
         </md-toolbar>
     </md-content>
@@ -22,23 +24,60 @@
 
                 <div id="main-fullname" style="margin-top:10px;">
                     <md-divider></md-divider>
-                    <p style="text-align: center; font-size: 25px; margin-top:10px;">Adam John</p>
+                    <p style="text-align: center; font-size: 25px; margin-top:10px;color:#D6082B;">Adam John</p>
                     <md-divider></md-divider>    
                 </div>
-
-            <div style="text-align: center; margin-top: 25px; margin-bottom: 3px;"> 
+            
+            <div style="text-align: center; margin-top: 25px; margin-bottom: 3px;margin-left:46px;">
+                <md-list-item>
+                  <md-button class="md-grid-item-content" ui-sref="jobseeker-profile">
+                     <md-icon style="color:#FFFFFF;" class="md-default-theme" class="material-icons" md-svg-icon="img/icon/content_paste_white_48px.svg"></md-icon>
+                     <div class="md-grid-text" style="color:#FFFFFF;">Edit Profile</div>
+                  </md-button>
+                  <md-button class="md-grid-item-content" >
+                     <md-icon style="color:#FFFFFF;" class="md-default-theme" class="material-icons"  md-svg-icon="img/icon/ic_reorder_white_48px.svg"></md-icon>
+                     <div class="md-grid-text" style="color:#FFFFFF;">Impressed</div>
+                  </md-button>
+                </md-list-item>
+            </div>
+            <div style="text-align: center; margin-top: 1px; margin-bottom: 3px;margin-left:36px;">
+                <md-list-item>
+                  <md-button class="md-grid-item-content" ui-sref="jobseeker-profile">
+                     <md-icon style="color:#FFFFFF;" class="md-default-theme" class="material-icons" md-svg-icon="img/icon/ic_wifi_white_48px.svg"></md-icon>
+                     <div class="md-grid-text" style="color:#FFFFFF;">Applications</div>
+                  </md-button>
+                  <md-button class="md-grid-item-content" >
+                     <md-icon style="color:#FFFFFF;" class="md-default-theme" class="material-icons"  md-svg-icon="img/icon/ic_done_white_48px.svg"></md-icon>
+                     <div class="md-grid-text" style="color:#FFFFFF;">Shortlist</div>
+                  </md-button>
+                </md-list-item>
+            </div>
+            <div style="text-align: center; margin-top: 1px; margin-bottom: 3px;margin-left:46px;">
+                <md-list-item>
+                  <md-button class="md-grid-item-content" ui-sref="search">
+                     <md-icon style="color:#FFFFFF;" class="md-default-theme" class="material-icons" md-svg-icon="img/icon/ic_search_white_48px.svg"></md-icon>
+                     <div class="md-grid-text" style="color:#FFFFFF;">Job Search</div>
+                  </md-button>
+                  <md-button class="md-grid-item-content" >
+                     <md-icon style="color:#FFFFFF;" class="md-default-theme" class="material-icons"  md-svg-icon="img/icon/ic_save_white_48px.svg"></md-icon>
+                     <div class="md-grid-text" style="color:#FFFFFF;">Saved jobs</div>
+                  </md-button>
+                </md-list-item>
+            </div>    
+            <!-- <div style="text-align: center; margin-top: 25px; margin-bottom: 3px;">
                 <md-button class="md-raised md-primary profile-button" ui-sref="jobseeker-profile">Edit Profile</md-button>
                 <md-button class="md-raised md-primary profile-button" >Impressed</md-button> 
-            </div>
-            <div style="text-align: center; margin-top: 1px; margin-bottom: 3px;">
+            </div> -->
+            <!-- <div style="text-align: center; margin-top: 1px; margin-bottom: 3px;">
                 <md-button class="md-raised md-primary profile-button" >Applications</md-button>
                 <md-button class="md-raised md-primary profile-button">Shortlist</md-button> 
-            </div>
-            <div style="text-align: center; margin-top: 1px; margin-bottom: 3px;"> 
+            </div> -->
+            <!-- <div style="text-align: center; margin-top: 1px; margin-bottom: 3px;"> 
                 <md-button class="md-raised md-primary profile-button" ui-sref="search">Job Search</md-button> 
                 <md-button class="md-raised md-primary profile-button" >Saved jobs</md-button>
-            </div>
+            </div> -->
             </div>
         </md-content>
     </div>
 </div>
+

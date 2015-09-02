@@ -21,19 +21,42 @@
                 </div>
                 <div id="company-profile-name" style="margin-top:10px">
                     <md-divider></md-divider>
-                    <p style="text-align: center; font-size: 25px">(Company Name)</p>
+                    <p style="text-align: center; font-size: 25px;color:#D6082B">(Company Name)</p>
                     <md-divider></md-divider>    
                 </div>
                 
-
-                <div style="text-align: center; margin-top: 25px; margin-bottom: 3px;"> 
+                <div style="text-align: center; margin-top: 25px; margin-bottom: 3px;margin-left:50px;">
+                    <md-list-item>
+                      <md-button class="md-grid-item-content" ui-sref="employer-postjob">
+                         <md-icon style="color:#FFFFFF;" class="md-default-theme" class="material-icons" md-svg-icon="img/icon/content_paste_white_48px.svg"></md-icon>
+                         <div class="md-grid-text" style="color:#FFFFFF;">Post Jobs</div>
+                      </md-button>
+                      <md-button class="md-grid-item-content" ui-sref='employer-openjob'>
+                         <md-icon style="color:#FFFFFF;" class="md-default-theme" class="material-icons"  md-svg-icon="img/icon/ic_reorder_white_48px.svg"></md-icon>
+                         <div class="md-grid-text" style="color:#FFFFFF;">Open Jobs</div>
+                      </md-button>
+                    </md-list-item>
+                </div> 
+                <div style="text-align: center; margin-top: 1px; margin-bottom: 20px;margin-left:50px;"> 
+                    <md-list-item>
+                      <md-button class="md-grid-item-content" ui-sref='employer-profile'>
+                         <md-icon style="color:#FFFFFF;" class="md-default-theme" class="material-icons" md-svg-icon="img/icon/account_circle_white_48px.svg"></md-icon>
+                         <div class="md-grid-text" style="color:#FFFFFF;">Profile</div>
+                      </md-button>
+                      <md-button class="md-grid-item-content" ui-sref='employer-stats'>
+                         <md-icon style="color:#FFFFFF;" class="md-default-theme" class="material-icons" md-svg-icon="img/icon/ic_memory_white_48px.svg"></md-icon>
+                         <div class="md-grid-text" style="color:#FFFFFF;">Stats</div>
+                      </md-button>
+                    </md-list-item> 
+                </div>   
+                <!-- <div style="text-align: center; margin-top: 25px; margin-bottom: 3px;"> 
                     <md-button class="md-raised md-primary profile-button" ui-sref="employer-postjob">Post Jobs</md-button> 
                     <md-button class="md-raised md-primary profile-button" ui-sref='employer-openjob'>Open Jobs</md-button> 
                 </div>
                 <div style="text-align: center; margin-top: 1px; margin-bottom: 20px;"> 
                     <md-button class="md-raised md-primary profile-button" ui-sref='employer-profile'>Profile</md-button> 
                     <md-button class="md-raised md-primary profile-button" ui-sref='employer-stats'>Stats</md-button> 
-                </div>
+                </div> -->
                 </div>
            
         </md-content>

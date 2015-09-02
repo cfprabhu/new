@@ -33,7 +33,7 @@
                 <div>
                     <div class="field-container md-whiteframe-z1">
                         <md-input-container class="md-icon-float" style="margin-top: 0.5em" >
-                            <label>Country (Singapore, Malaysia, etc)</label>
+                            <label>Country</label>
                             <md-icon md-svg-src="img/icon/earth.svg"></md-icon>
                             <input id="company-country" ng-model="company.country" type="text" ng-disabled="disablethis">
                         </md-input-container>
@@ -118,9 +118,16 @@
                 </md-input-container>
                 <md-input-container class="md-icon-float" >
                     <!-- Use floating label instead of placeholder -->
-                    <label>Job Requirement (eg, min. 'O' Level, Degree)</label>
+                    <label>Educational Requirement (eg, min. 'O' Level, Degree)</label>
                     <md-icon md-svg-src="img/icon/jobd.svg"></md-icon>
                     <input id="postjob-requirement" ng-model="postjob.requirement" type="text" ng-disabled="disabledjob">
+                </md-input-container>
+
+                <md-input-container class="md-icon-float" >
+                    <!-- Use floating label instead of placeholder -->
+                    <label>Job Location</label>
+                    <md-icon md-svg-src="img/icon/location.svg"></md-icon>
+                    <input id="postjob-location" ng-model="postjob.location" type="text" ng-disabled="disabledjob">
                 </md-input-container>
 
                 <md-input-container flex>

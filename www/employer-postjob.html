@@ -14,7 +14,7 @@
     <md-content>
         <div class="wrapper">
             <div class="panel panel-default" id="company-post-job-panel" style="margin-bottom: 1px;">
-                <div class="collapse-content field-container md-whiteframe-z1"> 
+                <div class="collapse-content field-container md-whiteframe-z1" style="background-color:#FFFFFF;"> 
 
                     <md-input-container flex id="post-job-dropdown-container">
                         <div class="btn-group" dropdown is-open="status.isopen" >
@@ -70,10 +70,17 @@
                         <input id="postjob-educational" ng-model="postjob.educational" type="text" style="padding-top: 40px;">
                     </md-input-container>
 
+                    <md-input-container class="md-icon-float" >
+                        <!-- Use floating label instead of placeholder -->
+                        <label>Job Location</label>
+                        <md-icon md-svg-src="img/icon/location.svg"></md-icon>
+                        <input id="postjob-location" ng-model="postjob.location" type="text">
+                    </md-input-container>
+
                     <md-input-container class="md-icon-float">
                         <label>Job Description</label>
                         <md-icon md-svg-src="img/icon/jobd.svg"></md-icon>
-                        <textarea md-maxlength="500" ng-model="postjob.requirement" id="postjob-requirement" style="margin-left:35px;padding-top: 12px;"></textarea>
+                        <textarea md-maxlength="5000" ng-model="postjob.requirement" id="postjob-requirement" style="margin-left:35px;padding-top: 12px;"></textarea>
 
                     </md-input-container>
                     <md-input-container class="md-icon-float">
