@@ -19,7 +19,7 @@
                     <md-card>
                         <md-card-content>
                             <div class="preview-block">
-                                <img border="1" id="p-img" class="preview-image pic-border" src="img/profile-pic.jpg" alt=""/>
+                                <img border="1" id="p-img" class="preview-image pic-border" src="img/profile-pic.jpg" alt=""/ onError="this.onerror=null;this.src='/img/profile-pic.jpg';">
                                 <md-button class="md-raised md-primary" onclick="getImage(pictureSource.PHOTOLIBRARY);">Gallery</md-button>
                                 <md-button class="md-raised md-primary" onclick="getPhoto();" >Camera</md-button>   
                             </div>
@@ -39,13 +39,19 @@
                         <md-radio-button style="display:inline;" value="Transgender"> Transgender </md-radio-button>
                     </md-radio-group>
                 </md-input-container>
-                <md-input-container class="md-icon-float">
-                    <country-select  id="company-country" ng-model="personalinfo.country"></country-select>
+                <md-input-container >
+                    <div>
+                      <span style="margin-left: 36px;color: rgba(0, 0, 0, 0.54);font-size: 12px;font-family: Lato, sans-serif;">Country</span>  
+                    </div>
+                    <md-icon md-svg-src="img/icon/globe.svg" style="margin-top:15px;"></md-icon>
+                    <div style="margin-left:36px;">
+                        <country-select  id="company-country" ng-model="personalinfo.country" style="width: 200px;"></country-select>
+                    </div>
                 </md-input-container>
+                
                 <div layout layout-sm="column">
                     <md-input-container class="md-icon-float" flex>
-                        <!-- Use floating label instead of placeho
-                        <label>First name</label>lder -->
+                        <label>First name</label>
                         <md-icon md-svg-src="img/icon/human.svg"></md-icon>
                         <input id="personalinfo-firstname" ng-model="personalinfo.firstname" type="text" disabled>
 
@@ -59,7 +65,7 @@
                 </div>
                 <md-input-container class="md-icon-float" >
                     <!-- Use floating label instead of placeholder -->
-                    <label>Email (example@example.com</label>
+                    <label>Email (example@example.com)</label>
                     <md-icon md-svg-src="img/icon/email.svg"></md-icon>
                     <input id="personalinfo-email" ng-model="personalinfo.email" type="email" disabled>
                 </md-input-container>
@@ -96,9 +102,6 @@
                         <input id="educationinfo-school" ng-model="edu.school" type="text" disabled>
                     </md-input-container>
 
-                    <md-input-container class="md-icon-float" >
-                        <country-select  id="educationinfo-country" ng-model="edu.country"></country-select>
-                    </md-input-container>
                
                     <md-input-container class="md-icon-float" >
 
@@ -106,6 +109,16 @@
                         <md-icon md-svg-src="img/icon/date.svg"></md-icon>
                         <input id="educationinfo-year" ng-model="edu.year" type="tel" disabled>
                     </md-input-container>
+
+                    <md-input-container >
+                        <div>
+                          <span style="margin-left: 36px;color: rgba(0, 0, 0, 0.54);font-size: 12px;font-family: Lato, sans-serif;">Country</span>  
+                        </div>
+                        <md-icon md-svg-src="img/icon/globe.svg" style="margin-top:15px;"></md-icon>
+                        <div style="margin-left:36px;">
+                            <country-select  id="educationinfo-country" ng-model="edu.country" style="width: 200px;"></country-select>
+                        </div>
+                    </md-input-container> 
 
                     
                     <md-input-container class="md-icon-float">
@@ -161,7 +174,7 @@
                         </div>
                         <md-icon md-svg-src="img/icon/globe.svg" style="margin-top:15px;"></md-icon>
                         <div style="margin-left:36px;">
-                            <country-select  id="experienceinfo-country" ng-model="exp.country"></country-select>
+                            <country-select  id="experienceinfo-country" ng-model="exp.country" style="width:200px;"></country-select>
                         </div>
                     </md-input-container>
                     <div layout layout-sm="column">
@@ -223,7 +236,7 @@
             </md-card>
         </div>
         <br>
-        <h4>Miscellaneous<md-button id="miscinfo-edit" ng-click="miscedit()">Edit</md-button><md-button id="miscinfo-save" ng-click="miscsave()">Save</md-button></h4>
+        <h4>Please share your passion<md-button id="miscinfo-edit" ng-click="miscedit()">Edit</md-button><md-button id="miscinfo-save" ng-click="miscsave()">Save</md-button></h4>
         <div>
             <md-card>
                 <md-card-content>

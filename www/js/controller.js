@@ -173,6 +173,7 @@ module.controller('signinCtrl', function ($scope, $state, $mdDialog) {
             url: "http://www.primefield.co/jobsearch/signin.php"
         }).then(function (data) {
             localStorage.setItem("logininfo", JSON.stringify(data));
+            localStorage.setItem("userID", data.user_id)
             if (data.status === "0") {
                 type = data.type;
                 if (data.status_level === "0") {
@@ -233,9 +234,9 @@ module.controller('signinCtrl', function ($scope, $state, $mdDialog) {
                 method: "post",
                 dataType: "json",
                 data: {email: e},
-                url: "'http://www.primefield.co/jobsearch/forgot.php"
+                url: "http://www.primefield.co/jobsearch/forgot.php"
             }).then(function (data) {
-                console.log(data);
+                //console.log(data);
 
                 $mdDialog.show(
                     $mdDialog.alert()
@@ -270,48 +271,114 @@ module.controller('signupCtrl', function ($scope, $http, $mdDialog, $state) {
         var upass = $('#npass').val();
         var ucpass = $('#ncpass').val();
         var type = nselected;
-        $http.get('http://www.primefield.co/jobsearch/signup.php?id=' + uid + '&email=' + uemail + '&password=' + upass + '&cpassword=' + ucpass + '&type=' + type).
-                success(function (data) {
-                    console.log(data);
-                    if (data.status === "0") {
+        var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
 
-                        $mdDialog.show(
-                                $mdDialog.alert()
-                                .parent(angular.element(document.body))
-                                .title('Sign Up')
-                                .content('You have Successfully Signed Up. Thank You.')
-                                .ok('Close')
-                                );
+        if (uemail == '' && upass == '' && ucpass == '' && type == '') {
+            $mdDialog.show(
+                $mdDialog.alert()
+                .parent(angular.element(document.body))
+                .title('Alert')
+                .content('All fields are required.')
+                .ok('Close')
+            );
+        }else  if(uemail == ''){
+            $mdDialog.show(
+                $mdDialog.alert()
+                .parent(angular.element(document.body))
+                .title('Alert')
+                .content('Please enter the email address')
+                .ok('Close')
+            );
 
-                        $state.go('signin');
+        }
+        else  if(upass == ''){
+            $mdDialog.show(
+                $mdDialog.alert()
+                .parent(angular.element(document.body))
+                .title('Alert')
+                .content('Please enter the password')
+                .ok('Close')
+            );
+
+        }else  if(ucpass == ''){
+            $mdDialog.show(
+                $mdDialog.alert()
+                .parent(angular.element(document.body))
+                .title('Alert')
+                .content('Please enter the confirm password')
+                .ok('Close')
+            );
+        }else  if(type == ''){
+            $mdDialog.show(
+                $mdDialog.alert()
+                .parent(angular.element(document.body))
+                .title('Alert')
+                .content('Please select the profile type')
+                .ok('Close')
+            );
+        }else  if(ucpass != upass){
+            $mdDialog.show(
+                $mdDialog.alert()
+                .parent(angular.element(document.body))
+                .title('Alert')
+                .content('Password and confirm password are not matched!')
+                .ok('Close')
+            );
+        }else  if(!re.test(uemail)){
+            $mdDialog.show(
+                $mdDialog.alert()
+                .parent(angular.element(document.body))
+                .title('Alert')
+                .content('Enter the valid email address')
+                .ok('Close')
+            );
+        }else {
 
 
-                    }
 
-                    if (data.status === "1") {
-                        $mdDialog.show(
-                                $mdDialog.alert()
-                                .parent(angular.element(document.body))
-                                .title('Sign Up')
-                                .content('Email in used.')
-                                .ok('Close')
-                                );
-                    }
+            $http.get('http://www.primefield.co/jobsearch/signup.php?id=' + uid + '&email=' + uemail + '&password=' + upass + '&cpassword=' + ucpass + '&type=' + type).
+                    success(function (data) {
+                        //console.log(data);
+                        if (data.status === "0") {
 
-                    if (data.status === "2") {
-                        $mdDialog.show(
-                                $mdDialog.alert()
-                                .parent(angular.element(document.body))
-                                .title('Sign Up')
-                                .content('Password is wrong.')
-                                .ok('Close')
-                                );
-                    }
+                            $mdDialog.show(
+                                    $mdDialog.alert()
+                                    .parent(angular.element(document.body))
+                                    .title('Sign Up')
+                                    .content('You have Successfully Signed Up. Thank You.')
+                                    .ok('Close')
+                                    );
 
-                }).
-                error(function (data) {
+                            $state.go('signin');
 
-                });
+
+                        }
+
+                        if (data.status === "1") {
+                            $mdDialog.show(
+                                    $mdDialog.alert()
+                                    .parent(angular.element(document.body))
+                                    .title('Sign Up')
+                                    .content('Email in used.')
+                                    .ok('Close')
+                                    );
+                        }
+
+                        if (data.status === "2") {
+                            $mdDialog.show(
+                                    $mdDialog.alert()
+                                    .parent(angular.element(document.body))
+                                    .title('Sign Up')
+                                    .content('Password is wrong.')
+                                    .ok('Close')
+                                    );
+                        }
+
+                    }).
+                    error(function (data) {
+
+                    });
+        }    
     };
 
 });
@@ -580,7 +647,7 @@ module.controller('JSCollapseCtrl', function ($scope, $state, myService, $mdDial
             $scope.myAlert('Please enter Your linkedin');
         }else{
 
-            linkinfo = {facebook: facebook, twitter: twitter, linkedin: linkedin};
+            linkinfo = {facebook: facebook, twitter: twitter, linkedin: linkedin, skype: skype};
 
             //console.log(linkinfo);
             localStorage.setItem('linkinfo', JSON.stringify(linkinfo));
@@ -612,6 +679,10 @@ module.controller('JSVideoCtrl', function ($scope, $state, $http, myService) {
 
 //Jobseeker-preview
 module.controller('JSPreviewCtrl', function ($scope, $state, $http, myService) {
+    var path = 'http://www.primefield.co/jobsearch/pictureurl/' + localStorage.getItem("userID") + '.jpg';
+    angular.element(document).ready(function () {
+        $('#p-img').attr('src',  path);
+    });
     $scope.back = function () {
         var personalinfo = JSON.parse(localStorage.getItem('personalinfo'));
         var educationinfo = JSON.parse(localStorage.getItem('educationinfo'));
@@ -656,7 +727,7 @@ module.controller('JSPreviewCtrl', function ($scope, $state, $http, myService) {
             data: {personal: personalinfo, education: educationinfo, experience: experienceinfo, social: linkinfo, misc: miscinfo, userid: user_id},
             url: "http://www.primefield.co/jobsearch/savepreview.php"
         }).then(function (data) {
-            console.log(data);
+            //console.log(data);
             $state.go('jobseeker-main');
         });
 
@@ -670,7 +741,7 @@ module.controller('JSPreviewCtrl', function ($scope, $state, $http, myService) {
         localStorage.setItem('experienceinfo', JSON.stringify(myService.jobseeker_signup[0].experienceinfo));
     };
     if (myService.jobseeker_personalinfo !== undefined) {
-        console.log(myService)
+        //console.log(myService)
         $scope.personalinfo = myService.jobseeker_personalinfo;
         $scope.radiobutton = {group1: $scope.personalinfo.gender};
         $scope.personalinfo.date = new Date($scope.personalinfo.dob.substring(0, 4), ($scope.personalinfo.dob.substring(5, 7) - 1), $scope.personalinfo.dob.substring(8, 10));
@@ -816,11 +887,17 @@ module.controller('JSPreviewCtrl', function ($scope, $state, $http, myService) {
         $('#miscinfo-edit').show();
         $('#miscinfo-description').prop('disabled', true);
     };
+
+
 });
 //Jobseeker-profile
 module.controller('JSProfileCtrl', function ($scope, $state, $http, myService, $mdDialog) {
     var loginInfo = JSON.parse(localStorage.getItem('logininfo'));
     var user_id = loginInfo.user_id;
+    var path = 'http://www.primefield.co/jobsearch/pictureurl/' + localStorage.getItem("userID") + '.jpg';
+    angular.element(document).ready(function () {
+        $('#p-img').attr('src',  path);
+    });
     $.ajax({
         method: "POST",
         dataType: "json",
@@ -2086,6 +2163,32 @@ module.controller('JMainCtrl', function ($scope, $state, $http, myService) {
     //console.log(myService.employer_company);
     //$scope.company = myService.employer_company;
     var loginInfo = JSON.parse(localStorage.getItem('logininfo'));
+    angular.element(document).ready(function () {
+        
+    
+        var personalinfo = JSON.parse(localStorage.getItem('personalinfo'));
+        if(personalinfo == null){
+            $.ajax({
+                method: "POST", 
+                dataType: "json",
+                data: {userid: loginInfo.user_id},
+                url: "http://www.primefield.co/jobsearch/viewemployeeprofile.php"
+            }).then(function (data) {
+                $scope.personalinfo = data.personal;
+                localStorage.setItem("dName",$scope.personalinfo.firstname);
+                $('#main-name').text(localStorage.getItem('dName'));
+            });
+        }else{
+            localStorage.setItem("dName",personalinfo.firstname);
+            $('#main-name').text(localStorage.getItem('dName'));
+        }
+    });    
+
+    
+    //$scope.fName = localStorage.getItem('dName');
+    
+    
+
     var user_id = loginInfo.user_id;
     $scope.sText = 'offline';
     $scope.Pstatus = false;
@@ -2096,7 +2199,10 @@ module.controller('JMainCtrl', function ($scope, $state, $http, myService) {
           $scope.sText = 'offline';  
         }
     }
-
+    var path = 'http://www.primefield.co/jobsearch/pictureurl/' + localStorage.getItem("userID") + '.jpg';
+        angular.element(document).ready(function () {
+        $('#main-img').attr('src',  path);
+    });
     // $.ajax({
     //     method: "POST",
     //     dataType: "json",
@@ -3245,7 +3351,7 @@ module.controller('EJSProfileCtrl', function ($scope, $state, $http, myService, 
     var user_id = myService.user.userid;
     //console.log(user_id);
     $.ajax({
-        method: "POST",
+        method: "POST", 
         dataType: "json",
         data: {userid: user_id},
         url: "http://www.primefield.co/jobsearch/viewemployeeprofile.php"

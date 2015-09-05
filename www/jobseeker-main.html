@@ -18,18 +18,18 @@
             <md-divider></md-divider>
             <div class="field-container md-whiteframe-z1 company-profile-content">
                  <div class="profile-pic-container"> 
-                    <img class="profile-pic video-thumbnail pic-border" id="main-img" src="img/profile-pic.jpg" alt=""/> 
+                    <img class="profile-pic video-thumbnail pic-border" id="main-img" src="img/profile-pic.jpg" alt="" onError="this.onerror=null;this.src='/img/profile-pic.jpg';"/> 
                     <img class="profile-pic pic-border" id="main-video" src="img/play-btn.jpg" alt=""/> 
                 </div>
 
                 <div id="main-fullname" style="margin-top:10px;">
                     <md-divider></md-divider>
-                    <p style="text-align: center; font-size: 25px; margin-top:10px;color:#D6082B;">Adam John</p>
+                    <p style="text-align: center; font-size: 25px; margin-top:10px;color:#D6082B;" id="main-name"></p>
                     <md-divider></md-divider>    
                 </div>
             
-            <div style="text-align: center; margin-top: 25px; margin-bottom: 3px;margin-left:46px;">
-                <md-list-item>
+            <div style="text-align: center; margin-top: 25px; margin-bottom: 3px;">
+                <md-list-item style="display: inline-flex;">
                   <md-button class="md-grid-item-content" ui-sref="jobseeker-profile">
                      <md-icon style="color:#FFFFFF;" class="md-default-theme" class="material-icons" md-svg-icon="img/icon/content_paste_white_48px.svg"></md-icon>
                      <div class="md-grid-text" style="color:#FFFFFF;">Edit Profile</div>
@@ -40,9 +40,9 @@
                   </md-button>
                 </md-list-item>
             </div>
-            <div style="text-align: center; margin-top: 1px; margin-bottom: 3px;margin-left:36px;">
-                <md-list-item>
-                  <md-button class="md-grid-item-content" ui-sref="jobseeker-profile">
+            <div style="text-align: center; margin-top: 1px; margin-bottom: 3px;">
+                <md-list-item style="display: inline-flex;">
+                  <md-button class="md-grid-item-content" >
                      <md-icon style="color:#FFFFFF;" class="md-default-theme" class="material-icons" md-svg-icon="img/icon/ic_wifi_white_48px.svg"></md-icon>
                      <div class="md-grid-text" style="color:#FFFFFF;">Applications</div>
                   </md-button>
@@ -52,8 +52,8 @@
                   </md-button>
                 </md-list-item>
             </div>
-            <div style="text-align: center; margin-top: 1px; margin-bottom: 3px;margin-left:46px;">
-                <md-list-item>
+            <div style="text-align: center; margin-top: 1px; margin-bottom: 3px;">
+                <md-list-item style="display: inline-flex;">
                   <md-button class="md-grid-item-content" ui-sref="search">
                      <md-icon style="color:#FFFFFF;" class="md-default-theme" class="material-icons" md-svg-icon="img/icon/ic_search_white_48px.svg"></md-icon>
                      <div class="md-grid-text" style="color:#FFFFFF;">Job Search</div>

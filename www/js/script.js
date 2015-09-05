@@ -33,14 +33,15 @@ function onImageRetrieve(imageURI) {
     }
 
     var fail = function (error) {
+        alert(JSON.stringify(error));
         clearCache();
 
     }
 
     var options = new FileUploadOptions();
     options.fileKey = "file";
-    options.fileName = imageURI.substr(imageURI.lastIndexOf('/') + 1) + '.png';
-    options.mimeType = "text/plain";
+    options.fileName = imageURI.substr(imageURI.lastIndexOf('/') + 1);
+    options.mimeType = "image/jpeg";
     options.params = {}; // if we need to send parameters to the server request
     var ft = new FileTransfer();
     ft.upload(imageURI, encodeURI("http://www.primefield.co/jobsearch/uploadimage.php?userid=" + localStorage.getItem("userID")), pass, fail, options);
@@ -51,7 +52,7 @@ function onImageRetrieve(imageURI) {
 
 // REUSABLE PHOTO FUNCTION
 function onImageOrPhotoFail(message) {
-    //alert('Failed because: ' + message);
+    alert('Failed because: ' + message);
 }
 
 function clearCache() {
