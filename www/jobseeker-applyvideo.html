@@ -18,15 +18,15 @@
         <md-content>
             <div class="md-whiteframe-z1 field-container" style="background-color:#FFFFFF;">
                 <div class="catch-phrase">Pitch For This Job! Why You Should Get it?</div>
-                <div id='videodiv'> <md-button id='videotakingbtn' ng-click="takevideo()" class="md-raised md-primary" >Take A Video</md-button>
+                <div id='videodiv'> <md-button id='videotakingbtn' onClick="captureVideo(false, true, 30)" class="md-raised md-primary" >Take A Video</md-button>
             </div>
             
-            <img id="videothumbnail" src="" onclick="" alt=""/>  </div>
+            <img id="videothumbnail" src="" onclick="openFile('http://www.primefield.co/jobsearch/videos/' + localStorage.getItem('userID') + '.mp4');" alt=""/>  </div>
             <div style="text-align: center; margin-top: 25px; margin-bottom: 20px;"> 
                 <md-button id="previewbtn" class="md-button md-raised md-warn" ng-disabled="disabled" onclick="openFile('http://www.primefield.co/jobsearch/videos/' + localStorage.getItem('userID') + '.mp4');" >Preview</md-button>
-                <md-button ng-disabled="disabled" class="md-button md-raised md-warn" onclick='captureVideo(true, true, 30);' >Redo</md-button> </div>
+                <md-button ng-disabled="disabled" class="md-button md-raised md-warn" onClick='captureVideo(false, true, 30);' >Redo</md-button> </div>
 
-            <div style="text-align: center; margin-top: 1px; margin-bottom: 20px;"> <md-button   ui-sref="jobseeker-applypreview"  class="md-fab md-primary">GO</md-button>  </div>
+            <div style="text-align: center; margin-top: 1px; margin-bottom: 20px;"> <md-button  ng-click="showSmsg()"  class="md-fab md-primary">GO</md-button>  </div>
         </md-content>
     </div>
 

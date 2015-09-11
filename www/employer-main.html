@@ -2,7 +2,7 @@
     <md-content>
         <md-toolbar>
             <div class="md-toolbar-tools">
-                <h3>Profile</h3>
+                <h3>Dashboard</h3>
                 <span flex></span>
                 <md-button class="md-icon-button" style="margin-right:10px" aria-label="" ui-sref="signout">
                     Log Off
@@ -12,16 +12,16 @@
     </md-content>
     <div >
         <md-content>
-            <div class="welcome-text">Welcome back, (Company Name)
+            <div class="welcome-text">Welcome back, (<span class="companyName"></span>)
             </div>
-            <div class="field-container md-whiteframe-z1 company-profile-content">
+            <div class="field-container md-whiteframe-z1 company-profile-content" style="background-color:#5C787B">
                  <div class="profile-pic-container"> 
-                    <img class="profile-pic video-thumbnail pic-border" id="main-img" src="img/profile-pic.jpg" alt=""/> 
-                    <img class="profile-pic pic-border" id="main-video" src="img/play-btn.jpg" alt=""/> 
+                    <img class="profile-pic video-thumbnail pic-border" id="p-img" src="img/profile-pic.jpg" alt="" onError="this.onerror=null;this.src='img/profile-pic.jpg';"/> 
+                    <img class="profile-pic pic-border" id="p-video" src="img/play-btn.jpg" alt="" onError="this.onerror=null;this.src='img/play-btn.jpg';"/> 
                 </div>
                 <div id="company-profile-name" style="margin-top:10px">
                     <md-divider></md-divider>
-                    <p style="text-align: center; font-size: 25px;color:#D6082B">(Company Name)</p>
+                    <p style="text-align: center; font-size: 25px;color:#D6082B">(<span class="companyName"></span>)</p>
                     <md-divider></md-divider>    
                 </div>
                 

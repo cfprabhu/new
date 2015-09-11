@@ -13,7 +13,7 @@
     }
 
 </style>
-<div  ng-controller="EOpenJobCtrl">
+<div  ng-controller="JAppyJobCtrl">
     <div>
         <md-content>
             <md-toolbar>
@@ -21,18 +21,38 @@
                     <md-button style="width:80px" id='profile-backbtn' onclick="window.history.back()" class="md-icon-button" aria-label="back">
                         <md-icon class="back-nav-button bg-white darkblue" md-svg-icon="img/icon/keyboard-backspace.svg"></md-icon>
                     </md-button>
-                    <h3 class="text-center">Open Jobs</h3>
+                    <h3 class="text-center">Applied Jobs</h3>
                     <span flex></span>
                 </div>
             </md-toolbar>
         </md-content>
         <div style="width: 100%;" >
             <md-divider></md-divider>
-            <md-subheader style="font-size: 20px; margin-right:0; padding-right:16px;">Open Jobs<span style="float: right; ">Deadline</span>
-            </md-subheader>
+            <!-- <md-subheader style="font-size: 20px; margin-right:0; padding-right:16px;">Open Jobs<span style="float: right; ">Deadline</span>
+            </md-subheader> -->
             <md-divider></md-divider>
-            <md-list style="background-color:#5C787B;">
-                <md-list-item class="md-2-line" ng-repeat="x in postjob" ng-click="goToSelectedJob($index)">
+            <md-grid-list
+                md-cols-sm="1" md-cols-md="2" md-cols-gt-md="6"
+                md-row-height-gt-md="1:1" md-row-height="4:3"
+                md-gutter="8px" md-gutter-gt-sm="4px" ng-show="Applyjob">
+            <md-grid-tile ng-repeat="x in Applyjob"
+                          md-rowspan="{{x.span.row}}"
+                          md-colspan="{{x.span.col}}"
+                          md-colspan-sm="1"
+                          ng-class="darkBlue" style="background-color:#80d8ff" ng-click="goToSelectedJob(x)">
+              <img ng-src="img/FI-Logo1.png" alt="" style="width:50%;height:50%">
+                <md-grid-tile-header>
+                    <div>Company Name: {{x.companyname}}</div>
+                    <div>Salary (per month): ${{x.salary}}</div>
+                </md-grid-tile-header>
+                <md-grid-tile-footer>
+                    <div>Title: {{x.title}}</div>
+                    <div>Application line: {{x.deadline | date:'MM/dd/yyyy'}}</div>
+                </md-grid-tile-footer>
+            </md-grid-tile>
+          </md-grid-list>
+            <!-- <md-list style="background-color:#5C787B;" ng-show="Applyjob">
+                <md-list-item class="md-2-line" ng-repeat="x in Applyjob" ng-click="goToSelectedJob($index)">
                     <div class="md-list-item-text" style="margin-top:-10px;">
                         <span style='font-size: 14px;color:#FFFFFF;'>{{x.jobid}}.</span>
                         <span style='font-weight: bold;color:#FFFFFF;'>{{x.title}}</span>
@@ -46,7 +66,14 @@
                     <span></span>
                     <md-divider></md-divider>
                 </md-list-item>
-            </md-list>
+            </md-list> -->
+            <div ng-show="!Applyjob">
+                <md-content>
+                    <div class="md-whiteframe-z1 field-container" style="background-color:#ffffff">
+                        <div class="catch-phrase">Your not applied any jobs still now!</div>
+                    </div>
+                </md-content>
+            </div>
         </div>
     </div>
 </div>

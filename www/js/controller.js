@@ -59,6 +59,18 @@ module.config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
                 url: '/apply/preview',
                 templateUrl: 'jobseeker-applypreview.html',
             })
+            .state('jobseeker-savedjobs', {
+                url: '/savedjobs',
+                templateUrl: 'jobseeker-savedjobs.html',
+            })
+            .state('jobseeker-application', {
+                url: '/appliedjobs',
+                templateUrl: 'jobseeker-application.html',
+            })
+            .state('jobseeker-shortlist', {
+                url: '/shortlistjobs',
+                templateUrl: 'jobseeker-shortlist.html',
+            })
             .state('search', {
                 url: '/search',
                 templateUrl: 'search.html',
@@ -417,18 +429,19 @@ module.controller('JSCollapseCtrl', function ($scope, $state, myService, $mdDial
     if (localStorage.getItem('linkinfo') !== null) {
         // console.log("Link info Storage exist");
         var linkinfo = JSON.parse(localStorage.getItem('linkinfo'));
-
+        var skype = linkinfo.skype;
         var facebook = linkinfo.facebook;
         var twitter = linkinfo.twitter;
         var linkedin = linkinfo.linkedin;
 
-        $scope.link = {facebook: facebook, twitter: twitter, linkedin: linkedin};
+
+        $scope.link = {facebook: facebook, twitter: twitter, linkedin: linkedin, skype:skype};
 
     }
     else {
         //console.log("Link info Storage not exist");
 
-        $scope.link = {facebook: "", twitter: "", linkedin: ""};
+        $scope.link = {facebook: "", twitter: "", linkedin: "", skype: ""};
     }
 
     if (localStorage.getItem('miscinfo') !== null) {
@@ -529,6 +542,8 @@ module.controller('JSCollapseCtrl', function ($scope, $state, myService, $mdDial
         }    
     };
     var eduArray = [];
+    $scope.disCount = 1;
+    $scope.maxEdu = false;
     $scope.educationsave = function () {
 
         var educationinfo = {};
@@ -559,11 +574,17 @@ module.controller('JSCollapseCtrl', function ($scope, $state, myService, $mdDial
             eduArray.push(educationinfo);
             //console.log(educationinfo);
             localStorage.setItem('educationinfo', JSON.stringify(eduArray));
-            $scope.educounter = eduArray.length;
+            $scope.educounter = eduArray.length + 1;
+            if($scope.disCount === 3){
+                $scope.maxEdu = true;
+            }
         }    
     };
 
     $scope.educationAdd = function () {
+        if($scope.disCount === 3){
+            $scope.maxEdu = true;
+        }
         $('#educationinfo-school').val("");
         $('#educationinfo-year').val("");
         $('#educationinfo-degree').val("");
@@ -572,9 +593,17 @@ module.controller('JSCollapseCtrl', function ($scope, $state, myService, $mdDial
         $('#educationinfo-activities').val("");
 
         $scope.educounter = eduArray.length;
+        if($scope.disCount == 1 || $scope.disCount == 2){
+            $scope.disCount = 1+$scope.disCount;
+        }    
     };
     var expArray = [];
+    $scope.disCountExp = 1;
+    $scope.maxExp = false;
     $scope.experiencesave = function () {
+        if($scope.disCountExp === 3){
+            $scope.maxExp = true;
+        }
         var experienceinfo = {};
         var companyname = $('#experienceinfo-company').val();
         var title = $('#experienceinfo-title').val();
@@ -615,16 +644,22 @@ module.controller('JSCollapseCtrl', function ($scope, $state, myService, $mdDial
     };
 
     $scope.experienceAdd = function () {
+        if($scope.disCountExp === 3){
+            $scope.maxExp = true;
+        }
         $('#experienceinfo-company').val("");
         $('#experienceinfo-title').val("");
         $('#experienceinfo-location').val("");
         $('#experienceinfo-timestart').val("");
         $('#experienceinfo-timeend').val("");
         $('#experienceinfo-description').val("");
-        $('#experienceinfo-country').val();
-        $('#experienceinfo-highlights').val();
+        $('#experienceinfo-country').val("");
+        $('#experienceinfo-highlights').val("");
 
         $scope.expcounter = expArray.length;
+        if($scope.disCountExp == 1 || $scope.disCountExp == 2){
+            $scope.disCountExp = 1+$scope.disCountExp;
+        } 
     };
 
     $scope.linksave = function () {
@@ -680,9 +715,13 @@ module.controller('JSVideoCtrl', function ($scope, $state, $http, myService) {
 //Jobseeker-preview
 module.controller('JSPreviewCtrl', function ($scope, $state, $http, myService) {
     var path = 'http://www.primefield.co/jobsearch/pictureurl/' + localStorage.getItem("userID") + '.jpg';
+    var Vpath = 'http://www.primefield.co/jobsearch/videos/' + localStorage.getItem("userID") + '.jpg';
     angular.element(document).ready(function () {
         $('#p-img').attr('src',  path);
+        $('#p-video').attr('src',  Vpath);
     });
+
+ 
     $scope.back = function () {
         var personalinfo = JSON.parse(localStorage.getItem('personalinfo'));
         var educationinfo = JSON.parse(localStorage.getItem('educationinfo'));
@@ -890,14 +929,64 @@ module.controller('JSPreviewCtrl', function ($scope, $state, $http, myService) {
 
 
 });
+
+
+//JShortlistJobCtrl shortlist btn in jobseeker main page
+module.controller('JShortlistJobCtrl', function ($scope, $state, $http, myService, $mdDialog) {
+    var loginInfo = JSON.parse(localStorage.getItem('logininfo'));
+    var user_id = loginInfo.user_id;
+    $.ajax({
+        method: "POST",
+        dataType: "json",
+        data: {userid: user_id},
+        url: "http://www.primefield.co/jobsearch/viewshortlistjob.php"
+    }).then(function (data) {
+        $scope.Shortlistjob = data.applyjob;
+        $scope.$apply();
+    });
+    $scope.goToSelectedJob = function (index) {
+        //console.log($scope.postjob[index]);
+        myService.jobseeker_shortlistjob = {};
+        myService.jobseeker_shortlistjob = $scope.Shortlistjob[index];
+        //console.log(myService.employer_postjob);
+        $state.go('employer-openjobdetail');
+    };
+})
+
+//Jobseeker-impressed
+module.controller('JSImpressedCtrl', function ($scope, $http, myService) {
+    var loginInfo = JSON.parse(localStorage.getItem('logininfo'));
+    var user_id = loginInfo.user_id;
+    $.ajax({
+        method: "POST",
+        dataType: "json",
+        data: {userid: user_id},
+        url: "http://www.primefield.co/jobsearch/viewimpressedjob.php"
+    }).then(function (data) {
+        $scope.Impressedjob = data.applyjob;
+        $scope.$apply();
+    });
+    $scope.goToSelectedJob = function (index) {
+        //console.log($scope.postjob[index]);
+        myService.jobseeker_impressedjob = {};
+        myService.jobseeker_impressedjob = $scope.Impressedjob[index];
+        //console.log(myService.employer_postjob);
+        $state.go('employer-openjobdetail');
+    };
+});
+
 //Jobseeker-profile
 module.controller('JSProfileCtrl', function ($scope, $state, $http, myService, $mdDialog) {
     var loginInfo = JSON.parse(localStorage.getItem('logininfo'));
     var user_id = loginInfo.user_id;
+
     var path = 'http://www.primefield.co/jobsearch/pictureurl/' + localStorage.getItem("userID") + '.jpg';
+    var Vpath = 'http://www.primefield.co/jobsearch/videos/' + localStorage.getItem("userID") + '.jpg';
     angular.element(document).ready(function () {
         $('#p-img').attr('src',  path);
+        $('#p-video').attr('src',  Vpath);
     });
+
     $.ajax({
         method: "POST",
         dataType: "json",
@@ -1059,12 +1148,11 @@ module.controller('JSProfileCtrl', function ($scope, $state, $http, myService, $
             templateUrl: 'dialog1.tmpl.html',
             parent: angular.element(document.body),
             targetEvent: ev,
-        })
-                .then(function (answer) {
-                    $scope.alert = 'You said the information was "' + answer + '".';
-                }, function () {
-                    $scope.alert = 'You cancelled the dialog.';
-                });
+        }).then(function (answer) {
+            $scope.alert = 'You said the information was "' + answer + '".';
+        }, function () {
+            $scope.alert = 'You cancelled the dialog.';
+        });
     };
 
     var eduArray = [];
@@ -1314,6 +1402,16 @@ module.controller('EFillupCtrl', function ($scope, $state, $http, myService) {
     }
     $scope.company = {};
     $scope.company.phonecountry = '';
+    $scope.item = [{id: 1, industry: "Education"}, {id: 2, industry: "Information Technology"}, {id: 3, industry: "Business"}];
+    $scope.status = {isopen: false
+    };
+    $scope.industry = "Industry";
+
+    $scope.industrySelect = function (r) {
+        //console.log(r);
+        $scope.industry = r;
+        localStorage.setItem("industry", r);
+    };
     $scope.test = function(){
         var country = $('#company-country').val();
         if(country=='Afghanistan'){
@@ -2067,11 +2165,13 @@ module.controller('EFillupCtrl', function ($scope, $state, $http, myService) {
         var email = $('#company-email').val();
         var website = $('#company-website').val();
         var overview = $('#company-overview').val();
+        var industry = localStorage.getItem("industry")
+       
 
         company = {
-            image: "img/profile-pic.jpg", country: country, companyname: companyname, address: address, phone: phone, email: email, website: website, overview: overview, code : code
+            image: image, country: country, companyname: companyname, address: address, phone: phone, email: email, website: website, overview: overview, countrycode : code, industry: industry
         };
-
+        console.log(company)
         myService.employer_company = company;
 
         localStorage.setItem('companyinfo', JSON.stringify(company));
@@ -2109,12 +2209,31 @@ module.controller('Estatsctrl', function ($scope, $state, $mdDialog) {
 module.controller('EPreviewCtrl', function ($scope, $state, $http, myService) {
     var loginInfo = JSON.parse(localStorage.getItem('logininfo'));
     var user_id = loginInfo.user_id;
+    $scope.item = [{id: 1, industry: "Education"}, {id: 2, industry: "Information Technology"}, {id: 3, industry: "Business"}];
+    $scope.status = {isopen: false
+    };
+    $scope.industry = "Industry";
 
-    //console.log(myService.employer_company);
+    $scope.industrySelect = function (r) {
+        //console.log(r);
+        $scope.industry = r;
+        localStorage.setItem("industry", r);
+    };
+    console.log(myService.employer_company);
     $scope.company = myService.employer_company;
+    $scope.industry = localStorage.getItem("industry");
+    $('#industry-button').prop('disabled', true);
 
     $('#company-edit').show();
     $('#company-save').hide();
+
+    var path = 'http://www.primefield.co/jobsearch/pictureurl/' + localStorage.getItem("userID") + '.jpg';
+    var Vpath = 'http://www.primefield.co/jobsearch/videos/' + localStorage.getItem("userID") + '.jpg';
+    angular.element(document).ready(function () {
+        $('#p-img').attr('src',  path);
+        $('#p-video').attr('src',  Vpath);
+    });
+
     $scope.companyedit = function () {
         $('#company-edit').hide();
         $('#company-save').show();
@@ -2126,6 +2245,7 @@ module.controller('EPreviewCtrl', function ($scope, $state, $http, myService) {
         $('#company-email').prop('disabled', false);
         $('#company-website').prop('disabled', false);
         $('#company-overview').prop('disabled', false);
+        $('#industry-button').prop('disabled', false);
 
     };
     $scope.companysave = function () {
@@ -2139,6 +2259,7 @@ module.controller('EPreviewCtrl', function ($scope, $state, $http, myService) {
         $('#company-email').prop('disabled', true);
         $('#company-website').prop('disabled', true);
         $('#company-overview').prop('disabled', true);
+        $('#industry-button').prop('disabled', true);
     };
 
     $scope.go = function () {
@@ -2150,7 +2271,7 @@ module.controller('EPreviewCtrl', function ($scope, $state, $http, myService) {
             data: {userid: user_id, company: $scope.company},
             url: "http://www.primefield.co/jobsearch/saveemployerpreview.php"
         }).then(function (data) {
-            //console.log(data);
+            console.log(data);
             $state.go('employer-main');
         });
 
@@ -2176,11 +2297,15 @@ module.controller('JMainCtrl', function ($scope, $state, $http, myService) {
             }).then(function (data) {
                 $scope.personalinfo = data.personal;
                 localStorage.setItem("dName",$scope.personalinfo.firstname);
-                $('#main-name').text(localStorage.getItem('dName'));
+                angular.element(document).ready(function () {
+                    $('#main-name').text(localStorage.getItem('dName'));
+                });
             });
         }else{
             localStorage.setItem("dName",personalinfo.firstname);
-            $('#main-name').text(localStorage.getItem('dName'));
+            angular.element(document).ready(function () {
+                $('#main-name').text(localStorage.getItem('dName'));
+            });
         }
     });    
 
@@ -2200,8 +2325,11 @@ module.controller('JMainCtrl', function ($scope, $state, $http, myService) {
         }
     }
     var path = 'http://www.primefield.co/jobsearch/pictureurl/' + localStorage.getItem("userID") + '.jpg';
+    var Vpath = 'http://www.primefield.co/jobsearch/videos/' + localStorage.getItem("userID") + '.jpg';
         angular.element(document).ready(function () {
         $('#main-img').attr('src',  path);
+        $('#main-video').attr('src',  Vpath);
+        $('#main-video').attr('onclick', 'openFile(\'http://www.primefield.co/jobsearch/videos/' + localStorage.getItem("userID") + '.mp4\')');
     });
     // $.ajax({
     //     method: "POST",
@@ -2227,8 +2355,19 @@ module.controller('EMainCtrl', function ($scope, $state, $http, myService) {
         data: {userid: user_id},
         url: "http://www.primefield.co/jobsearch/viewemployerprofile.php"
     }).then(function (data) {
-        //console.log(data);
+        $scope.companyName = data.company.companyname;
+        console.log($scope.companyName)
+        angular.element(document).ready(function () {
+            $('.companyName').text($scope.companyName);
+        })
         myService.employer_company = data.company;
+    });
+
+    var path = 'http://www.primefield.co/jobsearch/pictureurl/' + localStorage.getItem("userID") + '.jpg';
+    var Vpath = 'http://www.primefield.co/jobsearch/videos/' + localStorage.getItem("userID") + '.jpg';
+    angular.element(document).ready(function () {
+        $('#p-img').attr('src',  path);
+        $('#p-video').attr('src',  Vpath);
     });
 
 });
@@ -3002,8 +3141,11 @@ module.controller('EProfileCtrl', function ($scope, $state, $http, myService, $m
     }).then(function (data) {
         console.log(data);
         $('.md-char-counter').hide();
-        $scope.company = data.company;
-        console.log($scope.company)
+        $scope.$apply(function() {
+          $scope.company = data.company;
+          $scope.industry = data.company.industry;
+          $scope.company.phonecountry = data.company.countrycode;
+        }); 
     });
 
     $scope.myAlert = function(msg){
@@ -3021,7 +3163,8 @@ module.controller('EProfileCtrl', function ($scope, $state, $http, myService, $m
         if(localStorage.getItem("industry") != null){
             $scope.company.industry = localStorage.getItem("industry")
         }
-        console.log($scope.company)
+        $scope.company.countrycode = $('#company-phonecountry').val();
+        //console.log($scope.company)
         var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
         //console.log(regex.test($scope.company.email));
         if($scope.company.companyname === '' || $scope.company.companyname == undefined){
@@ -3088,6 +3231,14 @@ module.controller('EPostJobCtrl', function ($scope, $state, $http, myService, $m
         );
     }
     $scope.go = function () {
+
+        var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        var jid = "job";
+        for (var i = 0; i < 20; i++)
+            jid += possible.charAt(Math.floor(Math.random() * possible.length));
+
+        localStorage.setItem('jobID',jid)
+
         var industry = localStorage.getItem('industry');
         var title = $('#postjob-title').val();
         var currency = localStorage.getItem('currency');
@@ -3121,7 +3272,7 @@ module.controller('EPostJobCtrl', function ($scope, $state, $http, myService, $m
 
             var postjob = {};
             postjob = {
-                industry: industry, title: title, currency:currency, salary: salary, deadline: deadline, experience: experience, requirement: requirement, educational: educational, goodtohave: goodtohave, joblocation:joblocation
+                industry: industry, title: title, currency:currency, salary: salary, deadline: deadline, experience: experience, requirement: requirement, educational: educational, goodtohave: goodtohave, joblocation:joblocation, jid:jid
             };
             //console.log(postjob)
 
@@ -3142,16 +3293,34 @@ module.controller('EPostJobCtrl', function ($scope, $state, $http, myService, $m
     };
 });
 //Employer-video
-module.controller('EVideoCtrl', function ($scope, $state, $http, myService) {
+module.controller('EVideoCtrl', function ($scope, $state, $http, myService, $mdDialog) {
     //console.log(myService.employer_postjob);
     $scope.gallery = function(){
         console.log('click gallery btn')
+    }
+    $scope.showSmsg = function(){
+        $mdDialog.show(
+            $mdDialog.alert()
+            .parent(angular.element(document.body))
+            .title('Success')
+            .content('Thank you for apply the job. Your are applied the job Successfully')
+            .ok('Close')
+        );
+        $state.go('jobseeker-main');
     }
 });
 //Employer-postjobpreview
 module.controller('EPostJobPreviewCtrl', function ($scope, $state, $http, myService) {
     var loginInfo = JSON.parse(localStorage.getItem('logininfo'));
     var user_id = loginInfo.user_id;
+
+    var path = 'http://www.primefield.co/jobsearch/pictureurl/' + localStorage.getItem("userID") + '.jpg';
+    var Vpath = 'http://www.primefield.co/jobsearch/videos/' + localStorage.getItem("userID") + '.jpg';
+    angular.element(document).ready(function () {
+        $('#p-img').attr('src',  path);
+        $('#p-video').attr('src',  Vpath);
+        $('#p-video').attr('onclick', 'openFile(\'http://www.primefield.co/jobsearch/videos/' + localStorage.getItem("userID") + '.mp4\')');
+    });
 
     $.ajax({
         method: "POST",
@@ -3850,16 +4019,76 @@ module.controller('JSHistoryCtrl', function ($scope, $http, myService) {
     var loginInfo = JSON.parse(localStorage.getItem('logininfo'));
     var user_id = loginInfo.user_id;
 });
-//Jobseeker-impressed
-module.controller('JSImpressedCtrl', function ($scope, $http, myService) {
+
+//savedjobsctrl jobseeker savedjobs
+module.controller('savedjobsctrl', function ($scope, $state, $http, myService, $mdDialog, myserv) {
+    //console.log(JSON.stringify(localStorage.getItem('sJobs')))
     var loginInfo = JSON.parse(localStorage.getItem('logininfo'));
     var user_id = loginInfo.user_id;
-});
+    $.ajax({
+        method: "POST",
+        dataType: "json",
+        data: {userid: localStorage.getItem('userID')},
+        url: "http://www.primefield.co/jobsearch/getsavedjobs.php"
+    }).then(function (data) {
+        console.log(data)
+        $scope.sJobsinfo = data.applyjob;
+        $scope.$apply();
+    });
+    //$scope.sJobsinfo = JSON.parse(localStorage.getItem('sJobs'));
+    //console.log($scope.sJobsinfo);
+})
+
+//JAppyJobCtrl application btn in jobseeker main page
+module.controller('JAppyJobCtrl', function ($scope, $state, $http, myService, $mdDialog, myserv) {
+    var loginInfo = JSON.parse(localStorage.getItem('logininfo'));
+    var user_id = loginInfo.user_id;
+    $.ajax({
+        method: "POST",
+        dataType: "json",
+        data: {userid: localStorage.getItem('userID')},
+        url: "http://www.primefield.co/jobsearch/getappliedjobs.php"
+    }).then(function (data) {
+        console.log(data)
+        $scope.Applyjob = data.applyjob;
+        $scope.$apply();
+    });
+    $scope.goToSelectedJob = function (index) {
+        console.log(index.userid);
+        $http({
+            url: 'http://primefield.co/jobsearch/getcompanydetail.php', 
+            method: "GET",
+            params: {userid: index.userid}
+         }).then(function(r){
+            //console.log(r.data[0]);
+            myService.employer_company = r.data[0];
+            myService.employer_postjob = index;
+            $state.go('employer-openjobdetail');
+            //console.log($scope.company); 
+        })
+    };
+})
+
 //SearchDataCompanyCtrl
 module.controller('SearchDataCompanyCtrl', function ($scope, $state, $http, myService, $mdDialog, myserv) {
 
+    //console.log(myserv.currentjob)
     $scope.company = myserv.companydata;
+    //console.log($scope.company); 
     $scope.postjob = myserv.currentjob;
+    console.log($scope.postjob)
+    $http({
+        url: 'http://primefield.co/jobsearch/getcompanydetail.php', 
+        method: "GET",
+        params: {userid: $scope.postjob.userid}
+     }).then(function(r){
+        //console.log(r.data[0]);
+        $scope.company = r.data[0];
+        //console.log($scope.company); 
+    })
+    
+    
+    
     $scope.postjob.deadline = new Date(myserv.currentjob.deadline);
     $scope.industry = myserv.currentjob.industry;
     var nselected;
@@ -3867,6 +4096,8 @@ module.controller('SearchDataCompanyCtrl', function ($scope, $state, $http, mySe
     $scope.disablethis = true;
     $scope.hide = true;
     $scope.applyhide = true;
+    $scope.saveBtn = 'Save';
+    $scope.saveBtndisabled = false;
     //$scope.isdisabled = true;
     $scope.onTypeChange = function () {
         nselected = $scope.radiobutton.group1;
@@ -3874,7 +4105,15 @@ module.controller('SearchDataCompanyCtrl', function ($scope, $state, $http, mySe
 
     $scope.impress = function () {
         $scope.hide = !$scope.hide;
-        //$scope.isdisabled = !$scope.isdisabled;
+        $scope.isdisabled = !$scope.isdisabled;
+        $.ajax({
+            method: "POST",
+            dataType: "json",
+            data: {employerID:$scope.postjob.userid , jobseekerID:localStorage.getItem("userID"), jobid:$scope.postjob.jobid},
+            url: "http://www.primefield.co/jobsearch/impressedjobseeker.php"
+        }).then(function (data) {
+            console.log(data);
+        });
     };
 
     $scope.removeImpress = function ($event) {
@@ -3888,17 +4127,61 @@ module.controller('SearchDataCompanyCtrl', function ($scope, $state, $http, mySe
                 .cancel('Cancel');
         $mdDialog.show(confirm).then(function () {
             $scope.hide = !$scope.hide;
-            //$scope.isdisabled = !$scope.isdisabled;
-
+            // console.log(localStorage.getItem("userID"));
+            // console.log($scope.postjob.jobid);
+            $.ajax({
+                method: "POST",
+                dataType: "json",
+                data: {uid:localStorage.getItem("userID"), jobid:$scope.postjob.jobid},
+                url: "http://www.primefield.co/jobsearch/unimpressed.php"
+            }).then(function (data) {
+                console.log(data);
+            });
+            $scope.isdisabled = !$scope.isdisabled;
         });
     };
 
-    $scope.phone = function () {
-        alert("Phone");
+    $scope.phone = function (data) {
+        //var temp = [];
+        $scope.saveBtndisabled = true;
+        $scope.saveBtn = 'Saved';
+        var old = JSON.parse(localStorage.getItem('sJobs'));
+        if(old === null){ 
+            old = [];
+        }
+        old.push(data);  
+        localStorage.setItem('sJobs',JSON.stringify(old));
+        $.ajax({
+            method: "POST",
+            dataType: "json",
+            data: {userid: localStorage.getItem("userID"), jobid:$scope.postjob.jobid},
+            url: "http://www.primefield.co/jobsearch/jssavedjob.php"
+        }).then(function (data) {
+            console.log(data);
+        }); 
     };
 
     $scope.apply = function () {
         $scope.applyhide = !$scope.applyhide;
+        console.log(localStorage.getItem("userID"));
+        console.log($scope.postjob.jobid);
+        // $http({
+        //     url: 'http://primefield.co/jobsearch/apply.php', 
+        //     method: "POST",
+        //     params: {userid: localStorage.getItem("userID"),jobid:$scope.postjob.jobid}
+        //  }).then(function(r){
+        //     console.log(r.data[0]); 
+        // })
+
+        $.ajax({
+            method: "POST",
+            dataType: "json",
+            data: {userid: localStorage.getItem("userID"), jobid:$scope.postjob.jobid},
+            url: "http://www.primefield.co/jobsearch/apply.php"
+        }).then(function (data) {
+            console.log(data);
+        }); 
+
         $mdDialog.show(
           $mdDialog.alert()
             .parent(angular.element(document.querySelector('#popupContainer')))
@@ -3938,6 +4221,13 @@ function SearchCtrl($timeout, $q, $http, $scope, $state, myserv) {
     self.simulateQuery = false;
     self.isDisabled = false;
     self.jobs = myserv.jobs;
+
+    $http.get('http://primefield.co/jobsearch/viewjobdetails.php')
+    .success(function (data) {
+        //console.log(data)
+        self.jobs = data;
+        myserv.jobs = data;
+    });
 
     $scope.filters = myserv.filters;
     $scope.selected = [];
@@ -3997,8 +4287,9 @@ function SearchCtrl($timeout, $q, $http, $scope, $state, myserv) {
     function createFilterFor(query) {
         var lowercaseQuery = angular.lowercase(query);
         return function filterFn(item) {
-            //return ((angular.lowercase(item.companyName).indexOf(lowercaseQuery) > -1) || (item.job_salary).indexOf(lowercaseQuery) > -1);
-            return (angular.lowercase(item.companyname).indexOf(lowercaseQuery) > -1);
+            //console.log(item);
+            return (angular.lowercase(item.title).indexOf(lowercaseQuery) > -1);
+            //return (angular.lowercase(item.companyname).indexOf(lowercaseQuery) > -1);
         };
 //        if(item.job_position.indexOf(angular.lowercase(query)) > -1){
 //        //found
@@ -4055,7 +4346,7 @@ function SearchCtrl($timeout, $q, $http, $scope, $state, myserv) {
         if (searchText != undefined) {
             window.localStorage.setItem('tempSearchData', searchText);
             for (var i = 0; i < filterResults.length; i++) {
-                if (filterResults[i].companyname.indexOf(searchText) > -1) {
+                if (filterResults[i].title.indexOf(searchText) > -1) {
                     filterResults2.push(filterResults[i]);
                 }
             }
@@ -4115,9 +4406,10 @@ function searchResult($scope, $q, $timeout, $state, myserv) {
     //myserv.jobsFilter = JSON.parse(window.localStorage.getItem('jobsFilter'));
 }
 
-module.service('myserv', function () {
+module.service('myserv', function ($http) {
     //this.jobsFilter = '';
     this.filters = [];
+
     this.jobs = [{companyname: 'Primefield', salary: '3000', title: 'Administrator', experience: '0', deadline: '06-19-2016', requirement: 'Degree', description: '5 years Primefield', industry: 'Information Technology'},
         {companyname: 'Exoon', salary: '2000', title: 'Executive', experience: '1', deadline: '08-19-2016', requirement: 'Degree', description: '5 years Exoon', industry: 'Education'},
         {companyname: 'HMan', salary: '1400', title: 'Sales', experience: '1', deadline: '09-19-2016', requirement: 'Diploma', description: '5 years HMan', industry: 'Business'},

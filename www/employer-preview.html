@@ -19,14 +19,14 @@
 
             <div id="preview-pic">
                 <md-card>
-                    <md-card-content>
+                    <md-card-content style="background-color:#5C787B">
                         <div class="preview-block">
-                            <img border="1" id="p-img" class="preview-image pic-border" src="img/profile-pic.jpg" alt=""/>
+                            <img border="1" id="p-img" class="preview-image pic-border" src="img/profile-pic.jpg" alt="" onError="this.onerror=null;this.src='img/profile-pic.jpg';"/>
                             <md-button class="md-raised md-primary" onclick="getImage(pictureSource.PHOTOLIBRARY);">Gallery</md-button>
                             <md-button class="md-raised md-primary" onclick="getPhoto();" >Camera</md-button>   
                         </div>
                         <div class="preview-block">
-                            <img border="1" id="p-img" class="preview-image pic-border" src="img/play-btn.jpg" alt=""/>
+                            <img border="1" id="p-img" class="preview-image pic-border" src="img/play-btn.jpg" alt="" onError="this.onerror=null;this.src='img/play-btn.jpg';"/>
                             <md-button class="md-raised md-primary">Preview</md-button>
                             <md-button class="md-raised md-primary">Redo</md-button>
                         </div>
@@ -35,10 +35,23 @@
             </div>
 
             <div id="preview-container">
-                <div class="field-container md-whiteframe-z1">
-                    <md-input-container class="md-icon-float" style="margin-top: 0.5em" >
+                <div class="field-container md-whiteframe-z1" style="background-color:#ffffff;">
+                    <md-input-container flex id="post-job-dropdown-container">
+                        <div class="btn-group" dropdown is-open="status.isopen">
+                            <md-icon md-svg-src="img/icon/category_settings.svg"></md-icon>
+                            <md-button id="industry-button" dropdown-toggle  id="company-industry" disabled>
+                                {{industry}}   <span class="caret"></span>
+                            </md-button>
+                            <ul class="dropdown-menu" role="menu"  aria-labelledby="industry-button" style="padding-left:5px;">
+                                <li role="menuitem" ng-repeat="x in item"  ng-click="industrySelect(x.industry)">{{x.industry}}</li>
+                            </ul>
+                        </div>
+
+                    </md-input-container> 
+                    
+                    <!-- <md-input-container class="md-icon-float" style="margin-top: 0.5em" >
                         <country-select  id="company-country" ng-model="company.country"></country-select>
-                    </md-input-container>
+                    </md-input-container> -->
                     <md-input-container class="md-icon-float" >
                         <!-- Use floating label instead of placeholder -->
                         <label>Company's Name</label>
@@ -50,6 +63,21 @@
                         <label>Company's Address</label>
                         <md-icon md-svg-src="img/icon/location.svg"></md-icon>
                         <input id="company-address" ng-model="company.address" type="text" disabled>
+                    </md-input-container>
+                    <md-input-container >
+                        <div>
+                          <span style="margin-left: 36px;color: rgba(0, 0, 0, 0.54);font-size: 12px;font-family: Lato, sans-serif;">Country</span>  
+                        </div>
+                        <md-icon md-svg-src="img/icon/globe.svg" style="margin-top:15px;"></md-icon>
+                        <div style="margin-left:36px;">
+                            <country-select  id="company-country" ng-model="company.country" style="width: 200px;"></country-select>
+                        </div>
+                    </md-input-container>
+                    <md-input-container class="md-icon-float" >
+                        <!-- Use floating label instead of placeholder -->
+                        <label>Country Code</label>
+                        <md-icon md-svg-src="img/icon/globe.svg"></md-icon>
+                        <input id="company-phonecountry" ng-model="company.countrycode" type="text" disabled="disabled">
                     </md-input-container>
                     <md-input-container class="md-icon-float" >
                         <!-- Use floating label instead of placeholder -->

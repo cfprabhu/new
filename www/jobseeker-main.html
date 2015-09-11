@@ -16,10 +16,10 @@
         <md-content>
             <div class="welcome-text">Your profile is live now!</div>
             <md-divider></md-divider>
-            <div class="field-container md-whiteframe-z1 company-profile-content">
+            <div class="field-container md-whiteframe-z1 company-profile-content" style="background-color:#5C787B">
                  <div class="profile-pic-container"> 
                     <img class="profile-pic video-thumbnail pic-border" id="main-img" src="img/profile-pic.jpg" alt="" onError="this.onerror=null;this.src='/img/profile-pic.jpg';"/> 
-                    <img class="profile-pic pic-border" id="main-video" src="img/play-btn.jpg" alt=""/> 
+                    <img class="profile-pic pic-border" id="main-video" src="img/play-btn.jpg" alt="" onError="this.onerror=null;this.src='img/play-btn.jpg';"/> 
                 </div>
 
                 <div id="main-fullname" style="margin-top:10px;">
@@ -34,7 +34,7 @@
                      <md-icon style="color:#FFFFFF;" class="md-default-theme" class="material-icons" md-svg-icon="img/icon/content_paste_white_48px.svg"></md-icon>
                      <div class="md-grid-text" style="color:#FFFFFF;">Edit Profile</div>
                   </md-button>
-                  <md-button class="md-grid-item-content" >
+                  <md-button class="md-grid-item-content" ui-sref="jobseeker-impressed">
                      <md-icon style="color:#FFFFFF;" class="md-default-theme" class="material-icons"  md-svg-icon="img/icon/ic_reorder_white_48px.svg"></md-icon>
                      <div class="md-grid-text" style="color:#FFFFFF;">Impressed</div>
                   </md-button>
@@ -42,11 +42,11 @@
             </div>
             <div style="text-align: center; margin-top: 1px; margin-bottom: 3px;">
                 <md-list-item style="display: inline-flex;">
-                  <md-button class="md-grid-item-content" >
+                  <md-button class="md-grid-item-content" ui-sref="jobseeker-application">
                      <md-icon style="color:#FFFFFF;" class="md-default-theme" class="material-icons" md-svg-icon="img/icon/ic_wifi_white_48px.svg"></md-icon>
                      <div class="md-grid-text" style="color:#FFFFFF;">Applications</div>
                   </md-button>
-                  <md-button class="md-grid-item-content" >
+                  <md-button class="md-grid-item-content" ui-sref="jobseeker-shortlist">
                      <md-icon style="color:#FFFFFF;" class="md-default-theme" class="material-icons"  md-svg-icon="img/icon/ic_done_white_48px.svg"></md-icon>
                      <div class="md-grid-text" style="color:#FFFFFF;">Shortlist</div>
                   </md-button>
@@ -58,7 +58,7 @@
                      <md-icon style="color:#FFFFFF;" class="md-default-theme" class="material-icons" md-svg-icon="img/icon/ic_search_white_48px.svg"></md-icon>
                      <div class="md-grid-text" style="color:#FFFFFF;">Job Search</div>
                   </md-button>
-                  <md-button class="md-grid-item-content" >
+                  <md-button class="md-grid-item-content" ui-sref="jobseeker-savedjobs">
                      <md-icon style="color:#FFFFFF;" class="md-default-theme" class="material-icons"  md-svg-icon="img/icon/ic_save_white_48px.svg"></md-icon>
                      <div class="md-grid-text" style="color:#FFFFFF;">Saved jobs</div>
                   </md-button>

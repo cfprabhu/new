@@ -28,6 +28,8 @@ function onImageRetrieve(imageURI) {
         clearCache();
         $('#p-img').attr('src', '');
         $('#p-img').attr('src', 'http://www.primefield.co/jobsearch/pictureurl/' + localStorage.getItem("userID") + '.jpg');
+        $('#company-img').attr('src', '');
+        $('#company-img').attr('src', 'http://www.primefield.co/jobsearch/pictureurl/' + localStorage.getItem("userID") + '.jpg');
 
 
     }
@@ -52,7 +54,7 @@ function onImageRetrieve(imageURI) {
 
 // REUSABLE PHOTO FUNCTION
 function onImageOrPhotoFail(message) {
-    alert('Failed because: ' + message);
+    //alert('Failed because: ' + message);
 }
 
 function clearCache() {
@@ -141,6 +143,7 @@ function sendVideoThumbnail(videoPath, thumbSrc, vidThumbName) {
         ft.upload(thumbSrc, encodeURI("http://www.primefield.co/jobsearch/uploadthumbnail.php?imgid=" + vidThumbName), function (resp) {
             $('#videothumbnail').attr('src', 'http://www.primefield.co/jobsearch/videos/' + vidThumbName + '.jpg');
             $('#videothumbnail').show();
+            $('#p-video').attr('src', 'http://www.primefield.co/jobsearch/videos/' + vidThumbName + '.jpg');
             
             sendVideo(videoPath, vidThumbName);
         }, function (error) {
@@ -148,8 +151,9 @@ function sendVideoThumbnail(videoPath, thumbSrc, vidThumbName) {
     } else if (device.platform == 'iOS') {
         // upload the file to the server
         ft.upload(thumbSrc, encodeURI("http://www.primefield.co/jobsearch/uploadthumbnail.php?imgid=" + vidThumbName), function (resp) {
-             $('#videothumbnail').attr('src', 'http://www.primefield.co/jobsearch/videos/' + vidThumbName + '.jpg');
+            $('#videothumbnail').attr('src', 'http://www.primefield.co/jobsearch/videos/' + vidThumbName + '.jpg');
             $('#videothumbnail').show();
+            $('#p-video').attr('src', 'http://www.primefield.co/jobsearch/videos/' + vidThumbName + '.jpg');
             sendVideo(videoPath, vidThumbName);
         }, function (error) {
         }, options);
@@ -173,8 +177,10 @@ function getFormatDataError(error) {
 
 function sendVideo(videoSrc, videoName) {
     var options = new FileUploadOptions();
-    var ft = new FileTransfer();
     options.fileKey = "file";
+    options.mimeType = "video/mp4";
+    var ft = new FileTransfer();
+    
 
     if (device.platform == 'Android') {
         // upload the file to the server
@@ -185,11 +191,11 @@ function sendVideo(videoSrc, videoName) {
             //$('#videothumbnail').removeAttr('src');
           
             $('#videothumbnail').attr('onclick', 'openFile(\'http://www.primefield.co/jobsearch/videos/' + videoName + '.mp4\')');
-
+            $('#p-video').attr('onclick', 'openFile(\'http://www.primefield.co/jobsearch/videos/' + videoName + '.mp4\')');
             //$('#videodiv').append('<img onclick="openFile(\'http://www.primefield.co/jobsearch/videos/'+ videoName + '.mp4\');"  src="http://www.primefield.co/jobsearch/videos/' + videoName + '.jpg" alt=""/>');
 
         }, function (error) {
-
+            alert(JSON.stringify(error))
         }, options);
     } else if (device.platform == 'iOS') {
         // upload the file to the server
@@ -197,7 +203,7 @@ function sendVideo(videoSrc, videoName) {
         ft.upload(videoSrc, encodeURI("http://www.primefield.co/jobsearch/uploadvideo.php?videoid=" + videoName), function (resp) {
              
          
-            
+            $('#p-video').attr('onclick', 'openFile(\'http://www.primefield.co/jobsearch/videos/' + videoName + '.mp4\')');
             $('#videothumbnail').attr('onclick', 'openFile(\'http://www.primefield.co/jobsearch/videos/' + videoName + '.mp4\')');
 
             //$('#videodiv').append('<img onclick="openFile(\'http://www.primefield.co/jobsearch/videos/'+ videoName + '.mp4\');"  src="http://www.primefield.co/jobsearch/videos/' + videoName + '.jpg" alt=""/>');
@@ -210,9 +216,24 @@ function sendVideo(videoSrc, videoName) {
 
 
 function openFile(src) {
-    cordova.plugins.disusered.open(src, function () {
+    VideoPlayer.play(src, function () {
         console.log('open success');
     }, function () {
         console.log('open failed');
     });
+}
+
+function acc(element){
+    if($(element).parent().find('.faq-ans').is(':visible')) {
+        $(element).find('.chevron-icon').removeClass('rotate-88');
+        $(element).find('.chevron-icon').addClass('rotate-0');
+        $(element).parent().find('.faq-ans').slideUp();
+    } else {
+        $('.chevron-icon').removeClass('rotate-0');
+        $('.chevron-icon').removeClass('rotate-88');
+        $('.faq-ans').slideUp();
+        $(element).find('.chevron-icon').removeClass('rotate-0');
+        $(element).find('.chevron-icon').addClass('rotate-88');
+        $(element).parent().find('.faq-ans').slideDown();
+    }
 }

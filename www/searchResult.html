@@ -32,7 +32,7 @@
     <md-grid-list
         md-cols-sm="1" md-cols-md="2" md-cols-gt-md="6"
         md-row-height-gt-md="1:1" md-row-height="4:3"
-        md-gutter="8px" md-gutter-gt-sm="4px" >
+        md-gutter="8px" md-gutter-gt-sm="4px" ng-show="myserv.jobsFilter">
     <md-grid-tile ng-repeat="x in myserv.jobsFilter | orderBy: query.order"
                   md-rowspan="{{x.span.row}}"
                   md-colspan="{{x.span.col}}"
@@ -49,6 +49,10 @@
         </md-grid-tile-footer>
     </md-grid-tile>
   </md-grid-list>
+
+  <div class="field-container md-whiteframe-z1" style="background-color:#ffffff;; margin: 20px 5px 5px;" ng-show="!myserv.jobsFilter">
+    <h3>No result found</h3>
+  </div>  
 </div>
 
 

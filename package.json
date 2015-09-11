@@ -17,6 +17,8 @@
   "cordovaPlugins": [
     "https://github.com/EddyVerbruggen/VideoCapturePlus-PhoneGap-Plugin.git",
     "org.apache.cordova.camera",
-    "org.apache.cordova.file-transfer"
+    "org.apache.cordova.file-transfer",
+    "com.moust.cordova.videoplayer",
+    "com.photokandy.videothumbnail"
   ]
 }

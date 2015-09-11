@@ -1,0 +1,37 @@
+<div ng-controller="savedjobsctrl">
+    <md-content>
+        <md-toolbar>
+            <div class="md-toolbar-tools" >
+                <md-button style="width:80px" id='profile-backbtn' ui-sref="jobseeker-main" class="md-icon-button" aria-label="back">
+                    <md-icon class="back-nav-button bg-white darkblue" md-svg-icon="img/icon/keyboard-backspace.svg"></md-icon>
+                </md-button>
+                <h3 class="text-center">Saved Jobs</h3>
+                <span flex></span>
+            </div>
+        </md-toolbar>
+    </md-content>
+    </md-data-table-container>
+    <md-grid-list
+        md-cols-sm="1" md-cols-md="2" md-cols-gt-md="6"
+        md-row-height-gt-md="1:1" md-row-height="4:3"
+        md-gutter="8px" md-gutter-gt-sm="4px" >
+    <md-grid-tile ng-repeat="x in sJobsinfo"
+                  md-rowspan="{{x.span.row}}"
+                  md-colspan="{{x.span.col}}"
+                  md-colspan-sm="1"
+                  ng-class="darkBlue" style="background-color:#80d8ff" ng-click="goToJob(x)">
+      <img ng-src="img/FI-Logo1.png" alt="" style="width:50%;height:50%">
+        <md-grid-tile-header>
+            <div>Company Name: {{x.companyname}}</div>
+            <div>Salary (per month): ${{x.salary}}</div>
+        </md-grid-tile-header>
+        <md-grid-tile-footer>
+            <div>Title: {{x.title}}</div>
+            <div>Application line: {{x.deadline | date:'MM/dd/yyyy'}}</div>
+        </md-grid-tile-footer>
+    </md-grid-tile>
+  </md-grid-list>
+  <div class="field-container md-whiteframe-z1" style="background-color:#ffffff;" ng-show="!sJobsinfo">
+    <h3>Your not saved any jobs</h3>
+  </div>  
+</div>

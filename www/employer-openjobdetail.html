@@ -41,10 +41,11 @@ button.md-raised.md-primary.small-button.md-button.md-default-theme{
         <accordion>
             <accordion-group is-open="status.open">
                 <accordion-heading>
-                    Company Information <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                <div>
+                    Company Information <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i></div>
                 </accordion-heading>
                 <div id="preview-pic">
-                    <div class="field-container md-whiteframe-z1">
+                    <div class="field-container md-whiteframe-z1" style="background-color:#5C787B">
                         <div style="padding:10px;">
                             <div class="preview-block">
                                 <img border="1" id="p-img" class="preview-image pic-border" src="img/profile-pic.jpg" alt=""/>
@@ -61,7 +62,7 @@ button.md-raised.md-primary.small-button.md-button.md-default-theme{
                 </div>
 
                 <div>
-                    <div class="field-container md-whiteframe-z1">
+                    <div class="field-container md-whiteframe-z1" style="background-color:#ffffff;">
                         <md-input-container class="md-icon-float" style="margin-top: 0.5em" >
                            <country-select  id="company-country" ng-model="company.country" ng-disabled="disablethis"></country-select>
                         </md-input-container>
@@ -106,9 +107,9 @@ button.md-raised.md-primary.small-button.md-button.md-default-theme{
         </accordion>
         <div class="panel panel-default" style="margin-bottom: 56px;">
                 <h4 class="bg-white" style="padding-left:15px; padding-top:10px; font-size:16px; height:38px; margin-top:0px;">Job Information</h4>
-                <div class="field-container md-whiteframe-z1"> 
+                <div class="field-container md-whiteframe-z1" style="background-color:#ffffff;"> 
                     <md-input-container flex id="post-job-dropdown-container">
-                        <div class="preview-block2">
+                        <div class="preview-block2" style="background-color:#5C787B">
                             <img style="margin:0 auto;" border="1" id="p-img" class="preview-image pic-border" src="img/play-btn.jpg" alt=""/>
                         </div>
                         <div class="btn-group" dropdown is-open="status.isopen" >

@@ -55,12 +55,13 @@ function sendVideoEThumbnail(videoPath, thumbSrc, vidThumbName) {
     var options = new FileUploadOptions();
     var ft = new FileTransfer();
     options.fileKey = "file";
-    $('#videoEthumbnail').hide();
-    $('#videoEtakingbtn').hide();
-    $('#videoEthumbnail').attr('src', '" "');
+    //$('#videoEthumbnail').hide();
+    //$('#videoEtakingbtn').hide();
+    $('#videoEthumbnail').attr('src', ' ');
     if (device.platform == 'Android') {
         // upload the file to the server
         ft.upload(thumbSrc, encodeURI("http://www.primefield.co/jobsearch/uploadthumbnail.php?imgid=" + vidThumbName), function (resp) {
+            
             $('#videoEthumbnail').attr('src', 'http://www.primefield.co/jobsearch/videos/' + vidThumbName + '.jpg');
             $('#videoEthumbnail').show();
             
@@ -129,10 +130,10 @@ function sendEVideo(videoSrc, videoName) {
 }
 
 
-function openEFile(src) {
-    cordova.plugins.disusered.open(src, function () {
-        console.log('open success');
-    }, function () {
-        console.log('open failed');
-    });
-}
+// function openEFile(src) {
+//     cordova.plugins.disusered.open(src, function () {
+//         console.log('open success');
+//     }, function () {
+//         console.log('open failed');
+//     });
+// }

@@ -17,14 +17,14 @@
             <md-card-content>  
                 <div id="preview-pic" style="margin-bottom: 2em;">
                     <md-card>
-                        <md-card-content>
+                        <md-card-content style="background-color:#5C787B">
                             <div class="preview-block">
-                                <img border="1" id="p-img" class="preview-image pic-border" src="img/profile-pic.jpg" alt=""/ onError="this.onerror=null;this.src='/img/profile-pic.jpg';">
+                                <img border="1" id="p-img" class="preview-image pic-border" src="img/profile-pic.jpg" alt=""/ onError="this.onerror=null;this.src='img/profile-pic.jpg';">
                                 <md-button class="md-raised md-primary" onclick="getImage(pictureSource.PHOTOLIBRARY);">Gallery</md-button>
                                 <md-button class="md-raised md-primary" onclick="getPhoto();" >Camera</md-button>   
                             </div>
                             <div class="preview-block">
-                                <img border="1" id="p-img" class="preview-image pic-border" src="img/play-btn.jpg" alt=""/>
+                                <img border="1" id="p-img" class="preview-image pic-border" src="img/play-btn.jpg" alt="" onError="this.onerror=null;this.src='img/play-btn.jpg';"/>
                                 <md-button class="md-raised md-primary">Preview</md-button>
                                 <md-button class="md-raised md-primary">Redo</md-button>
                             </div>
@@ -34,9 +34,9 @@
                 <md-input-container class="md-icon-float" >
                     <md-radio-group id="personalinfo-gender" ng-model="radiobutton.group1" ng-change="onTypeChange()" ng-init="radiobutton" disabled>
                         <md-icon style="color: black" md-svg-src="img/icon/gender.svg"></md-icon>
-                        <md-radio-button id="personalinfo-1"style="display:inline;" value="Male" class="md-primary" disabled>Male</md-radio-button>
-                        <md-radio-button id="personalinfo-2" style="display:inline;" value="Female" disabled> Female </md-radio-button>
-                        <md-radio-button style="display:inline;" value="Transgender"> Transgender </md-radio-button>
+                        <md-radio-button id="personalinfo-1"style="display:inline;margin:0px;margin-left: 8px;" value="Male" class="md-primary" disabled>Male</md-radio-button>
+                        <md-radio-button id="personalinfo-2" style="display:inline;margin:0px;margin-left: 8px;" value="Female" disabled> Female </md-radio-button>
+                        <md-radio-button style="display:inline;margin:0px;margin-left: 8px;" value="Transgender"> Transgender </md-radio-button>
                     </md-radio-group>
                 </md-input-container>
                 <md-input-container >

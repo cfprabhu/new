@@ -5,7 +5,7 @@
                 <md-button style="width:100px" id='profile-backbtn' onclick="window.history.back()" class="md-icon-button" aria-label="back">
                     <md-icon class="back-nav-button bg-white darkblue" md-svg-icon="img/icon/keyboard-backspace.svg"></md-icon>
                 </md-button>
-                <h3 style="margin-left:-15px;">Company Information</h3>
+                <h3 style="margin-left:-15px;">Profile</h3>
                 <span flex></span>
 
             </div>
@@ -16,11 +16,11 @@
         <accordion>
             <accordion-group is-open="!status.open">
                 <accordion-heading>
-                    Company Information <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                    <div>Company Information <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i></div>
                 </accordion-heading>
 
-                 <div id="preview-pic" class="pic-box">
-                    <div class="field-container md-whiteframe-z1" style="padding:20px 0;">
+                 <div id="preview-pic" class="pic-box" >
+                    <div class="field-container md-whiteframe-z1" style="padding:20px 0;" style="background-color:#5C787B">
                         <div class="j-preview-block" style="border-right: 1px solid #ddd; padding-right: 10px; width: 118px;" >
                             <img border="1" id="p-img" class="preview-image pic-border" src="img/profile-pic.jpg" alt=""/>
                             <md-button class="md-raised md-primary" onclick="getPhoto();" >Camera</md-button>

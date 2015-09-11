@@ -18,11 +18,11 @@
         <md-content>
             <div class="md-whiteframe-z1 field-container" style="padding-bottom:15px;background-color:#FFFFFF" >
                 <div class="catch-phrase">Pitch the job for candidates in 40 seconds using the front facing camera</div>
-                <div class="profile-pic-container" id="postjobvideo"  style="display:none;"> 
-                    <img alt="" src="img/play-btn.jpg" id="main-video" class="profile-pic pic-border"> 
+                <div class="profile-pic-container" id="postjobvideo" > 
+                    <img alt="" src="img/play-btn.jpg" id="videoEthumbnail" class="profile-pic pic-border"  onError="this.onerror=null;this.src='img/play-btn.jpg';"> 
                 </div>
                 <div id='videodiv'> 
-                <md-button id='videoEtakingbtn' onclick='captureVideo(true, true, 40);' class="md-raised md-primary" >Camera</md-button>
+                <md-button id='videoEtakingbtn' onclick='captureEVideo(false, false, 40);' class="md-raised md-primary" >Camera</md-button>
                 </div>
             </div>
 

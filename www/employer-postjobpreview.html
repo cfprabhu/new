@@ -15,18 +15,19 @@
         <accordion>
             <accordion-group is-open="status.open">
                 <accordion-heading>
-                    Company Information <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                <div>
+                    Company Information <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i></div>
                 </accordion-heading>
                 <div id="preview-pic">
                     <md-card>
-                        <md-card-content>
+                        <md-card-content style="background-color:#5C787B">
                             <div class="preview-block">
-                                <img border="1" id="p-img" class="preview-image pic-border" src="img/profile-pic.jpg" alt=""/>
+                                <img border="1" id="p-img" class="preview-image pic-border" src="img/profile-pic.jpg" alt="" onError="this.onerror=null;this.src='img/profile-pic.jpg';"/>
                                 <md-button class="md-raised md-primary" onclick="getImage(pictureSource.PHOTOLIBRARY);">Gallery</md-button>
                                 <md-button class="md-raised md-primary" onclick="getPhoto();" >Camera</md-button>   
                             </div>
                             <div class="preview-block">
-                                <img border="1" id="p-img" class="preview-image pic-border" src="img/play-btn.jpg" alt=""/>
+                                <img border="1" id="p-video" class="preview-image pic-border" src="img/play-btn.jpg" alt="" onError="this.onerror=null;this.src='img/play-btn.jpg';"/>
                                 <md-button class="md-raised md-primary">Preview</md-button>
                                 <md-button class="md-raised md-primary">Redo</md-button>
                             </div>
@@ -35,7 +36,7 @@
                 </div>
 
                 <div>
-                    <div class="field-container md-whiteframe-z1">
+                    <div class="field-container md-whiteframe-z1" style="background-color:#ffffff;">
                         <md-input-container class="md-icon-float" style="margin-top: 0.5em" >
                             <country-select  id="company-country" ng-model="company.country" ng-disabled="disablethis"></country-select>
                         </md-input-container>
@@ -80,9 +81,9 @@
         </accordion>
         <div class="panel panel-default" style="margin-bottom: 56px;">
                 <h4 class="bg-white" style="padding-left:15px; padding-top:10px; font-size:16px; height:38px; margin-top:0px;">Job Information</h4>
-                <div class="field-container md-whiteframe-z1"> 
+                <div class="field-container md-whiteframe-z1" style="background-color:#ffffff;"> 
                     <md-input-container flex id="post-job-dropdown-container">
-                        <div class="preview-block2">
+                        <div class="preview-block2" style="background-color:#5C787B;">
                             <img style="margin:0 auto;" border="1" id="p-img" class="preview-image pic-border" src="img/play-btn.jpg" alt=""/>
                         </div>
                         <div class="btn-group" dropdown is-open="status.isopen" >
